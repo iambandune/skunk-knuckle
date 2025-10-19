@@ -1,0 +1,4 @@
+# Cloudflare Pages redirects
+/mixing /
+/mixing.html /
+/* /index.html 200
