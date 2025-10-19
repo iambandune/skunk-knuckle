@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>journals. - Coming Soon</title>
+  <!-- Open Graph for rich link previews -->
+  <meta property="og:title" content="journals. — coming soon" />
+  <meta property="og:description" content="we finish records. we focus on the emotion, shape everything around it, and keep the parts that feel most like you." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/coming_soon.html" />
+  <meta property="og:image" content="/og-card.png?v=8" />
+  <meta property="og:image:width" content="2400" />
+  <meta property="og:image:height" content="2400" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="journals. — coming soon" />
+  <meta name="twitter:description" content="we finish records. we focus on the emotion, shape everything around it, and keep the parts that feel most like you." />
+  <meta name="twitter:image" content="/og-card.png?v=8" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Render all UI text in lowercase */
+    html, body { text-transform: lowercase; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(180deg,
+        #4A90E2 0%,
+        #6CAFE3 25%,
+        #89C4E8 40%,
+        #F4B674 55%,
+        #FF9F5C 70%,
+        #FF7A42 85%,
+        #FF6B35 100%);
+      position: relative; overflow-x: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .container { max-width: 640px; margin: 0 auto; padding: 60px 20px; position: relative; z-index: 10; text-align: center; }
+    
+    /* Pixelated clouds */
+    .cloud { position: absolute; background: rgba(255, 255, 255, 0.3); border-radius: 100px; opacity: 0.4; filter: contrast(150%) brightness(120%); }
+    .cloud::before { content: ''; position: absolute; background: rgba(255, 255, 255, 0.3); border-radius: 100px; }
+    .cloud1 { width: 120px; height: 40px; top: 20%; animation: drift 45s infinite; }
+    .cloud1::before { width: 60px; height: 50px; top: -25px; left: 20px; }
+    .cloud2 { width: 80px; height: 35px; top: 40%; animation: drift 60s infinite; animation-delay: -20s; }
+    .cloud2::before { width: 50px; height: 40px; top: -20px; right: 15px; }
+    .cloud3 { width: 100px; height: 30px; top: 60%; animation: drift 50s infinite; animation-delay: -35s; }
+    .cloud3::before { width: 45px; height: 35px; top: -15px; left: 30px; }
+    .cloud4 { width: 140px; height: 45px; top: 75%; animation: drift 55s infinite; animation-delay: -10s; }
+    .cloud4::before { width: 70px; height: 55px; top: -28px; right: 25px; }
+    @keyframes drift { 0% { left: -200px; } 100% { left: 100%; } }
+
+    h1 {
+      font-size: 72px; font-weight: 400; color: #fff; margin-bottom: 24px; letter-spacing: -2px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.1); text-align: center;
+    }
+    
+    .coming-soon-card {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); 
+      border-radius: 20px; backdrop-filter: blur(12px); padding: 40px 32px; color: #fff;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+    
+    .coming-soon-title {
+      font-size: 42px; font-weight: 400; margin-bottom: 16px; color: rgba(255,255,255,0.98);
+      letter-spacing: -1px;
+    }
+    
+    .coming-soon-text {
+      font-size: 18px; line-height: 1.6; color: rgba(255,255,255,0.9); margin-bottom: 32px;
+      font-weight: 400;
+    }
+
+    /* Menu button (same as other pages) */
+    .top-left-controls { position: fixed; top: 18px; left: 18px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
+    .menu-button { cursor: pointer; padding: 14px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 28px; transition: all 0.3s ease; }
+    .back-icon { display: inline-flex; align-items: center; justify-content: center; padding: 14px; color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); border-radius: 28px; backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s ease; }
+    .back-icon:hover { background: rgba(255,255,255,0.14); transform: translateY(-1px); }
+    .back-icon svg { width: 20px; height: 20px; stroke: currentColor; }
+    .menu-icon { display: flex; flex-direction: column; gap: 4px; width: 20px; }
+    .menu-icon span { display: block; width: 100%; height: 2px; background-color: #fff; transition: all 0.3s ease; }
+    .menu-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s ease; }
+    .menu-overlay.active { display:flex; opacity: 1; }
+    .menu-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+    .menu-content a { display:block; color:#fff; text-decoration:none; font-size:24px; margin: 20px 0; opacity:0.8; transition:all 0.3s ease; }
+    .menu-content a:hover { opacity:1; transform: scale(1.1); }
+
+    .btn {
+      color: #fff; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+      padding: 16px 32px; border-radius: 999px; font-size: 18px; font-weight: 600; letter-spacing: 0.4px; backdrop-filter: blur(10px);
+      text-decoration: none; display: inline-block; transition: all 0.25s ease; font-family: inherit;
+    }
+    .btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 48px; margin-bottom: 20px; }
+      .coming-soon-title { font-size: 32px; }
+      .coming-soon-text { font-size: 18px; }
+      .container { padding: 40px 16px; }
+      .coming-soon-card { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated pixelated clouds -->
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+  <div class="cloud cloud3"></div>
+  <div class="cloud cloud4"></div>
+  
+  <div class="top-left-controls">
+    <div class="menu-button">
+      <div class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <a href="/" class="back-icon" aria-label="back to home" title="back">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 6l-6 6 6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+  
+  <div class="menu-overlay">
+    <nav class="menu-content">
+      <a href="coming_soon.html">samples (coming soon)</a>
+      <a href="/">mixing/mastering</a>
+    </nav>
+  </div>
+
+  <div class="container">
+    <h1>journals.</h1>
+    
+    <div class="coming-soon-card">
+      <div class="coming-soon-title">samples coming soon</div>
+      <div class="coming-soon-text">
+        we're curating a collection of sounds that capture the essence of what we do. 
+        stay tuned for something special.
+      </div>
+      <a href="/" class="btn">back to mixing/mastering</a>
+    </div>
+  </div>
+
+  <script>
+    // Menu overlay
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuButton = document.querySelector('.menu-button');
+      const menuOverlay = document.querySelector('.menu-overlay');
+      const menuIcon = document.querySelector('.menu-icon');
+
+      menuButton.addEventListener('click', function() {
+        menuOverlay.classList.toggle('active');
+        menuIcon.classList.toggle('active');
+      });
+
+      menuOverlay.addEventListener('click', function(e) {
+        if (e.target === menuOverlay) {
+          menuOverlay.classList.remove('active');
+          menuIcon.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

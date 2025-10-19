@@ -1,0 +1,32 @@
+{
+  "name": "journals-portfolio",
+  "version": "1.0.0",
+  "description": "Professional mixing & mastering portfolio website with interactive carousel",
+  "main": "public/index.html",
+  "scripts": {
+    "start": "serve public -p 8080",
+    "dev": "serve public -p 8080",
+    "build": "echo 'No build step required - static site'",
+    "preview": "serve public -p 8080"
+  },
+  "keywords": [
+    "portfolio",
+    "music",
+    "mixing",
+    "mastering",
+    "static-site"
+  ],
+  "author": "journals.",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "your-repository-url-here"
+  },
+  "homepage": "your-live-site-url-here"
+}
