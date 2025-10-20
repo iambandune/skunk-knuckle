@@ -245,7 +245,7 @@
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.12);
             border-radius: 16px;
-            padding: 14px;
+            padding: 14px 14px 24px 14px; /* standard padding, player pulled up */
             backdrop-filter: blur(12px);
             box-shadow: 0 8px 32px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
@@ -263,6 +263,16 @@
             max-width: 380px;
             margin: 0 auto;
             height: 480px;
+            position: relative;
+            /* keep rounded clipping on container while the inner viewport handles scrolling */
+            border-radius: 16px;
+            overflow: hidden; /* clip pseudo-elements so they can't overlap the cards */
+        }
+
+        /* Inner scrollable viewport — handles scrolling and scroll-snap */
+        .carousel-viewport {
+            width: 100%;
+            height: 100%;
             overflow-y: auto;
             scroll-snap-type: y mandatory;
             scrollbar-width: none;
@@ -272,35 +282,43 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            z-index: 2; /* ensure viewport content sits above fade pseudo-elements */
         }
 
         .carousel-container::before {
             content: '';
-            position: sticky;
+            position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 40px;
             background: linear-gradient(to bottom, rgba(77, 144, 226, 0.8), transparent);
-            z-index: 10;
+            z-index: 1;
             pointer-events: none;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
         }
 
         .carousel-container::after {
             content: '';
-            position: sticky;
+            position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             height: 40px;
             background: linear-gradient(to top, rgba(230, 126, 34, 0.8), transparent);
-            z-index: 10;
+            z-index: 1;
             pointer-events: none;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
         }
 
-        .carousel-container::-webkit-scrollbar {
+        .carousel-viewport::-webkit-scrollbar {
             display: none;
         }
+
+        /* Desktop navigation buttons are hidden by default and enabled in desktop media query */
+        .carousel-btn { display: none; }
 
         .cover-art {
             width: 100%;
@@ -310,13 +328,15 @@
             margin-bottom: 16px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            object-fit: cover;
-            background: rgba(0,0,0,0.1);
+            /* show the full album cover without cropping */
+            object-fit: contain;
+            background: rgba(0,0,0,0.06);
         }
 
         .music-players {
             width: 100%;
-            margin-bottom: 6px; /* tightened further (was 12px) */
+            margin-top: -10px; /* pull player up slightly */
+            margin-bottom: 0;
             position: relative;
         }
 
@@ -359,6 +379,7 @@
             border-radius: 8px;
             overflow: hidden;
             background: transparent;
+            height: 90px !important; /* constrain Apple Music to match Spotify height */
         }
         .music-players iframe.active {
             display: block;
@@ -384,6 +405,8 @@
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
+
+
         /* Subtle label badge */
         .label-badge {
             display: inline-block;
@@ -403,7 +426,7 @@
         /* Label row above credits */
         .label-row {
             text-align: center;
-            margin-top: -12px;
+            margin-top: -7px; /* reduce negative overlap so there's ~5px between art and label */
             margin-bottom: 8px;
         }
         .label-row .label-badge {
@@ -443,6 +466,91 @@
                 margin-top: 6px;
             }
         }
+        /* Desktop: transform vertical single-column list into a 3-column horizontal swipe */
+        @media (min-width: 900px) {
+            .container { padding: 48px 20px; }
+
+            .carousel-container {
+                max-width: 1200px;
+                height: 550px; /* increased by 30px to accommodate taller cards */
+                margin: 0 auto;
+                padding: 20px 12px;
+                gap: 20px;
+                align-items: start;
+            }
+
+            .carousel-viewport {
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                gap: 20px;
+                flex-direction: row;
+            }
+
+            /* remove left/right decorative fades — they produced an unwanted rounded color block */
+            .carousel-container::before,
+            .carousel-container::after {
+                display: none;
+            }
+
+            /* Fixed-size cards (desktop) so artwork doesn't stretch unpredictably */
+            .track-container {
+                max-width: none;
+                width: auto;
+                flex: 0 0 360px; /* fixed card width */
+                scroll-snap-align: center;
+                align-self: stretch; /* fill carousel height */
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 18px 18px 48px 18px; /* increased bottom padding */
+                background: rgba(255,255,255,0.06);
+                margin: 0 10px;
+            }
+
+            .track-container:hover { transform: translateY(-6px); }
+
+            .cover-art {
+                width: 100%;
+                height: 220px;
+                max-width: none;
+                /* show full album cover inside the fixed card area */
+                object-fit: contain;
+                margin: 0 0 14px 0;
+            }
+
+            .music-players { margin-bottom: 0; }
+            .platform-buttons { justify-content: center; }
+
+            /* hide vertical scrollbar redundancy */
+            .carousel-container::-webkit-scrollbar { height: 10px; display: none; }
+
+            /* on-screen arrow controls */
+            .carousel-btn {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 44px;
+                height: 44px;
+                border-radius: 999px;
+                border: none;
+                background: rgba(255,255,255,0.12);
+                color: #fff;
+                font-size: 22px;
+                display: flex; /* shown in desktop because global default is none */
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 12;
+                backdrop-filter: blur(6px);
+                transition: transform 0.18s ease, background 0.18s ease;
+            }
+            .carousel-btn:hover { transform: translateY(-50%) scale(1.05); background: rgba(255,255,255,0.18); }
+            .carousel-btn.prev { left: 6px; }
+            .carousel-btn.next { right: 6px; }
+        }
     </style>
 </head>
 <body>
@@ -478,8 +586,13 @@
             <a class="cta-intake" href="intake.html">book now</a>
         </div>
     <div class="credits-header">Credits</div>
-        
-        <div class="carousel-container">
+
+    <!-- Carousel navigation buttons (desktop) -->
+    <button class="carousel-btn prev" aria-label="previous" title="previous">‹</button>
+    <button class="carousel-btn next" aria-label="next" title="next">›</button>
+
+        <div class="carousel-container" aria-roledescription="carousel">
+            <div class="carousel-viewport" tabindex="0">
             
             <div class="track-container">
                 <!-- Cover Art -->
@@ -607,13 +720,14 @@
             <!-- Dreamgirl EP -->
             <div class="track-container">
                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/8a/7c/b2/8a7cb2f0-ec7d-559f-f4cc-9a1af4dc240a/193872799551_cover.jpg/600x600bf-60.jpg" class="cover-art" alt="Dreamgirl EP">
+                <div class="label-row"><span class="label-badge">independent</span></div>
                 <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                 <div class="music-players">
                     <div class="platform-buttons">
                         <button id="spotify-btn-10" class="platform-button active">Spotify</button>
                         <button id="apple-btn-10" class="platform-button">Apple Music</button>
                     </div>
-                    <iframe id="spotify-player-10" class="active" src="https://open.spotify.com/embed/album/2YO4jKw7zppJhdjnmwvYwp?utm_source=generator&theme=0&view=compact" width="100%" height="180" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe id="spotify-player-10" class="active" src="https://open.spotify.com/embed/album/2YO4jKw7zppJhdjnmwvYwp?utm_source=generator&theme=0&view=list" width="100%" height="90" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     <iframe id="apple-player-10" src="https://embed.music.apple.com/us/album/dreamgirl-ep/1577870495?app=music" height="170" frameborder="0" style="width:100%;background:transparent;" allow="autoplay *; encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
                 </div>
             </div>
@@ -636,6 +750,7 @@
             <!-- Younger Me -->
             <div class="track-container">
                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b6/47/c7/b647c7f5-b3df-539e-ca5e-46c486d7bf9a/artwork.jpg/600x600bf-60.jpg" class="cover-art" alt="Younger Me">
+                <div class="label-row"><span class="label-badge">independent</span></div>
                 <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                 <div class="music-players">
                     <div class="platform-buttons">
@@ -650,6 +765,7 @@
             <!-- Huant -->
             <div class="track-container">
                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/89/39/96/893996e3-962b-5352-cf8b-3cf5f6f403f6/197773759201_cover.jpg/600x600bf-60.jpg" class="cover-art" alt="Huant">
+                <div class="label-row"><span class="label-badge">independent</span></div>
                 <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                 <div class="music-players">
                     <div class="platform-buttons">
@@ -664,6 +780,7 @@
             <!-- Red or Black -->
             <div class="track-container">
                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/93/75/a3/9375a38a-2c39-5062-6e11-19bd40dee08d/artwork.jpg/486x486bb.png" class="cover-art" alt="Red or Black">
+                <div class="label-row"><span class="label-badge">independent</span></div>
                 <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                 <div class="music-players">
                     <div class="platform-buttons">
@@ -678,6 +795,7 @@
             <!-- Too Easy -->
             <div class="track-container">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEfpf2_7TDtSYW6KWap7toHyAvntp56BKxGw&s" class="cover-art" alt="Too Easy">
+                <div class="label-row"><span class="label-badge">independent</span></div>
                 <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                 <div class="music-players">
                     <div class="platform-buttons">
@@ -692,7 +810,8 @@
             <!-- I Found God -->
             <div class="track-container">
                 <img src="https://i1.sndcdn.com/artworks-q7HTyAOkhrQzyFEu-HGbOcw-t500x500.jpg" class="cover-art" alt="I Found God by Spencer Arnold and EMSKI">
-                <div class="track-credits">credits: producer, mixing engineer, mastering engineer</div>
+                <div class="label-row"><span class="label-badge">independent</span></div>
+                <div class="track-credits">credits: producer, mix/master engineer</div>
                 <div class="music-players">
                     <div class="platform-buttons">
                         <button id="spotify-btn-2" class="platform-button active">Spotify</button>
@@ -706,6 +825,7 @@
             <!-- You Got That -->
             <div class="track-container">
                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/47/29/42/47294259-dd68-d7f0-6fc7-bed7c721d5db/artwork.jpg/600x600bf-60.jpg" class="cover-art" alt="You Got That">
+                <div class="label-row"><span class="label-badge">independent</span></div>
                 <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                 <div class="music-players">
                     <div class="platform-buttons">
@@ -720,6 +840,7 @@
             <!-- Small Talk (Remix) -->
             <div class="track-container">
                 <img src="https://i1.sndcdn.com/artworks-lyqUr8Oh7rJstk18-5tO7Gg-t240x240.jpg" class="cover-art" alt="Small Talk (Colson XL Remix)">
+                <div class="label-row"><span class="label-badge">independent</span></div>
                 <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                 <div class="music-players">
                     <div class="platform-buttons">
@@ -734,6 +855,7 @@
             <!-- Take Me There -->
             <div class="track-container">
                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/d6/fd/67d6fdf9-792e-9a80-5ef8-8413e4799540/191079921966_cover.jpg/600x600bf-60.jpg" class="cover-art" alt="Take Me There">
+                <div class="label-row"><span class="label-badge">independent</span></div>
                 <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                 <div class="music-players">
                     <div class="platform-buttons">
@@ -743,7 +865,7 @@
                     <iframe id="spotify-player-14" class="active" src="https://open.spotify.com/embed/track/0WFFymyrHFCs6Sy6rK9RuY?utm_source=generator&theme=0&view=minimal" width="100%" height="90" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     <iframe id="apple-player-14" src="https://embed.music.apple.com/us/album/take-me-there/1549299643?i=1549299644&app=music" height="170" frameborder="0" style="width:100%;background:transparent;" allow="autoplay *; encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
                 </div>
-            </div>
+            </div> <!-- Close carousel-viewport -->
         </div> <!-- Close carousel-container -->
     </div>
     <script>
@@ -879,7 +1001,51 @@
                 });
             })();
             
-        });
+                // Desktop carousel navigation (buttons + keyboard)
+                (function carouselNavigation() {
+                    const carousel = document.querySelector('.carousel-viewport');
+                    const prevBtn = document.querySelector('.carousel-btn.prev');
+                    const nextBtn = document.querySelector('.carousel-btn.next');
+                    if (!carousel || !prevBtn || !nextBtn) return;
+
+                    // show buttons (they're hidden by default for small viewports)
+                    prevBtn.style.display = 'flex';
+                    nextBtn.style.display = 'flex';
+
+                    function getScrollStep() {
+                        const card = carousel.querySelector('.track-container');
+                        if (!card) return Math.round(carousel.clientWidth * 0.9);
+                        const style = window.getComputedStyle(card);
+                        const marginLeft = parseFloat(style.marginLeft || 0);
+                        const marginRight = parseFloat(style.marginRight || 0);
+                        return Math.round(card.offsetWidth + marginLeft + marginRight);
+                    }
+
+                    function scrollByStep(direction = 1) {
+                        const step = getScrollStep();
+                        carousel.scrollBy({ left: step * direction, behavior: 'smooth' });
+                    }
+
+                    prevBtn.addEventListener('click', () => scrollByStep(-1));
+                    nextBtn.addEventListener('click', () => scrollByStep(1));
+
+                    // Keyboard navigation when carousel has focus
+                    carousel.addEventListener('keydown', (e) => {
+                        if (e.key === 'ArrowRight') { e.preventDefault(); scrollByStep(1); }
+                        if (e.key === 'ArrowLeft')  { e.preventDefault(); scrollByStep(-1); }
+                    });
+
+                    // Also allow global keyboard arrows when an input isn't focused
+                    document.addEventListener('keydown', (e) => {
+                        const active = document.activeElement;
+                        const isTyping = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable);
+                        if (isTyping) return;
+                        if (e.key === 'ArrowRight') { scrollByStep(1); }
+                        if (e.key === 'ArrowLeft')  { scrollByStep(-1); }
+                    });
+                })();
+
+            });
     </script>
 </body>
 </html>
