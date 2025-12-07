@@ -74,7 +74,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 60px 20px;
             position: relative;
@@ -86,7 +86,7 @@
             font-weight: 400;
             text-align: center;
             color: #fff;
-            margin: 0 auto 12px auto;
+            margin: 0 auto 20px auto;
             letter-spacing: -1px;
             text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             width: 100%;
@@ -99,7 +99,7 @@
             align-items: center;
             justify-content: center;
             gap: 16px;
-            margin: 0 0 16px; /* reduced spacing */
+            margin: 24px 0 40px; /* increased top margin to separate from subheader */
         }
         .cta-intake {
             color: #fff;
@@ -127,7 +127,7 @@
             font-size: 18px;
             font-weight: 600;
             letter-spacing: 0.5px;
-            margin: 0 auto 16px auto;
+            margin: 0 auto 24px auto;
             text-decoration: underline;
             text-underline-offset: 5px;
             text-decoration-color: rgba(255,255,255,0.22); /* subtle underline */
@@ -137,16 +137,33 @@
 
         .credits-header {
             text-align: center;
-            color: rgba(255,255,255,0.9);
+            color: rgba(255,255,255,0.92);
             font-size: 16px;
             font-weight: 600;
-            letter-spacing: 0.5px;
-            margin: 0 auto 20px auto;
-            text-decoration: underline;
-            text-underline-offset: 5px;
-            text-decoration-color: rgba(255,255,255,0.22); /* subtle underline */
-            width: 100%;
+            letter-spacing: 2px;
+            margin: 0 auto 28px auto;
+            text-decoration: none;
+            width: fit-content;
             display: block;
+            text-transform: lowercase;
+            padding: 10px 24px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.18);
+            border-radius: 999px;
+            backdrop-filter: blur(8px);
+            position: relative;
+        }
+        
+        .credits-header::before {
+            content: '•';
+            margin-right: 12px;
+            opacity: 0.6;
+        }
+        
+        .credits-header::after {
+            content: '•';
+            margin-left: 12px;
+            opacity: 0.6;
         }
 
         
@@ -247,7 +264,7 @@
             border-radius: 16px;
             padding: 14px 14px 24px 14px; /* standard padding, player pulled up */
             backdrop-filter: blur(12px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            box-shadow: none;
             transition: all 0.3s ease;
             scroll-snap-align: center;
         }
@@ -255,7 +272,21 @@
         .track-container:hover {
             background: rgba(255,255,255,0.12);
             transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+            box-shadow: none;
+        }
+
+        /* Carousel section wrapper - contains credits, arrows, and carousel */
+        .carousel-section-wrapper {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 32px 90px 40px 90px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            position: relative;
         }
 
         .carousel-container {
@@ -466,6 +497,56 @@
                 margin-top: 6px;
             }
         }
+
+        /* Mobile-specific styles (smaller screens) */
+        @media (max-width: 899px) {
+            /* Make carousel section wrapper fit mobile screens */
+            .carousel-section-wrapper {
+                padding: 20px 16px 24px 16px;
+                max-width: calc(100% - 32px);
+                margin: 0 auto;
+            }
+
+            /* Optimize carousel container for mobile */
+            .carousel-container {
+                max-width: 100%;
+                height: 520px; /* Taller for mobile vertical scroll */
+            }
+
+            /* Hide the gradient overlays on mobile */
+            .carousel-container::before,
+            .carousel-container::after {
+                display: none;
+            }
+
+            /* Disable scroll-snap on mobile for free-flowing scroll */
+            .carousel-viewport {
+                scroll-snap-type: none;
+            }
+
+            .track-container {
+                scroll-snap-align: none;
+            }
+
+            /* Make song cards fill better on mobile */
+            .track-container {
+                max-width: 100%;
+                width: 100%;
+                margin: 0;
+            }
+
+            /* Make cover art bigger on mobile */
+            .cover-art {
+                max-width: 260px;
+                height: 260px;
+            }
+
+            /* Ensure arrows stay hidden on mobile */
+            .carousel-btn {
+                display: none !important;
+            }
+        }
+
         /* Desktop: transform vertical single-column list into a 3-column horizontal swipe */
         @media (min-width: 900px) {
             .container { padding: 48px 20px; }
@@ -513,12 +594,13 @@
             .track-container:hover { transform: translateY(-6px); }
 
             .cover-art {
-                width: 100%;
+                width: 220px;
                 height: 220px;
                 max-width: none;
-                /* show full album cover inside the fixed card area */
-                object-fit: contain;
-                margin: 0 0 14px 0;
+                /* show full square album cover without cropping */
+                object-fit: cover;
+                margin: 0 auto 14px auto;
+                display: block;
             }
 
             .music-players { margin-bottom: 0; }
@@ -532,24 +614,28 @@
                 position: absolute;
                 top: 50%;
                 transform: translateY(-50%);
-                width: 44px;
-                height: 44px;
+                width: 64px;
+                height: 64px;
                 border-radius: 999px;
                 border: none;
-                background: rgba(255,255,255,0.12);
+                background: rgba(255,255,255,0.15);
                 color: #fff;
-                font-size: 22px;
+                font-size: 32px;
                 display: flex; /* shown in desktop because global default is none */
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
                 z-index: 12;
-                backdrop-filter: blur(6px);
+                backdrop-filter: blur(8px);
                 transition: transform 0.18s ease, background 0.18s ease;
+                border: 1px solid rgba(255,255,255,0.2);
+                line-height: 1;
+                font-family: monospace; /* Better arrow symbol alignment */
+                margin-top: 20px; /* Account for credits header space */
             }
-            .carousel-btn:hover { transform: translateY(-50%) scale(1.05); background: rgba(255,255,255,0.18); }
-            .carousel-btn.prev { left: 6px; }
-            .carousel-btn.next { right: 6px; }
+            .carousel-btn:hover { transform: translateY(-50%) scale(1.08); background: rgba(255,255,255,0.25); }
+            .carousel-btn.prev { left: 12px; }
+            .carousel-btn.next { right: 12px; }
         }
     </style>
 </head>
@@ -585,11 +671,14 @@
         <div class="top-actions">
             <a class="cta-intake" href="intake.html">book now</a>
         </div>
-    <div class="credits-header">Credits</div>
 
-    <!-- Carousel navigation buttons (desktop) -->
-    <button class="carousel-btn prev" aria-label="previous" title="previous">‹</button>
-    <button class="carousel-btn next" aria-label="next" title="next">›</button>
+    <!-- Carousel Section Wrapper -->
+    <div class="carousel-section-wrapper">
+        <div class="credits-header">credits</div>
+
+        <!-- Carousel navigation buttons (desktop) -->
+        <button class="carousel-btn prev" aria-label="previous" title="previous">‹</button>
+        <button class="carousel-btn next" aria-label="next" title="next">›</button>
 
         <div class="carousel-container" aria-roledescription="carousel">
             <div class="carousel-viewport" tabindex="0">
@@ -867,7 +956,9 @@
                 </div>
             </div> <!-- Close carousel-viewport -->
         </div> <!-- Close carousel-container -->
-    </div>
+    </div> <!-- Close carousel-section-wrapper -->
+    </div> <!-- Close container -->
+    
     <script>
         function switchPlayer(platform) {
             // Remove active class from all tabs and players
