@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>journals. - samples</title>
+    <meta property="og:title" content="journals. — samples" />
+    <meta property="og:description" content="vocal packs for producers who actually care about the vibe. no AI slop, just real textures." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/samples" />
+    <meta property="og:image" content="/og-card.png?v=8" />
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="2400" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="journals. — samples" />
+    <meta name="twitter:description" content="vocal packs for producers who actually care about the vibe." />
+    <meta name="twitter:image" content="/og-card.png?v=8" />
+    
+    <!-- WaveSurfer.js -->
+    <script src="https://unpkg.com/wavesurfer.js@7"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body { text-transform: lowercase; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(180deg, 
+                #4A90E2 0%, 
+                #6CAFE3 25%,
+                #89C4E8 40%,
+                #FF9F5C 75%, 
+                #FF7A42 90%,
+                #E67E22 100%);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Clouds */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+            opacity: 0.4;
+            filter: contrast(150%) brightness(120%);
+        }
+        .cloud::before {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+        }
+        .cloud1 { width: 120px; height: 40px; top: 20%; animation: drift 45s infinite; }
+        .cloud1::before { width: 60px; height: 50px; top: -25px; left: 20px; }
+        .cloud2 { width: 80px; height: 35px; top: 40%; animation: drift 60s infinite; animation-delay: -20s; }
+        .cloud2::before { width: 50px; height: 40px; top: -20px; right: 15px; }
+        .cloud3 { width: 100px; height: 30px; top: 60%; animation: drift 50s infinite; animation-delay: -35s; }
+        .cloud3::before { width: 45px; height: 35px; top: -15px; left: 30px; }
+        .cloud4 { width: 140px; height: 45px; top: 75%; animation: drift 55s infinite; animation-delay: -10s; }
+        .cloud4::before { width: 70px; height: 55px; top: -28px; right: 25px; }
+
+        @keyframes drift {
+            0% { left: -200px; }
+            100% { left: 100%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 64px;
+            font-weight: 400;
+            color: #fff;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            cursor: default;
+        }
+
+        .back-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 16px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 999px;
+            backdrop-filter: blur(10px);
+            transition: all 0.25s ease;
+        }
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Floating Cart */
+        .cart-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+        }
+
+        .cart-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #fff;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        .cart-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+        }
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #FF6B35;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            min-width: 22px;
+            height: 22px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+        }
+        .cart-badge.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .checkout-btn {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #FF6B35, #FF9F5C);
+            border: none;
+            border-radius: 999px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(255, 107, 53, 0.4);
+            font-family: inherit;
+        }
+        .checkout-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.5);
+        }
+
+        /* Sample Pack Cards */
+        .packs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .pack-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 20px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .pack-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+        }
+        .pack-card.selected {
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+        }
+
+        .pack-cover {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .pack-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .pack-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .pack-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 14px;
+            border-radius: 8px;
+        }
+
+        .pack-desc {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .pack-meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .meta-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .pack-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+            text-align: center;
+        }
+
+        .btn-preview {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #fff;
+            backdrop-filter: blur(10px);
+        }
+        .btn-preview:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-cart {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.8), rgba(255, 159, 92, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+        .btn-cart:hover {
+            transform: translateY(-1px);
+        }
+        .btn-cart.in-cart {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Preview Panel (Modal) */
+        .preview-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .preview-overlay.active {
+            display: flex;
+        }
+
+        .preview-panel {
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            background: rgba(30, 30, 40, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .preview-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .preview-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Style Switcher */
+        .style-switcher {
+            display: flex;
+            gap: 8px;
+            padding: 16px 24px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            overflow-x: auto;
+        }
+
+        .style-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-family: inherit;
+        }
+        .style-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+        .style-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+            color: #fff;
+        }
+
+        /* Track List */
+        .track-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .track-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .track-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .track-item.expanded {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .track-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            gap: 16px;
+        }
+
+        .track-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .track-name {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .track-duration {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .track-play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .track-play-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.1);
+        }
+
+        /* Waveform Container */
+        .waveform-container {
+            padding: 0 20px 20px;
+            display: none;
+        }
+        .track-item.expanded .waveform-container {
+            display: block;
+        }
+
+        .waveform-wrapper {
+            position: relative;
+            height: 80px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* ========================================
+           WAVEFORM STYLES - 5 Different Looks
+           ======================================== */
+
+        /* Style 1: Classic Gradient Bars */
+        .waveform-style-1 .waveform-wrapper {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Style 2: Glassmorphic Glow */
+        .waveform-style-2 .waveform-wrapper {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(255, 107, 53, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 0 30px rgba(74, 144, 226, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.05);
+        }
+
+        /* Style 3: Neon Pulse */
+        .waveform-style-3 .waveform-wrapper {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 107, 53, 0.5);
+            box-shadow: 
+                0 0 20px rgba(255, 107, 53, 0.3),
+                0 0 40px rgba(255, 107, 53, 0.1);
+        }
+
+        /* Style 4: Minimal Lines */
+        .waveform-style-4 .waveform-wrapper {
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Style 5: Rounded Blobs */
+        .waveform-style-5 .waveform-wrapper {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            border-radius: 40px;
+            padding: 10px;
+        }
+
+        /* Time Display */
+        .waveform-time {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 4px 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Preview footer */
+        .preview-footer {
+            padding: 20px 24px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .btn-add-cart {
+            padding: 16px 32px;
+            background: linear-gradient(135deg, #FF6B35, #FF9F5C);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+        .btn-add-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 107, 53, 0.4);
+        }
+        .btn-add-cart.in-cart {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            h1 {
+                font-size: 48px;
+            }
+            .packs-grid {
+                grid-template-columns: 1fr;
+            }
+            .preview-panel {
+                max-height: 95vh;
+                border-radius: 16px;
+            }
+            .cart-float {
+                bottom: 20px;
+                right: 20px;
+            }
+            .style-switcher {
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Clouds -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="cloud cloud4"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>samples.</h1>
+            <a href="/" class="back-link">← back to home</a>
+        </div>
+
+        <!-- Sample Packs Grid -->
+        <div class="packs-grid">
+            <!-- Pack 1: Human Voice Vol. 1 -->
+            <div class="pack-card" data-pack-id="human-voice-1" data-price="49" data-name="human voice (vol. 1)">
+                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=600&h=600&fit=crop" 
+                     alt="human voice vol 1" 
+                     class="pack-cover">
+                <div class="pack-info">
+                    <div class="pack-title">human voice (vol. 1)</div>
+                    <div class="pack-price">$49</div>
+                </div>
+                <p class="pack-desc">
+                    5 emotive vocal samples, 16 bars each. dry + wet versions included. 
+                    real vocals, real emotion, no AI nonsense.
+                </p>
+                <div class="pack-meta">
+                    <span class="meta-tag">5 samples</span>
+                    <span class="meta-tag">dry + wet</span>
+                    <span class="meta-tag">24-bit wav</span>
+                </div>
+                <div class="pack-actions">
+                    <button class="btn btn-preview" onclick="openPreview('human-voice-1')">preview tracks</button>
+                    <button class="btn btn-cart" onclick="toggleCart('human-voice-1', event)">add to cart</button>
+                </div>
+            </div>
+
+            <!-- Placeholder for future packs -->
+            <div class="pack-card" style="opacity: 0.5; pointer-events: none;">
+                <div class="pack-cover" style="background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 18px;">
+                    coming soon
+                </div>
+                <div class="pack-info">
+                    <div class="pack-title">??? (vol. 2)</div>
+                    <div class="pack-price">$??</div>
+                </div>
+                <p class="pack-desc">
+                    more packs dropping soon. sign up to get notified.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Cart -->
+    <div class="cart-float">
+        <button class="checkout-btn" id="checkoutBtn" onclick="checkout()">checkout</button>
+        <button class="cart-btn" id="cartBtn" onclick="toggleCartView()">
+            🛒
+            <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+    </div>
+
+    <!-- Preview Panel Overlay -->
+    <div class="preview-overlay" id="previewOverlay">
+        <div class="preview-panel waveform-style-1" id="previewPanel">
+            <div class="preview-header">
+                <div class="preview-title" id="previewTitle">human voice (vol. 1)</div>
+                <button class="preview-close" onclick="closePreview()">×</button>
+            </div>
+
+            <!-- Waveform Style Switcher -->
+            <div class="style-switcher">
+                <button class="style-btn active" data-style="1">gradient bars</button>
+                <button class="style-btn" data-style="2">glassmorphic glow</button>
+                <button class="style-btn" data-style="3">neon pulse</button>
+                <button class="style-btn" data-style="4">minimal lines</button>
+                <button class="style-btn" data-style="5">rounded blobs</button>
+            </div>
+
+            <!-- Track List -->
+            <div class="track-list" id="trackList">
+                <!-- Track 1 -->
+                <div class="track-item expanded" data-track="1">
+                    <div class="track-header" onclick="toggleTrack(1)">
+                        <div class="track-num">01</div>
+                        <div class="track-name">whisper</div>
+                        <div class="track-duration">0:32</div>
+                        <button class="track-play-btn" onclick="playTrack(1, event)">▶</button>
+                    </div>
+                    <div class="waveform-container">
+                        <div class="waveform-wrapper">
+                            <div id="waveform-1"></div>
+                        </div>
+                        <div class="waveform-time">
+                            <span class="time-current">0:00</span>
+                            <span class="time-total">0:32</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Track 2 -->
+                <div class="track-item" data-track="2">
+                    <div class="track-header" onclick="toggleTrack(2)">
+                        <div class="track-num">02</div>
+                        <div class="track-name">echo</div>
+                        <div class="track-duration">0:28</div>
+                        <button class="track-play-btn" onclick="playTrack(2, event)">▶</button>
+                    </div>
+                    <div class="waveform-container">
+                        <div class="waveform-wrapper">
+                            <div id="waveform-2"></div>
+                        </div>
+                        <div class="waveform-time">
+                            <span class="time-current">0:00</span>
+                            <span class="time-total">0:28</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Track 3 -->
+                <div class="track-item" data-track="3">
+                    <div class="track-header" onclick="toggleTrack(3)">
+                        <div class="track-num">03</div>
+                        <div class="track-name">sigh</div>
+                        <div class="track-duration">0:35</div>
+                        <button class="track-play-btn" onclick="playTrack(3, event)">▶</button>
+                    </div>
+                    <div class="waveform-container">
+                        <div class="waveform-wrapper">
+                            <div id="waveform-3"></div>
+                        </div>
+                        <div class="waveform-time">
+                            <span class="time-current">0:00</span>
+                            <span class="time-total">0:35</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Track 4 -->
+                <div class="track-item" data-track="4">
+                    <div class="track-header" onclick="toggleTrack(4)">
+                        <div class="track-num">04</div>
+                        <div class="track-name">hum</div>
+                        <div class="track-duration">0:30</div>
+                        <button class="track-play-btn" onclick="playTrack(4, event)">▶</button>
+                    </div>
+                    <div class="waveform-container">
+                        <div class="waveform-wrapper">
+                            <div id="waveform-4"></div>
+                        </div>
+                        <div class="waveform-time">
+                            <span class="time-current">0:00</span>
+                            <span class="time-total">0:30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Track 5 -->
+                <div class="track-item" data-track="5">
+                    <div class="track-header" onclick="toggleTrack(5)">
+                        <div class="track-num">05</div>
+                        <div class="track-name">breath</div>
+                        <div class="track-duration">0:33</div>
+                        <button class="track-play-btn" onclick="playTrack(5, event)">▶</button>
+                    </div>
+                    <div class="waveform-container">
+                        <div class="waveform-wrapper">
+                            <div id="waveform-5"></div>
+                        </div>
+                        <div class="waveform-time">
+                            <span class="time-current">0:00</span>
+                            <span class="time-total">0:33</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-footer">
+                <div class="preview-price">$49</div>
+                <button class="btn-add-cart" id="panelCartBtn" onclick="toggleCart('human-voice-1')">add to cart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // CART STATE
+        // ========================================
+        const cart = new Map();
+
+        // Sample pack data
+        const packs = {
+            'human-voice-1': {
+                id: 'human-voice-1',
+                name: 'human voice (vol. 1)',
+                price: 49,
+                priceId: 'price_1SefgI0HWozPhzBNiWHWUeis',
+                tracks: [
+                    { name: 'whisper', duration: '0:32', audioUrl: '/samples/preview/whisper.mp3' },
+                    { name: 'echo', duration: '0:28', audioUrl: '/samples/preview/echo.mp3' },
+                    { name: 'sigh', duration: '0:35', audioUrl: '/samples/preview/sigh.mp3' },
+                    { name: 'hum', duration: '0:30', audioUrl: '/samples/preview/hum.mp3' },
+                    { name: 'breath', duration: '0:33', audioUrl: '/samples/preview/breath.mp3' }
+                ]
+            }
+        };
+
+        // ========================================
+        // WAVEFORM INSTANCES
+        // ========================================
+        const wavesurfers = new Map();
+        let currentlyPlaying = null;
+        let currentStyle = 1;
+
+        // Waveform style configurations
+        const waveformStyles = {
+            1: { // Gradient Bars
+                waveColor: 'rgba(255, 159, 92, 0.5)',
+                progressColor: 'linear-gradient(90deg, #4A90E2, #FF6B35)',
+                cursorColor: '#fff',
+                barWidth: 3,
+                barGap: 2,
+                barRadius: 3,
+                height: 80
+            },
+            2: { // Glassmorphic Glow
+                waveColor: 'rgba(255, 255, 255, 0.3)',
+                progressColor: 'rgba(255, 255, 255, 0.8)',
+                cursorColor: 'rgba(255, 255, 255, 0.9)',
+                barWidth: 2,
+                barGap: 1,
+                barRadius: 2,
+                height: 80
+            },
+            3: { // Neon Pulse
+                waveColor: 'rgba(255, 107, 53, 0.4)',
+                progressColor: '#FF6B35',
+                cursorColor: '#fff',
+                barWidth: 2,
+                barGap: 2,
+                barRadius: 0,
+                height: 80
+            },
+            4: { // Minimal Lines
+                waveColor: 'rgba(255, 255, 255, 0.2)',
+                progressColor: 'rgba(255, 255, 255, 0.7)',
+                cursorColor: '#fff',
+                barWidth: 1,
+                barGap: 3,
+                barRadius: 0,
+                height: 80
+            },
+            5: { // Rounded Blobs
+                waveColor: 'rgba(74, 144, 226, 0.4)',
+                progressColor: 'rgba(255, 159, 92, 0.8)',
+                cursorColor: '#fff',
+                barWidth: 6,
+                barGap: 3,
+                barRadius: 6,
+                height: 60
+            }
+        };
+
+        // ========================================
+        // CART FUNCTIONS
+        // ========================================
+        function toggleCart(packId, event) {
+            if (event) event.stopPropagation();
+            
+            if (cart.has(packId)) {
+                cart.delete(packId);
+            } else {
+                cart.set(packId, packs[packId]);
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const count = cart.size;
+
+            // Update badge
+            badge.textContent = count;
+            badge.classList.toggle('visible', count > 0);
+
+            // Update checkout button
+            checkoutBtn.classList.toggle('visible', count > 0);
+
+            // Update all cart buttons
+            document.querySelectorAll('.btn-cart').forEach(btn => {
+                const card = btn.closest('.pack-card');
+                if (card) {
+                    const packId = card.dataset.packId;
+                    const inCart = cart.has(packId);
+                    btn.classList.toggle('in-cart', inCart);
+                    btn.textContent = inCart ? 'remove from cart' : 'add to cart';
+                }
+            });
+
+            // Update panel cart button
+            const panelBtn = document.getElementById('panelCartBtn');
+            if (panelBtn) {
+                const currentPackId = document.getElementById('previewPanel').dataset.packId || 'human-voice-1';
+                const inCart = cart.has(currentPackId);
+                panelBtn.classList.toggle('in-cart', inCart);
+                panelBtn.textContent = inCart ? 'remove from cart' : 'add to cart';
+            }
+        }
+
+        function toggleCartView() {
+            // For now, just show what's in cart via console
+            // Could expand to show a cart drawer
+            console.log('Cart contents:', Array.from(cart.values()));
+        }
+
+        async function checkout() {
+            if (cart.size === 0) return;
+
+            const items = Array.from(cart.values()).map(pack => ({
+                priceId: pack.priceId,
+                quantity: 1
+            }));
+
+            try {
+                const response = await fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ items })
+                });
+
+                const { url } = await response.json();
+                if (url) {
+                    window.location.href = url;
+                }
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert('Something went wrong. Please try again.');
+            }
+        }
+
+        // ========================================
+        // PREVIEW PANEL FUNCTIONS
+        // ========================================
+        function openPreview(packId) {
+            const overlay = document.getElementById('previewOverlay');
+            const panel = document.getElementById('previewPanel');
+            const title = document.getElementById('previewTitle');
+
+            panel.dataset.packId = packId;
+            title.textContent = packs[packId].name;
+
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Initialize waveforms after panel is visible
+            setTimeout(() => initWaveforms(packId), 100);
+            updateCartUI();
+        }
+
+        function closePreview() {
+            const overlay = document.getElementById('previewOverlay');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+
+            // Stop any playing audio
+            if (currentlyPlaying) {
+                currentlyPlaying.pause();
+                currentlyPlaying = null;
+            }
+
+            // Destroy waveforms
+            wavesurfers.forEach(ws => ws.destroy());
+            wavesurfers.clear();
+        }
+
+        // ========================================
+        // WAVEFORM FUNCTIONS
+        // ========================================
+        function initWaveforms(packId) {
+            const pack = packs[packId];
+            const style = waveformStyles[currentStyle];
+
+            pack.tracks.forEach((track, index) => {
+                const trackNum = index + 1;
+                const container = document.getElementById(`waveform-${trackNum}`);
+                
+                if (!container || wavesurfers.has(trackNum)) return;
+
+                // Create gradient for progress (styles 1 uses gradient)
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const gradient = ctx.createLinearGradient(0, 0, 500, 0);
+                gradient.addColorStop(0, '#4A90E2');
+                gradient.addColorStop(1, '#FF6B35');
+
+                const ws = WaveSurfer.create({
+                    container: container,
+                    waveColor: style.waveColor,
+                    progressColor: currentStyle === 1 ? gradient : style.progressColor,
+                    cursorColor: style.cursorColor,
+                    barWidth: style.barWidth,
+                    barGap: style.barGap,
+                    barRadius: style.barRadius,
+                    height: style.height,
+                    responsive: true,
+                    normalize: true,
+                    backend: 'WebAudio',
+                    // Use a placeholder sine wave for demo - replace with real audio URLs
+                    url: track.audioUrl
+                });
+
+                // Update time display
+                ws.on('timeupdate', (currentTime) => {
+                    const trackItem = document.querySelector(`.track-item[data-track="${trackNum}"]`);
+                    const timeEl = trackItem?.querySelector('.time-current');
+                    if (timeEl) {
+                        const mins = Math.floor(currentTime / 60);
+                        const secs = Math.floor(currentTime % 60).toString().padStart(2, '0');
+                        timeEl.textContent = `${mins}:${secs}`;
+                    }
+                });
+
+                ws.on('play', () => {
+                    // Pause other tracks
+                    wavesurfers.forEach((otherWs, num) => {
+                        if (num !== trackNum && otherWs.isPlaying()) {
+                            otherWs.pause();
+                            updatePlayButton(num, false);
+                        }
+                    });
+                    currentlyPlaying = ws;
+                    updatePlayButton(trackNum, true);
+                });
+
+                ws.on('pause', () => {
+                    updatePlayButton(trackNum, false);
+                });
+
+                ws.on('finish', () => {
+                    updatePlayButton(trackNum, false);
+                    currentlyPlaying = null;
+                });
+
+                // Handle loading errors gracefully (since we don't have real audio yet)
+                ws.on('error', (e) => {
+                    console.log(`Track ${trackNum} audio not available yet:`, e);
+                    // Generate a fake waveform for demo purposes
+                    generateDemoWaveform(container, style);
+                });
+
+                wavesurfers.set(trackNum, ws);
+            });
+        }
+
+        function generateDemoWaveform(container, style) {
+            // Create a visual-only demo waveform when audio isn't available
+            container.innerHTML = '';
+            const wrapper = document.createElement('div');
+            wrapper.style.cssText = `
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: ${style.height}px;
+                gap: ${style.barGap}px;
+            `;
+
+            // Generate random bars
+            const barCount = Math.floor(container.offsetWidth / (style.barWidth + style.barGap)) || 50;
+            for (let i = 0; i < barCount; i++) {
+                const bar = document.createElement('div');
+                const height = 10 + Math.random() * (style.height - 20);
+                bar.style.cssText = `
+                    width: ${style.barWidth}px;
+                    height: ${height}px;
+                    background: ${style.waveColor};
+                    border-radius: ${style.barRadius}px;
+                    transition: background 0.2s;
+                `;
+                wrapper.appendChild(bar);
+            }
+
+            container.appendChild(wrapper);
+        }
+
+        function updatePlayButton(trackNum, isPlaying) {
+            const trackItem = document.querySelector(`.track-item[data-track="${trackNum}"]`);
+            const btn = trackItem?.querySelector('.track-play-btn');
+            if (btn) {
+                btn.textContent = isPlaying ? '⏸' : '▶';
+            }
+        }
+
+        function toggleTrack(trackNum) {
+            const allTracks = document.querySelectorAll('.track-item');
+            const targetTrack = document.querySelector(`.track-item[data-track="${trackNum}"]`);
+
+            // Accordion behavior - close others
+            allTracks.forEach(track => {
+                if (track !== targetTrack) {
+                    track.classList.remove('expanded');
+                }
+            });
+
+            targetTrack.classList.toggle('expanded');
+        }
+
+        function playTrack(trackNum, event) {
+            event.stopPropagation();
+
+            const ws = wavesurfers.get(trackNum);
+            if (ws) {
+                ws.playPause();
+            } else {
+                // Audio not loaded, show message
+                console.log('Audio preview not available yet');
+            }
+        }
+
+        // ========================================
+        // STYLE SWITCHER
+        // ========================================
+        document.querySelectorAll('.style-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const style = parseInt(btn.dataset.style);
+                switchWaveformStyle(style);
+
+                // Update active state
+                document.querySelectorAll('.style-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        function switchWaveformStyle(styleNum) {
+            currentStyle = styleNum;
+            const panel = document.getElementById('previewPanel');
+
+            // Update panel class
+            panel.className = panel.className.replace(/waveform-style-\d/, `waveform-style-${styleNum}`);
+
+            // Reinitialize waveforms with new style
+            const packId = panel.dataset.packId || 'human-voice-1';
+
+            // Clear existing
+            wavesurfers.forEach(ws => ws.destroy());
+            wavesurfers.clear();
+
+            // Clear DOM
+            document.querySelectorAll('[id^="waveform-"]').forEach(el => el.innerHTML = '');
+
+            // Reinitialize
+            setTimeout(() => initWaveforms(packId), 50);
+        }
+
+        // ========================================
+        // EVENT LISTENERS
+        // ========================================
+
+        // Close preview on overlay click
+        document.getElementById('previewOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'previewOverlay') {
+                closePreview();
+            }
+        });
+
+        // Close on ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePreview();
+            }
+        });
+
+        // Initialize cart UI
+        updateCartUI();
+    </script>
+</body>
+</html>

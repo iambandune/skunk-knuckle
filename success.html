@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>journals. - purchase complete</title>
+    <meta property="og:title" content="journals. — thank you" />
+    <meta property="og:description" content="your samples are ready to download." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-card.png?v=8" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body { text-transform: lowercase; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(180deg, 
+                #4A90E2 0%, 
+                #6CAFE3 25%,
+                #89C4E8 40%,
+                #FF9F5C 75%, 
+                #FF7A42 90%,
+                #E67E22 100%);
+            position: relative;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Clouds */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+            opacity: 0.4;
+            filter: contrast(150%) brightness(120%);
+        }
+        .cloud::before {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+        }
+        .cloud1 { width: 120px; height: 40px; top: 20%; animation: drift 45s infinite; }
+        .cloud1::before { width: 60px; height: 50px; top: -25px; left: 20px; }
+        .cloud2 { width: 80px; height: 35px; top: 40%; animation: drift 60s infinite; animation-delay: -20s; }
+        .cloud2::before { width: 50px; height: 40px; top: -20px; right: 15px; }
+        .cloud3 { width: 100px; height: 30px; top: 60%; animation: drift 50s infinite; animation-delay: -35s; }
+        .cloud3::before { width: 45px; height: 35px; top: -15px; left: 30px; }
+        .cloud4 { width: 140px; height: 45px; top: 75%; animation: drift 55s infinite; animation-delay: -10s; }
+        .cloud4::before { width: 70px; height: 55px; top: -28px; right: 25px; }
+
+        @keyframes drift {
+            0% { left: -200px; }
+            100% { left: 100%; }
+        }
+
+        .success-container {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .success-card {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 24px;
+            padding: 48px 40px;
+            backdrop-filter: blur(12px);
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(76, 217, 100, 0.2), rgba(76, 217, 100, 0.1));
+            border: 2px solid rgba(76, 217, 100, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 40px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .success-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 18px;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .loading-state {
+            padding: 20px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+        }
+
+        /* Downloads Section */
+        .downloads-section {
+            display: none;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .downloads-section.visible {
+            display: block;
+        }
+
+        .downloads-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .download-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .download-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .download-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: rgba(255, 107, 53, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .download-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .download-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .download-meta {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .download-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #FF6B35, #FF9F5C);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Receipt Info */
+        .receipt-info {
+            margin-top: 24px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .receipt-row.total {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 8px;
+            padding-top: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Error State */
+        .error-state {
+            display: none;
+        }
+
+        .error-state.visible {
+            display: block;
+        }
+
+        .error-icon {
+            background: linear-gradient(135deg, rgba(255, 59, 48, 0.2), rgba(255, 59, 48, 0.1));
+            border-color: rgba(255, 59, 48, 0.4);
+        }
+
+        /* Action Buttons */
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 32px;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            padding: 14px 28px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Email Notice */
+        .email-notice {
+            margin-top: 24px;
+            padding: 16px;
+            background: rgba(74, 144, 226, 0.15);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            border-radius: 10px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
+        }
+
+        .email-notice strong {
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .success-card {
+                padding: 32px 24px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .download-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .download-info {
+                text-align: center;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Clouds -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="cloud cloud4"></div>
+
+    <div class="success-container">
+        <div class="success-card">
+            <!-- Loading State -->
+            <div class="loading-state" id="loadingState">
+                <div class="spinner"></div>
+                <div class="loading-text">verifying your purchase...</div>
+            </div>
+
+            <!-- Success State -->
+            <div class="success-state" id="successState" style="display: none;">
+                <div class="success-icon">✓</div>
+                <h1>thank you!</h1>
+                <p class="success-subtitle">
+                    your purchase is complete.<br>
+                    your samples are ready to download.
+                </p>
+
+                <!-- Downloads -->
+                <div class="downloads-section visible" id="downloadsSection">
+                    <div class="downloads-title">your downloads</div>
+                    <div id="downloadsList">
+                        <!-- Downloads will be inserted here -->
+                    </div>
+                </div>
+
+                <!-- Receipt Summary -->
+                <div class="receipt-info" id="receiptInfo">
+                    <div class="receipt-row">
+                        <span>order id</span>
+                        <span id="orderId">—</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>email</span>
+                        <span id="customerEmail">—</span>
+                    </div>
+                    <div class="receipt-row total">
+                        <span>total paid</span>
+                        <span id="totalAmount">$0</span>
+                    </div>
+                </div>
+
+                <div class="email-notice">
+                    <strong>📧 check your email</strong><br>
+                    we've sent a receipt and backup download links to your email.
+                </div>
+
+                <div class="actions">
+                    <a href="/samples" class="btn-secondary">← back to samples</a>
+                    <a href="/" class="btn-secondary">home</a>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div class="error-state" id="errorState">
+                <div class="success-icon error-icon">✕</div>
+                <h1>something went wrong</h1>
+                <p class="success-subtitle" id="errorMessage">
+                    we couldn't verify your purchase.<br>
+                    please contact support if you were charged.
+                </p>
+
+                <div class="actions">
+                    <a href="/samples" class="btn-secondary">← try again</a>
+                    <a href="mailto:journals.mp3@gmail.com" class="download-btn">contact support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get session ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session_id');
+
+        async function verifyPurchase() {
+            const loadingState = document.getElementById('loadingState');
+            const successState = document.getElementById('successState');
+            const errorState = document.getElementById('errorState');
+
+            if (!sessionId) {
+                showError('no session id found');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/verify-session?session_id=${sessionId}`);
+                const data = await response.json();
+
+                if (!response.ok || data.error) {
+                    throw new Error(data.error || 'verification failed');
+                }
+
+                // Success - show downloads
+                loadingState.style.display = 'none';
+                successState.style.display = 'block';
+
+                // Populate receipt info
+                document.getElementById('orderId').textContent = data.orderId || sessionId.slice(-8);
+                document.getElementById('customerEmail').textContent = data.email || '—';
+                document.getElementById('totalAmount').textContent = data.total ? `$${(data.total / 100).toFixed(0)}` : '$49';
+
+                // Populate downloads
+                const downloadsList = document.getElementById('downloadsList');
+                downloadsList.innerHTML = '';
+
+                if (data.downloads && data.downloads.length > 0) {
+                    data.downloads.forEach(item => {
+                        downloadsList.innerHTML += `
+                            <div class="download-item">
+                                <div class="download-icon">📦</div>
+                                <div class="download-info">
+                                    <div class="download-name">${item.name}</div>
+                                    <div class="download-meta">${item.size || 'wav + mp3 formats'}</div>
+                                </div>
+                                <a href="${item.url}" class="download-btn" download>download</a>
+                            </div>
+                        `;
+                    });
+                } else {
+                    // Fallback if no downloads in response
+                    downloadsList.innerHTML = `
+                        <div class="download-item">
+                            <div class="download-icon">📦</div>
+                            <div class="download-info">
+                                <div class="download-name">human voice (vol. 1)</div>
+                                <div class="download-meta">wav + mp3 formats</div>
+                            </div>
+                            <a href="#" class="download-btn" id="pendingDownload">download</a>
+                        </div>
+                    `;
+                    
+                    const pendingBtn = document.getElementById('pendingDownload');
+                    if (pendingBtn) {
+                        pendingBtn.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            alert('your download link is being prepared. check your email!');
+                        });
+                    }
+                }
+
+            } catch (error) {
+                console.error('Verification error:', error);
+                showError(error.message);
+            }
+        }
+
+        function showError(message) {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('successState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+            
+            if (message) {
+                document.getElementById('errorMessage').innerHTML = 
+                    `${message}<br>please contact support if you were charged.`;
+            }
+        }
+
+        // Start verification
+        verifyPurchase();
+    </script>
+</body>
+</html>
