@@ -960,6 +960,14 @@
         .preview-track-item.expanded .waveform-container {
             display: block;
         }
+        
+        .terrain-canvas {
+            width: 100%;
+            height: 80px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
 
         /* Rounded blob waveform style */
         .waveform-wrapper {
@@ -1876,11 +1884,9 @@
                             <button class="preview-track-play-btn" onclick="playPreviewTrack(${i + 1}, event)">▶</button>
                         </div>
                         <div class="waveform-container">
-                            <div class="waveform-wrapper">
-                                <div class="waveform-bars" id="waveform-${i + 1}"></div>
-                            </div>
+                            <canvas class="terrain-canvas" id="terrain-${i + 1}"></canvas>
                             <div class="waveform-time">
-                                <span>0:00</span>
+                                <span class="time-current" id="time-current-${i + 1}">0:00</span>
                                 <span>${track.duration}</span>
                             </div>
                         </div>
@@ -1890,9 +1896,16 @@
                 overlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
                 
-                // Generate waveforms
+                // Initialize terrain visualizers for visible tracks
                 setTimeout(() => {
-                    pack.tracks.forEach((_, i) => generateWaveform(i + 1));
+                    pack.tracks.forEach((_, i) => {
+                        const trackNum = i + 1;
+                        const canvas = document.getElementById('terrain-' + trackNum);
+                        if (canvas && !terrainVisualizers.has(trackNum)) {
+                            const terrain = new TerrainVisualizer(canvas);
+                            terrainVisualizers.set(trackNum, terrain);
+                        }
+                    });
                 }, 50);
                 
                 updateCartUI();
@@ -1902,6 +1915,15 @@
                 const overlay = document.getElementById('previewOverlay');
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
+                
+                // Stop all audio and visualizers
+                audioPlayers.forEach((player, trackNum) => {
+                    player.audio.pause();
+                    player.audio.currentTime = 0;
+                    if (player.terrain) player.terrain.stop();
+                    updatePlayButton(trackNum, false);
+                });
+                currentlyPlayingTrack = null;
             };
 
             function generateWaveform(trackNum) {
@@ -1940,8 +1962,291 @@
 
             window.playPreviewTrack = function(trackNum, event) {
                 event.stopPropagation();
-                console.log('Playing track ' + trackNum + ' - audio files needed');
+                
+                const canvas = document.getElementById('terrain-' + trackNum);
+                if (!canvas) return;
+                
+                // Get or create terrain visualizer
+                let terrain = terrainVisualizers.get(trackNum);
+                if (!terrain) {
+                    terrain = new TerrainVisualizer(canvas);
+                    terrainVisualizers.set(trackNum, terrain);
+                }
+                
+                // Get or create audio player
+                let player = audioPlayers.get(trackNum);
+                if (!player) {
+                    const audio = new Audio();
+                    audio.crossOrigin = 'anonymous';
+                    audio.src = sampleAudioUrls[(trackNum - 1) % sampleAudioUrls.length];
+                    
+                    audio.addEventListener('ended', () => {
+                        terrain.stop();
+                        updatePlayButton(trackNum, false);
+                        currentlyPlayingTrack = null;
+                    });
+                    
+                    player = { audio, terrain };
+                    audioPlayers.set(trackNum, player);
+                    
+                    // Setup audio analysis
+                    audio.addEventListener('canplay', () => {
+                        terrain.resize();
+                        terrain.setupAudio(audio);
+                    }, { once: true });
+                }
+                
+                // Pause other tracks
+                if (currentlyPlayingTrack && currentlyPlayingTrack !== trackNum) {
+                    const otherPlayer = audioPlayers.get(currentlyPlayingTrack);
+                    if (otherPlayer) {
+                        otherPlayer.audio.pause();
+                        otherPlayer.terrain.stop();
+                        updatePlayButton(currentlyPlayingTrack, false);
+                    }
+                }
+                
+                // Toggle play/pause
+                if (player.audio.paused) {
+                    player.audio.play();
+                    terrain.start();
+                    updatePlayButton(trackNum, true);
+                    currentlyPlayingTrack = trackNum;
+                } else {
+                    player.audio.pause();
+                    terrain.stop();
+                    updatePlayButton(trackNum, false);
+                    currentlyPlayingTrack = null;
+                }
             };
+            
+            function updatePlayButton(trackNum, isPlaying) {
+                const btn = document.querySelector('.preview-track-item[data-track="' + trackNum + '"] .preview-track-play-btn');
+                if (btn) btn.textContent = isPlaying ? '⏸' : '▶';
+                
+                // Update time display
+                const player = audioPlayers.get(trackNum);
+                if (player && player.audio) {
+                    const timeEl = document.getElementById('time-current-' + trackNum);
+                    if (timeEl) {
+                        player.audio.addEventListener('timeupdate', () => {
+                            const mins = Math.floor(player.audio.currentTime / 60);
+                            const secs = Math.floor(player.audio.currentTime % 60).toString().padStart(2, '0');
+                            timeEl.textContent = mins + ':' + secs;
+                        });
+                    }
+                }
+            }
+            
+            // Audio players and terrain visualizers
+            const audioPlayers = new Map();
+            const terrainVisualizers = new Map();
+            let currentlyPlayingTrack = null;
+            
+            // Sample audio URLs for preview (CORS-enabled)
+            const sampleAudioUrls = [
+                'https://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg',
+                'https://upload.wikimedia.org/wikipedia/commons/4/40/Toreador_song_cleaned.ogg',
+                'https://upload.wikimedia.org/wikipedia/commons/6/6e/Micronesia_National_Anthem.ogg',
+                'https://upload.wikimedia.org/wikipedia/commons/b/bd/Rondo_Alla_Turca.ogg',
+                'https://upload.wikimedia.org/wikipedia/commons/d/d9/Ranz_des_vaches.ogg'
+            ];
+            
+            // TerrainVisualizer class
+            class TerrainVisualizer {
+                constructor(canvas) {
+                    this.canvas = canvas;
+                    this.ctx = canvas.getContext('2d');
+                    this.audioContext = null;
+                    this.analyser = null;
+                    this.dataArray = null;
+                    this.animationId = null;
+                    this.isPlaying = false;
+                    this.progress = 0;
+                    this.audioElement = null;
+                    
+                    // Terrain settings
+                    this.cols = 40;
+                    this.rows = 12;
+                    this.cellWidth = 0;
+                    this.cellHeight = 0;
+                    this.baseHeights = [];
+                    
+                    // Colors from the gradient
+                    this.colors = {
+                        blue: { r: 74, g: 144, b: 226 },
+                        orange: { r: 255, g: 107, b: 53 },
+                        sky: { r: 137, g: 196, b: 232 }
+                    };
+                    
+                    this.resize();
+                    this.generateBaseTerrain();
+                    this.drawStatic();
+                    
+                    window.addEventListener('resize', () => this.resize());
+                }
+                
+                resize() {
+                    const rect = this.canvas.getBoundingClientRect();
+                    const dpr = window.devicePixelRatio || 1;
+                    this.canvas.width = rect.width * dpr;
+                    this.canvas.height = rect.height * dpr;
+                    this.ctx.scale(dpr, dpr);
+                    this.width = rect.width;
+                    this.height = rect.height;
+                    this.cellWidth = this.width / this.cols;
+                    this.cellHeight = this.height / this.rows;
+                }
+                
+                generateBaseTerrain() {
+                    this.baseHeights = [];
+                    for (let x = 0; x < this.cols; x++) {
+                        const wave1 = Math.sin(x * 0.15) * 0.3;
+                        const wave2 = Math.sin(x * 0.3 + 1) * 0.2;
+                        const wave3 = Math.sin(x * 0.05) * 0.2;
+                        this.baseHeights.push(0.3 + wave1 + wave2 + wave3 + (Math.random() * 0.1));
+                    }
+                }
+                
+                setupAudio(audioElement) {
+                    this.audioElement = audioElement;
+                    
+                    if (!this.audioContext) {
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    
+                    if (this.audioContext.state === 'suspended') {
+                        this.audioContext.resume();
+                    }
+                    
+                    const source = this.audioContext.createMediaElementSource(audioElement);
+                    this.analyser = this.audioContext.createAnalyser();
+                    this.analyser.fftSize = 128;
+                    this.analyser.smoothingTimeConstant = 0.8;
+                    
+                    source.connect(this.analyser);
+                    this.analyser.connect(this.audioContext.destination);
+                    
+                    this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+                    
+                    // Sync progress
+                    audioElement.addEventListener('timeupdate', () => {
+                        if (audioElement.duration) {
+                            this.progress = audioElement.currentTime / audioElement.duration;
+                        }
+                    });
+                }
+                
+                start() {
+                    this.isPlaying = true;
+                    this.animate();
+                }
+                
+                stop() {
+                    this.isPlaying = false;
+                    if (this.animationId) {
+                        cancelAnimationFrame(this.animationId);
+                        this.animationId = null;
+                    }
+                    this.drawStatic();
+                }
+                
+                drawStatic() {
+                    this.ctx.clearRect(0, 0, this.width, this.height);
+                    
+                    for (let x = 0; x < this.cols; x++) {
+                        const baseHeight = this.baseHeights[x];
+                        const peakRow = Math.floor((1 - baseHeight) * this.rows);
+                        
+                        for (let y = 0; y < this.rows; y++) {
+                            const cellX = x * this.cellWidth;
+                            const cellY = y * this.cellHeight;
+                            
+                            if (y >= peakRow) {
+                                const depth = (y - peakRow) / (this.rows - peakRow);
+                                const t = x / this.cols;
+                                
+                                const r = Math.floor(this.colors.blue.r + (this.colors.orange.r - this.colors.blue.r) * t);
+                                const g = Math.floor(this.colors.blue.g + (this.colors.orange.g - this.colors.blue.g) * t);
+                                const b = Math.floor(this.colors.blue.b + (this.colors.orange.b - this.colors.blue.b) * t);
+                                
+                                const alpha = 0.15 + depth * 0.25;
+                                
+                                this.ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+                                this.ctx.fillRect(cellX + 1, cellY + 1, this.cellWidth - 2, this.cellHeight - 2);
+                            }
+                        }
+                    }
+                    
+                    // Progress line
+                    if (this.progress > 0) {
+                        const progressX = this.progress * this.width;
+                        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                        this.ctx.lineWidth = 2;
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(progressX, 0);
+                        this.ctx.lineTo(progressX, this.height);
+                        this.ctx.stroke();
+                    }
+                }
+                
+                animate() {
+                    if (!this.isPlaying) return;
+                    
+                    this.ctx.clearRect(0, 0, this.width, this.height);
+                    
+                    // Get frequency data if available
+                    let freqData = [];
+                    if (this.analyser && this.dataArray) {
+                        this.analyser.getByteFrequencyData(this.dataArray);
+                        freqData = Array.from(this.dataArray);
+                    }
+                    
+                    for (let x = 0; x < this.cols; x++) {
+                        // Base height with audio modulation
+                        let heightMod = 0;
+                        if (freqData.length > 0) {
+                            const freqIndex = Math.floor((x / this.cols) * freqData.length);
+                            heightMod = (freqData[freqIndex] / 255) * 0.4;
+                        }
+                        
+                        const baseHeight = this.baseHeights[x] + heightMod;
+                        const peakRow = Math.floor((1 - baseHeight) * this.rows);
+                        
+                        for (let y = 0; y < this.rows; y++) {
+                            const cellX = x * this.cellWidth;
+                            const cellY = y * this.cellHeight;
+                            
+                            if (y >= peakRow) {
+                                const depth = (y - peakRow) / (this.rows - peakRow);
+                                const t = x / this.cols;
+                                
+                                const r = Math.floor(this.colors.blue.r + (this.colors.orange.r - this.colors.blue.r) * t);
+                                const g = Math.floor(this.colors.blue.g + (this.colors.orange.g - this.colors.blue.g) * t);
+                                const b = Math.floor(this.colors.blue.b + (this.colors.orange.b - this.colors.blue.b) * t);
+                                
+                                const alpha = 0.2 + depth * 0.35 + heightMod * 0.3;
+                                
+                                this.ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+                                this.ctx.fillRect(cellX + 1, cellY + 1, this.cellWidth - 2, this.cellHeight - 2);
+                            }
+                        }
+                    }
+                    
+                    // Progress line
+                    if (this.progress > 0) {
+                        const progressX = this.progress * this.width;
+                        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+                        this.ctx.lineWidth = 2;
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(progressX, 0);
+                        this.ctx.lineTo(progressX, this.height);
+                        this.ctx.stroke();
+                    }
+                    
+                    this.animationId = requestAnimationFrame(() => this.animate());
+                }
+            }
 
             // Close preview on overlay click or ESC
             document.getElementById('previewOverlay').addEventListener('click', (e) => {
