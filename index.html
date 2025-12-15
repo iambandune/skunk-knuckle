@@ -1808,21 +1808,21 @@
                 
                 try {
                     // Build line items from cart
-                    const lineItems = [];
+                    const items = [];
                     // Map.forEach passes (value, key) - we stored the pack as value
                     sampleCart.forEach((pack, packId) => {
                         console.log('Cart item:', packId, pack);
                         if (pack && pack.priceId) {
-                            lineItems.push({
-                                price: pack.priceId,
+                            items.push({
+                                priceId: pack.priceId,
                                 quantity: 1
                             });
                         }
                     });
                     
-                    console.log('Line items:', lineItems);
+                    console.log('Items:', items);
                     
-                    if (lineItems.length === 0) {
+                    if (items.length === 0) {
                         alert('No valid items in cart');
                         return;
                     }
@@ -1831,7 +1831,7 @@
                     const response = await fetch('/api/checkout', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ lineItems })
+                        body: JSON.stringify({ items })
                     });
                     
                     const data = await response.json();
