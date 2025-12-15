@@ -963,10 +963,16 @@
         
         .terrain-canvas {
             width: 100%;
-            height: 80px;
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.3);
+            height: 72px;
+            border-radius: 36px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         /* Rounded blob waveform style */
@@ -2052,35 +2058,27 @@
                 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Ranz_des_vaches.ogg'
             ];
             
-            // TerrainVisualizer class
+            // TerrainVisualizer class - Scrolling 3D terrain
             class TerrainVisualizer {
                 constructor(canvas) {
                     this.canvas = canvas;
                     this.ctx = canvas.getContext('2d');
                     this.audioContext = null;
                     this.analyser = null;
-                    this.dataArray = null;
+                    this.frequencyData = null;
                     this.animationId = null;
                     this.isPlaying = false;
                     this.progress = 0;
                     this.audioElement = null;
+                    this.playheadOpacity = 0;
+                    this.targetPlayheadOpacity = 0;
                     
                     // Terrain settings
-                    this.cols = 40;
-                    this.rows = 12;
-                    this.cellWidth = 0;
-                    this.cellHeight = 0;
-                    this.baseHeights = [];
-                    
-                    // Colors from the gradient
-                    this.colors = {
-                        blue: { r: 74, g: 144, b: 226 },
-                        orange: { r: 255, g: 107, b: 53 },
-                        sky: { r: 137, g: 196, b: 232 }
-                    };
+                    this.terrainHistory = [];
+                    this.maxRows = 14;
+                    this.cols = 80;
                     
                     this.resize();
-                    this.generateBaseTerrain();
                     this.drawStatic();
                     
                     window.addEventListener('resize', () => this.resize());
@@ -2091,21 +2089,10 @@
                     const dpr = window.devicePixelRatio || 1;
                     this.canvas.width = rect.width * dpr;
                     this.canvas.height = rect.height * dpr;
+                    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
                     this.ctx.scale(dpr, dpr);
                     this.width = rect.width;
                     this.height = rect.height;
-                    this.cellWidth = this.width / this.cols;
-                    this.cellHeight = this.height / this.rows;
-                }
-                
-                generateBaseTerrain() {
-                    this.baseHeights = [];
-                    for (let x = 0; x < this.cols; x++) {
-                        const wave1 = Math.sin(x * 0.15) * 0.3;
-                        const wave2 = Math.sin(x * 0.3 + 1) * 0.2;
-                        const wave3 = Math.sin(x * 0.05) * 0.2;
-                        this.baseHeights.push(0.3 + wave1 + wave2 + wave3 + (Math.random() * 0.1));
-                    }
                 }
                 
                 setupAudio(audioElement) {
@@ -2121,13 +2108,13 @@
                     
                     const source = this.audioContext.createMediaElementSource(audioElement);
                     this.analyser = this.audioContext.createAnalyser();
-                    this.analyser.fftSize = 128;
-                    this.analyser.smoothingTimeConstant = 0.8;
+                    this.analyser.fftSize = 512;
+                    this.analyser.smoothingTimeConstant = 0.75;
                     
                     source.connect(this.analyser);
                     this.analyser.connect(this.audioContext.destination);
                     
-                    this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+                    this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
                     
                     // Sync progress
                     audioElement.addEventListener('timeupdate', () => {
@@ -2152,97 +2139,246 @@
                 }
                 
                 drawStatic() {
-                    this.ctx.clearRect(0, 0, this.width, this.height);
+                    const w = this.width;
+                    const h = this.height;
+                    const time = Date.now() / 1000;
                     
-                    for (let x = 0; x < this.cols; x++) {
-                        const baseHeight = this.baseHeights[x];
-                        const peakRow = Math.floor((1 - baseHeight) * this.rows);
+                    this.ctx.clearRect(0, 0, w, h);
+                    
+                    // Draw idle wave terrain
+                    const rows = 8;
+                    const rowHeight = h / rows;
+                    
+                    for (let row = rows - 1; row >= 0; row--) {
+                        const rowProgress = row / rows;
+                        const baseY = row * rowHeight + rowHeight / 2;
+                        const peakHeight = rowHeight * 2;
                         
-                        for (let y = 0; y < this.rows; y++) {
-                            const cellX = x * this.cellWidth;
-                            const cellY = y * this.cellHeight;
+                        this.ctx.beginPath();
+                        
+                        for (let col = 0; col <= this.cols; col++) {
+                            const x = (col / this.cols) * w;
+                            const idleWave = (Math.sin(time + col * 0.1) * 0.15 + 0.2) * 0.6;
+                            const peakY = baseY - idleWave * peakHeight;
                             
-                            if (y >= peakRow) {
-                                const depth = (y - peakRow) / (this.rows - peakRow);
-                                const t = x / this.cols;
-                                
-                                const r = Math.floor(this.colors.blue.r + (this.colors.orange.r - this.colors.blue.r) * t);
-                                const g = Math.floor(this.colors.blue.g + (this.colors.orange.g - this.colors.blue.g) * t);
-                                const b = Math.floor(this.colors.blue.b + (this.colors.orange.b - this.colors.blue.b) * t);
-                                
-                                const alpha = 0.15 + depth * 0.25;
-                                
-                                this.ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
-                                this.ctx.fillRect(cellX + 1, cellY + 1, this.cellWidth - 2, this.cellHeight - 2);
+                            if (col === 0) {
+                                this.ctx.moveTo(x, peakY);
+                            } else {
+                                this.ctx.lineTo(x, peakY);
                             }
                         }
+                        
+                        // Complete shape
+                        for (let col = this.cols; col >= 0; col--) {
+                            const x = (col / this.cols) * w;
+                            this.ctx.lineTo(x, baseY + rowHeight / 2);
+                        }
+                        this.ctx.closePath();
+                        
+                        // Color gradient - orange front to blue back
+                        const alpha = 0.3 + (1 - rowProgress) * 0.4;
+                        const r = Math.round(80 + (1 - rowProgress) * 175);
+                        const g = Math.round(140 + (1 - rowProgress) * 20);
+                        const b = Math.round(220 - (1 - rowProgress) * 140);
+                        
+                        const gradient = this.ctx.createLinearGradient(0, baseY - peakHeight, 0, baseY + rowHeight);
+                        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha})`);
+                        gradient.addColorStop(1, `rgba(${Math.round(r * 0.75)}, ${Math.round(g * 0.65)}, ${Math.round(b * 0.8)}, ${alpha * 0.6})`);
+                        
+                        this.ctx.fillStyle = gradient;
+                        this.ctx.fill();
+                        
+                        // Peak highlight
+                        this.ctx.strokeStyle = `rgba(255, 255, 255, ${0.15 + (1 - rowProgress) * 0.25})`;
+                        this.ctx.lineWidth = 1 + (1 - rowProgress) * 1;
+                        
+                        this.ctx.beginPath();
+                        for (let col = 0; col <= this.cols; col++) {
+                            const x = (col / this.cols) * w;
+                            const idleWave = (Math.sin(time + col * 0.1) * 0.15 + 0.2) * 0.6;
+                            const peakY = baseY - idleWave * peakHeight;
+                            
+                            if (col === 0) {
+                                this.ctx.moveTo(x, peakY);
+                            } else {
+                                this.ctx.lineTo(x, peakY);
+                            }
+                        }
+                        this.ctx.stroke();
                     }
                     
-                    // Progress line
-                    if (this.progress > 0) {
-                        const progressX = this.progress * this.width;
-                        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
-                        this.ctx.lineWidth = 2;
-                        this.ctx.beginPath();
-                        this.ctx.moveTo(progressX, 0);
-                        this.ctx.lineTo(progressX, this.height);
-                        this.ctx.stroke();
+                    // Light top fade
+                    const topFade = this.ctx.createLinearGradient(0, 0, 0, h * 0.2);
+                    topFade.addColorStop(0, 'rgba(255, 255, 255, 0.06)');
+                    topFade.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    this.ctx.fillStyle = topFade;
+                    this.ctx.fillRect(0, 0, w, h * 0.2);
+                    
+                    if (!this.isPlaying) {
+                        this.animationId = requestAnimationFrame(() => this.drawStatic());
                     }
                 }
                 
                 animate() {
                     if (!this.isPlaying) return;
                     
-                    this.ctx.clearRect(0, 0, this.width, this.height);
+                    const w = this.width;
+                    const h = this.height;
+                    const time = Date.now() / 1000;
                     
-                    // Get frequency data if available
-                    let freqData = [];
-                    if (this.analyser && this.dataArray) {
-                        this.analyser.getByteFrequencyData(this.dataArray);
-                        freqData = Array.from(this.dataArray);
+                    this.ctx.clearRect(0, 0, w, h);
+                    
+                    // Smooth playhead opacity
+                    if (this.isPlaying && this.progress > 0.01 && this.progress < 0.99) {
+                        this.targetPlayheadOpacity = 1;
+                    } else {
+                        this.targetPlayheadOpacity = 0;
+                    }
+                    this.playheadOpacity += (this.targetPlayheadOpacity - this.playheadOpacity) * 0.08;
+                    
+                    // Get frequency data
+                    if (this.analyser && this.isPlaying) {
+                        this.analyser.getByteFrequencyData(this.frequencyData);
                     }
                     
-                    for (let x = 0; x < this.cols; x++) {
-                        // Base height with audio modulation
-                        let heightMod = 0;
-                        if (freqData.length > 0) {
-                            const freqIndex = Math.floor((x / this.cols) * freqData.length);
-                            heightMod = (freqData[freqIndex] / 255) * 0.4;
+                    // Build current row from frequency data
+                    const currentRow = [];
+                    for (let i = 0; i < this.cols; i++) {
+                        let value;
+                        if (this.frequencyData && this.isPlaying) {
+                            const freqIndex = Math.floor(i * (this.frequencyData.length * 0.6) / this.cols);
+                            value = this.frequencyData[freqIndex] / 255;
+                            if (i > this.cols * 0.1 && i < this.cols * 0.5) {
+                                value *= 1.2;
+                            }
+                            value = Math.min(value, 1);
+                        } else {
+                            value = (Math.sin(time + i * 0.1) * 0.15 + 0.2) * 0.6;
                         }
+                        currentRow.push(value);
+                    }
+                    
+                    // Add to history (scrolling effect)
+                    this.terrainHistory.unshift(currentRow);
+                    if (this.terrainHistory.length > this.maxRows) {
+                        this.terrainHistory.pop();
+                    }
+                    
+                    // Draw playhead glow UNDERNEATH terrain
+                    if (this.playheadOpacity > 0.01) {
+                        const playheadX = this.progress * w;
+                        const pulseIntensity = 0.5 + Math.sin(time * 3) * 0.3;
+                        const glowOpacity = this.playheadOpacity;
                         
-                        const baseHeight = this.baseHeights[x] + heightMod;
-                        const peakRow = Math.floor((1 - baseHeight) * this.rows);
+                        // Soft beam
+                        const beamWidth = 50;
+                        const softBeamGradient = this.ctx.createLinearGradient(playheadX - beamWidth, 0, playheadX + beamWidth, 0);
+                        softBeamGradient.addColorStop(0, 'rgba(255, 150, 100, 0)');
+                        softBeamGradient.addColorStop(0.3, `rgba(255, 180, 130, ${0.12 * pulseIntensity * glowOpacity})`);
+                        softBeamGradient.addColorStop(0.5, `rgba(255, 200, 150, ${0.2 * pulseIntensity * glowOpacity})`);
+                        softBeamGradient.addColorStop(0.7, `rgba(255, 180, 130, ${0.12 * pulseIntensity * glowOpacity})`);
+                        softBeamGradient.addColorStop(1, 'rgba(255, 150, 100, 0)');
                         
-                        for (let y = 0; y < this.rows; y++) {
-                            const cellX = x * this.cellWidth;
-                            const cellY = y * this.cellHeight;
+                        this.ctx.fillStyle = softBeamGradient;
+                        this.ctx.fillRect(playheadX - beamWidth, 0, beamWidth * 2, h);
+                        
+                        // Radial glow at bottom
+                        const glowRadius = 40 + pulseIntensity * 20;
+                        const radialGlow = this.ctx.createRadialGradient(playheadX, h + 5, 0, playheadX, h + 5, glowRadius);
+                        radialGlow.addColorStop(0, `rgba(255, 180, 120, ${0.3 * pulseIntensity * glowOpacity})`);
+                        radialGlow.addColorStop(0.4, `rgba(255, 150, 100, ${0.12 * pulseIntensity * glowOpacity})`);
+                        radialGlow.addColorStop(1, 'rgba(255, 100, 60, 0)');
+                        
+                        this.ctx.fillStyle = radialGlow;
+                        this.ctx.beginPath();
+                        this.ctx.arc(playheadX, h + 5, glowRadius, 0, Math.PI * 2);
+                        this.ctx.fill();
+                    }
+                    
+                    // Draw terrain rows (back to front)
+                    const rows = this.terrainHistory.length;
+                    const rowHeight = h / this.maxRows;
+                    
+                    for (let row = rows - 1; row >= 0; row--) {
+                        const rowData = this.terrainHistory[row];
+                        const rowProgress = row / this.maxRows;
+                        const baseY = row * rowHeight + rowHeight / 2;
+                        const peakHeight = rowHeight * 2.5;
+                        
+                        this.ctx.beginPath();
+                        
+                        // Draw terrain peaks
+                        for (let col = 0; col <= this.cols; col++) {
+                            const x = (col / this.cols) * w;
+                            const value = rowData[Math.min(col, this.cols - 1)] || 0;
+                            const peakY = baseY - value * peakHeight;
                             
-                            if (y >= peakRow) {
-                                const depth = (y - peakRow) / (this.rows - peakRow);
-                                const t = x / this.cols;
-                                
-                                const r = Math.floor(this.colors.blue.r + (this.colors.orange.r - this.colors.blue.r) * t);
-                                const g = Math.floor(this.colors.blue.g + (this.colors.orange.g - this.colors.blue.g) * t);
-                                const b = Math.floor(this.colors.blue.b + (this.colors.orange.b - this.colors.blue.b) * t);
-                                
-                                const alpha = 0.2 + depth * 0.35 + heightMod * 0.3;
-                                
-                                this.ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
-                                this.ctx.fillRect(cellX + 1, cellY + 1, this.cellWidth - 2, this.cellHeight - 2);
+                            if (col === 0) {
+                                this.ctx.moveTo(x, peakY);
+                            } else {
+                                this.ctx.lineTo(x, peakY);
                             }
                         }
-                    }
-                    
-                    // Progress line
-                    if (this.progress > 0) {
-                        const progressX = this.progress * this.width;
-                        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
-                        this.ctx.lineWidth = 2;
+                        
+                        // Complete shape along bottom
+                        for (let col = this.cols; col >= 0; col--) {
+                            const x = (col / this.cols) * w;
+                            this.ctx.lineTo(x, baseY + rowHeight / 2);
+                        }
+                        this.ctx.closePath();
+                        
+                        // Color: orange (front) to blue (back)
+                        const alpha = 0.4 + (1 - rowProgress) * 0.55;
+                        const r = Math.round(80 + (1 - rowProgress) * 175);
+                        const g = Math.round(140 + (1 - rowProgress) * 20);
+                        const b = Math.round(220 - (1 - rowProgress) * 140);
+                        
+                        const gradient = this.ctx.createLinearGradient(0, baseY - peakHeight, 0, baseY + rowHeight);
+                        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha})`);
+                        gradient.addColorStop(1, `rgba(${Math.round(r * 0.75)}, ${Math.round(g * 0.65)}, ${Math.round(b * 0.8)}, ${alpha * 0.6})`);
+                        
+                        this.ctx.fillStyle = gradient;
+                        this.ctx.fill();
+                        
+                        // White peak highlight line
+                        this.ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 + (1 - rowProgress) * 0.4})`;
+                        this.ctx.lineWidth = 1.5 + (1 - rowProgress) * 1.5;
+                        
                         this.ctx.beginPath();
-                        this.ctx.moveTo(progressX, 0);
-                        this.ctx.lineTo(progressX, this.height);
+                        for (let col = 0; col <= this.cols; col++) {
+                            const x = (col / this.cols) * w;
+                            const value = rowData[Math.min(col, this.cols - 1)] || 0;
+                            const peakY = baseY - value * peakHeight;
+                            
+                            if (col === 0) {
+                                this.ctx.moveTo(x, peakY);
+                            } else {
+                                this.ctx.lineTo(x, peakY);
+                            }
+                        }
                         this.ctx.stroke();
                     }
+                    
+                    // Draw playhead line on top
+                    if (this.playheadOpacity > 0.01) {
+                        const playheadX = this.progress * w;
+                        const pulseIntensity = 0.6 + Math.sin(time * 3) * 0.4;
+                        
+                        this.ctx.strokeStyle = `rgba(255, 255, 255, ${(0.4 + pulseIntensity * 0.15) * this.playheadOpacity})`;
+                        this.ctx.lineWidth = 2;
+                        
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(playheadX, 4);
+                        this.ctx.lineTo(playheadX, h - 4);
+                        this.ctx.stroke();
+                    }
+                    
+                    // Light top fade
+                    const topFade = this.ctx.createLinearGradient(0, 0, 0, h * 0.2);
+                    topFade.addColorStop(0, 'rgba(255, 255, 255, 0.06)');
+                    topFade.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    this.ctx.fillStyle = topFade;
+                    this.ctx.fillRect(0, 0, w, h * 0.2);
                     
                     this.animationId = requestAnimationFrame(() => this.animate());
                 }
