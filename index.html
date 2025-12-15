@@ -1744,7 +1744,7 @@
                     id: 'human-voice-1',
                     name: 'human voice (vol. 1)',
                     price: 49,
-                    priceId: 'price_human_voice_1',
+                    priceId: 'price_1SefgI0HWozPhzBNiWHWUeis',
                     tracks: [
                         { name: 'whisper', duration: '0:32' },
                         { name: 'echo', duration: '0:28' },
@@ -1799,7 +1799,55 @@
 
             window.checkout = async function() {
                 if (sampleCart.size === 0) return;
-                alert('Stripe checkout coming soon! Cart has ' + sampleCart.size + ' item(s).');
+                
+                const checkoutBtn = document.querySelector('.cart-checkout-btn');
+                if (checkoutBtn) {
+                    checkoutBtn.disabled = true;
+                    checkoutBtn.textContent = 'processing...';
+                }
+                
+                try {
+                    // Build line items from cart
+                    const lineItems = [];
+                    sampleCart.forEach(packId => {
+                        const pack = samplePacks[packId];
+                        if (pack && pack.priceId) {
+                            lineItems.push({
+                                price: pack.priceId,
+                                quantity: 1
+                            });
+                        }
+                    });
+                    
+                    if (lineItems.length === 0) {
+                        alert('No valid items in cart');
+                        return;
+                    }
+                    
+                    // Call checkout API
+                    const response = await fetch('/api/checkout', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ lineItems })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.url) {
+                        // Redirect to Stripe Checkout
+                        window.location.href = data.url;
+                    } else {
+                        throw new Error(data.error || 'Failed to create checkout session');
+                    }
+                } catch (error) {
+                    console.error('Checkout error:', error);
+                    alert('Checkout failed: ' + error.message);
+                } finally {
+                    if (checkoutBtn) {
+                        checkoutBtn.disabled = false;
+                        checkoutBtn.textContent = 'checkout';
+                    }
+                }
             };
 
             // Preview modal
