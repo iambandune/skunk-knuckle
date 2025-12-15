@@ -1809,8 +1809,9 @@
                 try {
                     // Build line items from cart
                     const lineItems = [];
-                    sampleCart.forEach(packId => {
-                        const pack = samplePacks[packId];
+                    // Map.forEach passes (value, key) - we stored the pack as value
+                    sampleCart.forEach((pack, packId) => {
+                        console.log('Cart item:', packId, pack);
                         if (pack && pack.priceId) {
                             lineItems.push({
                                 price: pack.priceId,
@@ -1818,6 +1819,8 @@
                             });
                         }
                     });
+                    
+                    console.log('Line items:', lineItems);
                     
                     if (lineItems.length === 0) {
                         alert('No valid items in cart');
