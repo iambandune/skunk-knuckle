@@ -5,7 +5,7 @@
  * 
  * Environment Variables Required:
  * - DOWNLOAD_SECRET: Secret for verifying signed URLs
- * - R2_BUCKET: (optional) R2 bucket binding for file storage
+ * - SAMPLES_BUCKET: R2 bucket binding for file storage
  */
 
 export async function onRequestGet(context) {
@@ -21,6 +21,47 @@ export async function onRequestGet(context) {
     const sessionId = url.searchParams.get('session');
     const expires = url.searchParams.get('expires');
     const signature = url.searchParams.get('sig');
+    
+    // TEST MODE: If ?test=1, just check R2 connection
+    if (url.searchParams.get('test') === '1') {
+      return new Response(
+        JSON.stringify({ 
+          message: 'Download API working!',
+          hasBucket: !!env.SAMPLES_BUCKET,
+          timestamp: new Date().toISOString()
+        }),
+        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // TEST MODE: If ?test=download, try to download the file directly
+    if (url.searchParams.get('test') === 'download') {
+      if (!env.SAMPLES_BUCKET) {
+        return new Response(
+          JSON.stringify({ error: 'R2 bucket not configured' }),
+          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      
+      const testFile = 'human-voice-vol-1.zip';
+      const object = await env.SAMPLES_BUCKET.get(testFile);
+      
+      if (!object) {
+        return new Response(
+          JSON.stringify({ error: 'File not found', file: testFile }),
+          { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      
+      return new Response(object.body, {
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/zip',
+          'Content-Disposition': `attachment; filename="${testFile}"`,
+          'Content-Length': object.size,
+        },
+      });
+    }
 
     // Validate required params
     if (!file || !sessionId || !expires || !signature) {
@@ -47,8 +88,7 @@ export async function onRequestGet(context) {
       );
     }
 
-    // Serve the file
-    // Option 1: From R2 bucket (recommended for production)
+    // Serve the file from R2
     if (env.SAMPLES_BUCKET) {
       const object = await env.SAMPLES_BUCKET.get(file);
       
@@ -59,7 +99,6 @@ export async function onRequestGet(context) {
         );
       }
 
-      // Get filename from path
       const filename = file.split('/').pop();
       
       return new Response(object.body, {
@@ -73,22 +112,13 @@ export async function onRequestGet(context) {
       });
     }
 
-    // Option 2: Redirect to external storage URL (if using external CDN)
-    // const externalUrl = `https://your-cdn.com/${file}?token=...`;
-    // return Response.redirect(externalUrl, 302);
-
-    // Option 3: Placeholder response (for development)
+    // Fallback if R2 not configured
     return new Response(
       JSON.stringify({ 
-        message: 'Download system ready. R2 bucket not configured yet.',
-        file,
-        sessionId,
-        instructions: 'Set up SAMPLES_BUCKET R2 binding to enable downloads.'
+        error: 'Download system not configured',
+        help: 'R2 bucket binding required'
       }),
-      { 
-        status: 200, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      }
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
 
   } catch (error) {
