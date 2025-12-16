@@ -1923,6 +1923,20 @@
                         if (canvas && !terrainVisualizers.has(trackNum)) {
                             const terrain = new TerrainVisualizer(canvas);
                             terrainVisualizers.set(trackNum, terrain);
+                            
+                            // Add click-to-seek handler
+                            canvas.addEventListener('click', function(e) {
+                                const rect = canvas.getBoundingClientRect();
+                                const x = e.clientX - rect.left;
+                                const percent = Math.max(0, Math.min(1, x / rect.width));
+                                
+                                // Seek audio if loaded
+                                const player = audioPlayers.get(trackNum);
+                                if (player && player.audio && player.audio.duration) {
+                                    player.audio.currentTime = percent * player.audio.duration;
+                                    if (terrain.seekTo) terrain.seekTo(percent);
+                                }
+                            });
                         }
                     });
                 }, 50);
@@ -2166,6 +2180,12 @@
                 stop() {
                     this.isPlaying = false;
                     this.targetPlayheadOpacity = 0;
+                }
+                
+                // Allow seeking by setting progress and displayProgress
+                seekTo(percent) {
+                    this.progress = percent;
+                    this.displayProgress = percent;
                 }
                 
                 destroy() {
