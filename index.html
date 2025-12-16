@@ -612,9 +612,17 @@
                 margin-bottom: 40px;
             }
 
+            .container {
+                padding: 40px 16px;
+            }
+
             .sections-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+
+            .section-block {
+                padding: 24px;
             }
 
             .section-block.expanded {
@@ -625,12 +633,29 @@
                 font-size: 32px;
             }
 
+            /* Samples carousel on mobile - vertical stack */
+            .samples-carousel {
+                padding: 0;
+                max-width: 100%;
+            }
+
             .samples-viewport {
+                flex-direction: column;
+                gap: 16px;
+                overflow-x: hidden;
+                overflow-y: visible;
                 scroll-snap-type: none;
+                padding: 10px 0;
             }
 
             .sample-card {
-                flex: 0 0 280px;
+                flex: 0 0 auto;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .sample-card:hover {
+                transform: none;
             }
 
             .row {
@@ -639,7 +664,7 @@
 
             .carousel-container {
                 height: auto;
-                padding: 10px;
+                padding: 10px 0;
             }
 
             .carousel-viewport {
@@ -668,7 +693,7 @@
 
             .samples-carousel,
             .carousel-container {
-                padding: 0 10px;
+                padding: 0;
             }
         }
 
