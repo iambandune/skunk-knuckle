@@ -1,0 +1,44 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Grainy gradient background -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a8a8a;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#2d9494;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#d4a574;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#e8945c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a3a;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Noise filter for grain effect -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply"/>
+    </filter>
+    
+    <filter id="noiseOverlay">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.15 0" result="monoNoise"/>
+      <feBlend in="SourceGraphic" in2="monoNoise" mode="overlay"/>
+    </filter>
+  </defs>
+  
+  <!-- Background with gradient -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Noise overlay layer -->
+  <rect width="1200" height="630" fill="url(#bgGradient)" filter="url(#noiseOverlay)" opacity="1"/>
+  
+  <!-- journals. text centered -->
+  <text 
+    x="600" 
+    y="330" 
+    font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif" 
+    font-size="72" 
+    font-weight="400" 
+    fill="white" 
+    text-anchor="middle" 
+    dominant-baseline="middle"
+    style="letter-spacing: -1px;"
+  >journals.</text>
+</svg>
