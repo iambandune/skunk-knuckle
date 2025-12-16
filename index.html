@@ -16,6 +16,9 @@
     <meta name="twitter:title" content="journals. — mixing/mastering" />
     <meta name="twitter:description" content="we finish records. we focus on the emotion, shape everything around it, and keep the parts that feel most like you." />
     <meta name="twitter:image" content="/og-card.png?v=8" />
+    <!-- Mobile browser theme color - matches gradient top -->
+    <meta name="theme-color" content="#4A90E2" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <style>
         * {
             margin: 0;
@@ -29,6 +32,7 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             background: linear-gradient(180deg, 
                 #4A90E2 0%, 
                 #6CAFE3 25%,
@@ -36,8 +40,13 @@
                 #FF9F5C 75%, 
                 #FF7A42 90%,
                 #E67E22 100%);
+            background-attachment: fixed;
             position: relative;
             overflow-x: hidden;
+        }
+
+        html {
+            height: -webkit-fill-available;
         }
 
         /* Pixelated clouds */
