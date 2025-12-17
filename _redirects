@@ -1,10 +1,5 @@
 # Cloudflare Pages redirects
-/mixing /
-/mixing.html /
 
-# Samples routes
-/samples /samples.html 200
-/success /success.html 200
-
-# SPA fallback (must be last)
-/* /index.html 200
+# Legacy redirects (301 permanent)
+/mixing / 301
+/mixing.html / 301
