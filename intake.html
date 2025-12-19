@@ -183,7 +183,7 @@
 
         <div class="field">
           <label for="link">Streaming link to your track <span class="required">(required)</span></label>
-          <input type="text" id="link" name="link" placeholder="spotify, soundcloud, google drive, dropbox, etc." required />
+          <input type="url" id="link" name="link" placeholder="https://soundcloud.com/..." required pattern="https?://.*" />
           <span class="hint">Success tips: private SoundCloud or unlisted Drive/Dropbox link works great. If sending files later, 24-bit WAV preferred.</span>
         </div>
 
@@ -246,37 +246,78 @@
   const pricingClose = document.getElementById('pricingClose');
   const pricingFrame = document.getElementById('pricingFrame');
       
-      form.addEventListener('submit', function(e) {
+      form.addEventListener('submit', async function(e) {
         e.preventDefault();
         const name = (document.getElementById('name').value || '').trim();
-        const email = (document.getElementById('email').value || '').trim();
+        const email = (document.getElementById('email').value || '').trim().toLowerCase();
         const phone = (document.getElementById('phone').value || '').trim();
         const service = (document.getElementById('service').value || '').trim();
-        const link = (document.getElementById('link').value || '').trim();
+        let link = (document.getElementById('link').value || '').trim();
         const notes = (document.getElementById('notes').value || '').trim();
-        
 
+        // Required fields check
         if (!name || !email || !service || !link) {
-          alert('Please fill in your name, email, service, and a streaming link.');
+          statusHint.textContent = 'please fill in all required fields.';
+          statusHint.style.color = '#ffd9d9';
           return;
         }
 
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          statusHint.textContent = 'please enter a valid email address.';
+          statusHint.style.color = '#ffd9d9';
+          return;
+        }
+
+        // Check for common email typos
+        const typoPatterns = [/\.con$/i, /\.cmo$/i, /@gmial\./i, /@gamil\./i, /@gmai\./i];
+        if (typoPatterns.some(p => p.test(email))) {
+          statusHint.textContent = 'double-check your email — looks like there might be a typo.';
+          statusHint.style.color = '#ffd9d9';
+          return;
+        }
+
+        // URL validation - prepend https:// if missing
+        if (!/^https?:\/\//i.test(link)) {
+          link = 'https://' + link;
+        }
+        try {
+          new URL(link);
+        } catch {
+          statusHint.textContent = 'please enter a valid URL for your streaming link.';
+          statusHint.style.color = '#ffd9d9';
+          return;
+        }
+
+        // Reset status styling
+        statusHint.style.color = '';
         submitBtn.disabled = true;
-        statusHint.textContent = 'Sending…';
-        fetch('/api/intake', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, phone, service, link, notes })
-        }).then(async (res) => {
-          if (!res.ok) throw new Error(await res.text());
-          statusHint.textContent = 'Thanks! We got it and will reach out shortly.';
+        statusHint.textContent = 'sending…';
+
+        try {
+          const res = await fetch('/api/intake', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, phone, service, link, notes })
+          });
+          
+          const data = await res.json().catch(() => ({}));
+          
+          if (!res.ok) {
+            throw new Error(data.error || 'Something went wrong');
+          }
+          
+          statusHint.textContent = 'thanks! we got it and will reach out shortly.';
+          statusHint.style.color = '#d4ffd9';
           form.reset();
-        }).catch(err => {
+        } catch (err) {
           console.error(err);
-          statusHint.textContent = 'Something went wrong. Please try again in a moment.';
-        }).finally(() => {
+          statusHint.textContent = err.message || 'something went wrong. please try again.';
+          statusHint.style.color = '#ffd9d9';
+        } finally {
           submitBtn.disabled = false;
-        });
+        }
       });
 
       // Pricing modal open/close
