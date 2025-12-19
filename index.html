@@ -122,10 +122,14 @@
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.22);
             border-radius: 20px;
-            padding: 40px;
+            padding: 30px 40px;
             backdrop-filter: blur(12px);
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
         }
 
         .section-block:hover {
@@ -136,6 +140,9 @@
         .section-block.expanded {
             cursor: default;
             grid-column: 1 / -1;
+            min-height: auto;
+            display: block;
+            padding: 40px;
         }
 
         .section-block.expanded:hover {
@@ -143,6 +150,10 @@
         }
 
         .section-header {
+            margin-bottom: 0;
+        }
+
+        .section-block.expanded .section-header {
             margin-bottom: 12px;
         }
 
@@ -158,6 +169,51 @@
             font-size: 16px;
             color: rgba(255, 255, 255, 0.85);
             line-height: 1.5;
+        }
+
+        /* Expand hint - chevron and text */
+        .expand-hint {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 12px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .section-block.expanded .expand-hint {
+            display: none;
+        }
+
+        .expand-hint-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .expand-chevron {
+            width: 20px;
+            height: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(6px);
+            }
+            60% {
+                transform: translateY(3px);
+            }
+        }
+
+        .section-block:hover .expand-hint {
+            opacity: 1;
         }
 
         .section-content {
@@ -1167,10 +1223,16 @@
             <!-- Samples Section -->
             <div class="section-block" id="samples-section">
                 <div class="section-header">
-                    <div class="section-title">samples.</div>
+                    <div class="section-title">vocal samples.</div>
                     <div class="section-subtitle">
-                        vocal packs for producers who actually care about the vibe. no AI slop, just real textures.
+                        human sounds for human music. curated, not generated.
                     </div>
+                </div>
+                <div class="expand-hint">
+                    <span class="expand-hint-text">tap to explore</span>
+                    <svg class="expand-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
                 </div>
                 <div class="section-content">
                     <div class="samples-carousel">
@@ -1225,15 +1287,22 @@
                 <div class="section-header">
                     <div class="section-title">mix & master.</div>
                     <div class="section-subtitle">
-                        we make your tracks hit different. emotion first, everything else falls into place.
+                        we focus on the emotion, shape everything around it, and keep the parts that feel most like you.
                     </div>
                 </div>
+                <div class="expand-hint">
+                    <span class="expand-hint-text">tap to explore</span>
+                    <svg class="expand-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
                 <div class="section-content">
-                    <p class="intake-intro">
-                        we finish records. we focus on the emotion, shape everything around it, and keep the parts that feel most like you.
-                    </p>
-
                     <div class="form-card">
+                        <!-- Success Message (hidden by default) -->
+                        <div id="successMessage" style="display: none; text-align: center; padding: 60px 20px;">
+                            <h2 style="font-size: 48px; font-weight: 400; color: #fff; margin-bottom: 16px;">thank you!</h2>
+                            <p style="color: rgba(255,255,255,0.85); font-size: 18px;">we got your submission and will reach out shortly.</p>
+                        </div>
                         <form id="intakeForm">
                             <div class="row">
                                 <div class="field">
@@ -1277,7 +1346,7 @@
                             <div class="actions">
                                 <button type="submit" class="btn" id="submitBtn">send intake</button>
                                 <button type="button" class="btn" id="pricingBtn" aria-haspopup="dialog" aria-controls="pricingModal">pricing</button>
-                                <div class="hint" id="statusHint">we'll send this straight to journals.mp3@gmail.com</div>
+                                <div class="hint" id="statusHint">we'll send this straight to journals.sound@gmail.com</div>
                             </div>
                         </form>
                     </div>
@@ -1421,33 +1490,7 @@
                         </div>
                     </div>
 
-                    <!-- Track 6: Watch Me -->
-                    <div class="track-container">
-                        <img src="https://i1.sndcdn.com/artworks-bKWIdPq1exsDSgov-6Y5aXA-t500x500.jpg" 
-                             class="cover-art" 
-                             alt="Watch Me">
-                        <div class="label-row"><span class="label-badge">Sable Valley</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-6" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-6" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-6" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/7JuUz68cHrb8McfIFB4fgM?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-6" 
-                                    src="https://embed.music.apple.com/us/album/watch-me/1699677157?i=1699677676&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 7: You Got That -->
+                    <!-- Track 6: You Got That -->
                     <div class="track-container">
                         <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/47/29/42/47294259-dd68-d7f0-6fc7-bed7c721d5db/artwork.jpg/600x600bf-60.jpg" 
                              class="cover-art" 
@@ -1456,16 +1499,16 @@
                         <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                         <div class="music-players">
                             <div class="platform-buttons">
-                                <button id="spotify-btn-7" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-7" class="platform-button">Apple Music</button>
+                                <button id="spotify-btn-6" class="platform-button active">Spotify</button>
+                                <button id="apple-btn-6" class="platform-button">Apple Music</button>
                             </div>
-                            <iframe id="spotify-player-7" 
+                            <iframe id="spotify-player-6" 
                                     class="active" 
                                     src="https://open.spotify.com/embed/track/2KZNcQzlkmJV6UlH69kGpy?utm_source=generator&theme=0&view=minimal"
                                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                                     loading="lazy">
                             </iframe>
-                            <iframe id="apple-player-7" 
+                            <iframe id="apple-player-6" 
                                     src="https://embed.music.apple.com/us/album/you-got-that-colson-xl-remix/1590757906?i=1590757907&app=music"
                                     allow="autoplay *; encrypted-media *; fullscreen *;" 
                                     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
@@ -1473,7 +1516,7 @@
                         </div>
                     </div>
 
-                    <!-- Track 8: Respawn -->
+                    <!-- Track 7: Respawn -->
                     <div class="track-container">
                         <img src="https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/3a/e7/16/3ae7160a-6139-0eaa-c796-fe9f02d33478/cover.jpg/1200x630bb.jpg" 
                              class="cover-art" 
@@ -1482,16 +1525,16 @@
                         <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                         <div class="music-players">
                             <div class="platform-buttons">
-                                <button id="spotify-btn-8" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-8" class="platform-button">Apple Music</button>
+                                <button id="spotify-btn-7" class="platform-button active">Spotify</button>
+                                <button id="apple-btn-7" class="platform-button">Apple Music</button>
                             </div>
-                            <iframe id="spotify-player-8" 
+                            <iframe id="spotify-player-7" 
                                     class="active" 
                                     src="https://open.spotify.com/embed/track/3Qrmfu75oZzfQppeaUKOkm?utm_source=generator&theme=0&view=minimal"
                                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                                     loading="lazy">
                             </iframe>
-                            <iframe id="apple-player-8" 
+                            <iframe id="apple-player-7" 
                                     src="https://embed.music.apple.com/us/album/respawn-feat-ero808-jvss/1617320073?i=1617320075&app=music"
                                     allow="autoplay *; encrypted-media *; fullscreen *;" 
                                     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
@@ -1499,11 +1542,37 @@
                         </div>
                     </div>
 
-                    <!-- Track 9: Small Talk -->
+                    <!-- Track 8: Small Talk -->
                     <div class="track-container">
                         <img src="https://i1.sndcdn.com/artworks-lyqUr8Oh7rJstk18-5tO7Gg-t240x240.jpg" 
                              class="cover-art" 
                              alt="Small Talk (Colson XL Remix)">
+                        <div class="label-row"><span class="label-badge">independent</span></div>
+                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
+                        <div class="music-players">
+                            <div class="platform-buttons">
+                                <button id="spotify-btn-8" class="platform-button active">Spotify</button>
+                                <button id="apple-btn-8" class="platform-button">Apple Music</button>
+                            </div>
+                            <iframe id="spotify-player-8" 
+                                    class="active" 
+                                    src="https://open.spotify.com/embed/track/3VUB2APjgQ5kHMgWjtfEGD?utm_source=generator&theme=0&view=minimal"
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy">
+                            </iframe>
+                            <iframe id="apple-player-8" 
+                                    src="https://embed.music.apple.com/us/album/small-talk-colson-xl-remix/1538094657?i=1538094658&app=music"
+                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
+                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <!-- Track 9: Dreamgirl EP -->
+                    <div class="track-container">
+                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/8a/7c/b2/8a7cb2f0-ec7d-559f-f4cc-9a1af4dc240a/193872799551_cover.jpg/600x600bf-60.jpg" 
+                             class="cover-art" 
+                             alt="Dreamgirl EP">
                         <div class="label-row"><span class="label-badge">independent</span></div>
                         <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                         <div class="music-players">
@@ -1513,23 +1582,23 @@
                             </div>
                             <iframe id="spotify-player-9" 
                                     class="active" 
-                                    src="https://open.spotify.com/embed/track/3VUB2APjgQ5kHMgWjtfEGD?utm_source=generator&theme=0&view=minimal"
+                                    src="https://open.spotify.com/embed/album/2YO4jKw7zppJhdjnmwvYwp?utm_source=generator&theme=0&view=list"
                                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                                     loading="lazy">
                             </iframe>
                             <iframe id="apple-player-9" 
-                                    src="https://embed.music.apple.com/us/album/small-talk-colson-xl-remix/1538094657?i=1538094658&app=music"
+                                    src="https://embed.music.apple.com/us/album/dreamgirl-ep/1577870495?app=music"
                                     allow="autoplay *; encrypted-media *; fullscreen *;" 
                                     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
                             </iframe>
                         </div>
                     </div>
 
-                    <!-- Track 10: Dreamgirl EP -->
+                    <!-- Track 10: Huant -->
                     <div class="track-container">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/8a/7c/b2/8a7cb2f0-ec7d-559f-f4cc-9a1af4dc240a/193872799551_cover.jpg/600x600bf-60.jpg" 
+                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/89/39/96/893996e3-962b-5352-cf8b-3cf5f6f403f6/197773759201_cover.jpg/600x600bf-60.jpg" 
                              class="cover-art" 
-                             alt="Dreamgirl EP">
+                             alt="Huant">
                         <div class="label-row"><span class="label-badge">independent</span></div>
                         <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                         <div class="music-players">
@@ -1539,23 +1608,23 @@
                             </div>
                             <iframe id="spotify-player-10" 
                                     class="active" 
-                                    src="https://open.spotify.com/embed/album/2YO4jKw7zppJhdjnmwvYwp?utm_source=generator&theme=0&view=list"
+                                    src="https://open.spotify.com/embed/track/28vT0vfn4O1QDo2GkEzx9S?utm_source=generator&theme=0&view=minimal"
                                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                                     loading="lazy">
                             </iframe>
                             <iframe id="apple-player-10" 
-                                    src="https://embed.music.apple.com/us/album/dreamgirl-ep/1577870495?app=music"
+                                    src="https://embed.music.apple.com/us/album/huant/1702909191?i=1702909192&app=music"
                                     allow="autoplay *; encrypted-media *; fullscreen *;" 
                                     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
                             </iframe>
                         </div>
                     </div>
 
-                    <!-- Track 11: Huant -->
+                    <!-- Track 11: Too Easy -->
                     <div class="track-container">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/89/39/96/893996e3-962b-5352-cf8b-3cf5f6f403f6/197773759201_cover.jpg/600x600bf-60.jpg" 
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEfpf2_7TDtSYW6KWap7toHyAvntp56BKxGw&s" 
                              class="cover-art" 
-                             alt="Huant">
+                             alt="Too Easy">
                         <div class="label-row"><span class="label-badge">independent</span></div>
                         <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                         <div class="music-players">
@@ -1565,37 +1634,11 @@
                             </div>
                             <iframe id="spotify-player-11" 
                                     class="active" 
-                                    src="https://open.spotify.com/embed/track/28vT0vfn4O1QDo2GkEzx9S?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-11" 
-                                    src="https://embed.music.apple.com/us/album/huant/1702909191?i=1702909192&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 12: Too Easy -->
-                    <div class="track-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEfpf2_7TDtSYW6KWap7toHyAvntp56BKxGw&s" 
-                             class="cover-art" 
-                             alt="Too Easy">
-                        <div class="label-row"><span class="label-badge">independent</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-12" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-12" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-12" 
-                                    class="active" 
                                     src="https://open.spotify.com/embed/track/2hzlsZHIoKK3g2n7FWBDoG?utm_source=generator&theme=0&view=minimal"
                                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                                     loading="lazy">
                             </iframe>
-                            <iframe id="apple-player-12" 
+                            <iframe id="apple-player-11" 
                                     src="https://embed.music.apple.com/us/album/too-easy/1694801612?i=1694801613&app=music"
                                     allow="autoplay *; encrypted-media *; fullscreen *;" 
                                     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
@@ -1603,7 +1646,7 @@
                         </div>
                     </div>
 
-                    <!-- Track 14: Take Me There -->
+                    <!-- Track 13: Take Me There -->
                     <div class="track-container">
                         <img src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/d6/fd/67d6fdf9-792e-9a80-5ef8-8413e4799540/191079921966_cover.jpg/600x600bf-60.jpg" 
                              class="cover-art" 
@@ -1612,16 +1655,16 @@
                         <div class="track-credits">credits: mixing engineer, mastering engineer</div>
                         <div class="music-players">
                             <div class="platform-buttons">
-                                <button id="spotify-btn-14" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-14" class="platform-button">Apple Music</button>
+                                <button id="spotify-btn-13" class="platform-button active">Spotify</button>
+                                <button id="apple-btn-13" class="platform-button">Apple Music</button>
                             </div>
-                            <iframe id="spotify-player-14" 
+                            <iframe id="spotify-player-13" 
                                     class="active" 
                                     src="https://open.spotify.com/embed/track/0WFFymyrHFCs6Sy6rK9RuY?utm_source=generator&theme=0&view=minimal"
                                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                                     loading="lazy">
                             </iframe>
-                            <iframe id="apple-player-14" 
+                            <iframe id="apple-player-13" 
                                     src="https://embed.music.apple.com/us/album/take-me-there/1549299643?i=1549299644&app=music"
                                     allow="autoplay *; encrypted-media *; fullscreen *;" 
                                     sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
@@ -1651,7 +1694,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         document.addEventListener('DOMContentLoaded', function() {
             // Section expand/collapse
             const samplesSection = document.getElementById('samples-section');
@@ -1661,8 +1704,28 @@
                 section.classList.toggle('expanded');
             }
 
-            samplesSection.querySelector('.section-header').addEventListener('click', () => toggleSection(samplesSection));
-            mixmasterSection.querySelector('.section-header').addEventListener('click', () => toggleSection(mixmasterSection));
+            // Make whole card clickable when collapsed, only header when expanded
+            samplesSection.addEventListener('click', (e) => {
+                // If collapsed, any click expands
+                if (!samplesSection.classList.contains('expanded')) {
+                    toggleSection(samplesSection);
+                } 
+                // If expanded, only header click collapses
+                else if (e.target.closest('.section-header')) {
+                    toggleSection(samplesSection);
+                }
+            });
+
+            mixmasterSection.addEventListener('click', (e) => {
+                // If collapsed, any click expands
+                if (!mixmasterSection.classList.contains('expanded')) {
+                    toggleSection(mixmasterSection);
+                }
+                // If expanded, only header click collapses
+                else if (e.target.closest('.section-header')) {
+                    toggleSection(mixmasterSection);
+                }
+            });
 
             // Music player controls
             function setupPlayerControls(id) {
@@ -1701,7 +1764,6 @@
             setupPlayerControls('-11');
             setupPlayerControls('-12');
             setupPlayerControls('-13');
-            setupPlayerControls('-14');
 
             // Samples carousel navigation
             const samplesViewport = document.getElementById('samples-viewport');
@@ -1738,36 +1800,44 @@
             const pricingClose = document.getElementById('pricingClose');
             const pricingFrame = document.getElementById('pricingFrame');
 
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const name = (document.getElementById('name').value || '').trim();
                 const email = (document.getElementById('email').value || '').trim();
                 const phone = (document.getElementById('phone').value || '').trim();
                 const service = (document.getElementById('service').value || '').trim();
-                const link = (document.getElementById('link').value || '').trim();
+                let link = (document.getElementById('link').value || '').trim();
                 const notes = (document.getElementById('notes').value || '').trim();
 
                 if (!name || !email || !service || !link) {
-                    alert('Please fill in your name, email, service, and a streaming link.');
+                    statusHint.textContent = 'please fill in all required fields.'; statusHint.style.color = '#ffd9d9';
                     return;
                 }
 
+                // URL validation - prepend https:// if missing
+                if (!/^https?:\/\//i.test(link)) { link = 'https://' + link; }
+                
+                statusHint.style.color = '';
                 submitBtn.disabled = true;
-                statusHint.textContent = 'Sending…';
-                fetch('/api/intake', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, phone, service, link, notes })
-                }).then(async (res) => {
-                    if (!res.ok) throw new Error(await res.text());
-                    statusHint.textContent = 'Thanks! We got it and will reach out shortly.';
-                    form.reset();
-                }).catch(err => {
+                statusHint.textContent = 'sending...';
+
+                try {
+                    const res = await fetch('/api/intake', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email, phone, service, link, notes })
+                    });
+                    const data = await res.json().catch(() => ({}));
+                    if (!res.ok) { throw new Error(data.error || 'something went wrong.'); }
+                    form.style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                } catch (err) {
                     console.error(err);
-                    statusHint.textContent = 'Something went wrong. Please try again in a moment.';
-                }).finally(() => {
+                    statusHint.textContent = err.message || 'something went wrong. please try again.';
+                    statusHint.style.color = '#ffd9d9';
+                } finally {
                     submitBtn.disabled = false;
-                });
+                }
             });
 
             // Pricing modal
@@ -1839,6 +1909,19 @@
                 updateCartUI();
             };
 
+            // Panel button click handler - add to cart first, then checkout on second click
+            document.getElementById("panelCartBtn").addEventListener("click", function() {
+                const panel = document.getElementById("previewPanel");
+                const packId = panel.dataset.packId || "human-voice-1";
+                if (sampleCart.has(packId)) {
+                    // Item already in cart, now go to checkout
+                    checkout();
+                } else {
+                    // First click - add to cart (button will change to "checkout")
+                    toggleSampleCart(packId);
+                }
+            });
+
             function updateCartUI() {
                 const badge = document.getElementById('cartBadge');
                 const checkoutBtn = document.getElementById('checkoutFloatBtn');
@@ -1866,7 +1949,7 @@
                     const currentPackId = panel.dataset.packId || 'human-voice-1';
                     const inCart = sampleCart.has(currentPackId);
                     panelBtn.classList.toggle('in-cart', inCart);
-                    panelBtn.textContent = inCart ? 'remove from cart' : 'add to cart';
+                    panelBtn.textContent = inCart ? 'checkout' : 'add to cart';
                 }
             }
 
@@ -2488,9 +2571,10 @@
             <div class="preview-track-list" id="previewTrackList"></div>
             <div class="preview-footer">
                 <div class="preview-price" id="previewPrice">$49</div>
-                <button class="btn-add-cart" id="panelCartBtn" onclick="toggleSampleCart('human-voice-1')">add to cart</button>
+                <button class="btn-add-cart" id="panelCartBtn" >add to cart</button>
             </div>
         </div>
     </div>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"c32b86bb49ea48c1a853b20556c6e44e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
