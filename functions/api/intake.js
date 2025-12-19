@@ -123,7 +123,7 @@ export async function onRequestPost(context) {
     if (!resendApiKey) {
       console.error('RESEND_API_KEY not configured');
       return new Response(
-        JSON.stringify({ error: 'Email service not configured. Please contact us directly at journals.mp3@gmail.com' }),
+        JSON.stringify({ error: 'Email service not configured. Please contact us directly at journals.sound@gmail.com' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -155,7 +155,7 @@ Submitted: ${new Date().toISOString()}
       },
       body: JSON.stringify({
         from: 'journals. intake <onboarding@resend.dev>', // Use your verified domain later
-        to: ['journals.mp3@gmail.com'],
+        to: ['journals.sound@gmail.com'],
         reply_to: sanitized.email,
         subject: `🎧 New Intake: ${sanitized.name} — ${sanitized.service}`,
         text: emailBody,
