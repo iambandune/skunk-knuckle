@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing Sheet</title>
+    <meta name="theme-color" content="#4A90E2">
     <style>
         @page {
             size: A4;
@@ -15,10 +16,14 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        html, body {
+            height: 100%;
+            min-height: 100%;
+        }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            /* Align gradient with site palette */
             background: linear-gradient(180deg,
                 #4A90E2 0%,
                 #6CAFE3 25%,
@@ -27,8 +32,8 @@
                 #FF9F5C 70%,
                 #FF7A42 85%,
                 #FF6B35 100%);
+            background-attachment: fixed;
             color: #fff;
-            /* Responsive sheet defaults (no fixed A4 sizing) */
             padding: 24px;
             max-width: 860px;
             margin: 0 auto;
@@ -37,13 +42,9 @@
         .header { text-align: center; margin-bottom: 20px; }
         
         .header h1 { font-size: 32px; font-weight: 300; letter-spacing: 0.5px; margin-bottom: 8px; text-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        
         .header p { font-size: 14px; color: rgba(255,255,255,0.9); letter-spacing: 0.3px; font-weight: 300; }
-        
         .pricing-container { display: flex; flex-direction: column; gap: 14px; max-width: 700px; margin: 0 auto; }
-        
         .pricing-item { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 16px 18px; transition: all 0.3s ease; }
-        
         .pricing-item:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
@@ -51,7 +52,6 @@
         }
         
         .pricing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
-        
         .service-name-wrapper {
             display: flex;
             align-items: center;
@@ -61,19 +61,15 @@
         .service-name { font-size: 20px; font-weight: 400; letter-spacing: 0.5px; }
         
         .price { font-size: 26px; font-weight: 300; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        
         .price-symbol { font-size: 18px; color: rgba(255,255,255,0.8); margin-right: 2px; }
         
         .details { display: flex; flex-direction: column; gap: 8px; }
         
         .detail-item { font-size: 13px; color: rgba(255,255,255,0.95); line-height: 1.5; padding-left: 18px; position: relative; font-weight: 300; }
-        
         .detail-item:before { content: "•"; position: absolute; left: 0; color: rgba(255,255,255,0.7); font-size: 14px; }
-        
         .bundle-badge { display: inline-block; background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px; padding: 3px 10px; font-size: 10px; letter-spacing: 0.5px; text-transform: lowercase; color: rgba(255,255,255,0.95); font-weight: 400; }
-        
         .footer { margin-top: 16px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.85); letter-spacing: 0.3px; font-weight: 300; }
-        
+
         @media print {
             body {
                 background: linear-gradient(180deg,
@@ -89,10 +85,9 @@
             }
         }
 
-        /* Mobile compact layout */
         @media (max-width: 640px) {
             body {
-                width: 100vw;
+                width: 100%;
                 padding: 12px;
                 margin: 0;
             }
@@ -116,7 +111,6 @@
             .footer { margin-top: 10px; font-size: 11px; }
         }
 
-        /* Extra-compact when viewport height is small (e.g., laptop with small modal) */
         @media (max-height: 720px) {
             .header h1 { font-size: 24px; }
             .header p { font-size: 12px; }
