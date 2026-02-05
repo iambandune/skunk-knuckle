@@ -31,7 +31,6 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '2076925979518264');
     fbq('track', 'PageView');
-    fbq('track', 'Lead');
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=2076925979518264&ev=PageView&noscript=1"
@@ -1845,6 +1844,15 @@
                     });
                     const data = await res.json().catch(() => ({}));
                     if (!res.ok) { throw new Error(data.error || 'something went wrong.'); }
+                    
+                    // Fire Meta Pixel Lead event on successful form submission
+                    if (typeof fbq === 'function') {
+                        fbq('track', 'Lead', {
+                            content_name: 'Mix & Master Intake',
+                            content_category: service || 'mix-master'
+                        });
+                    }
+                    
                     form.style.display = 'none';
                     document.getElementById('successMessage').style.display = 'block';
                 } catch (err) {
