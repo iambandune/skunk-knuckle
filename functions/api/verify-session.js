@@ -49,7 +49,7 @@ export async function onRequestGet(context) {
     }
 
     // Build download links based on purchased items
-    const siteUrl = env.SITE_URL || new URL(request.url).origin;
+    const siteUrl = env.SITE_URL || 'https://journals-studio.com';
     const downloads = await generateDownloadLinks(session, env);
 
     // Get customer email
