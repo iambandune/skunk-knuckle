@@ -100,11 +100,11 @@ async function generateDownloadLinks(session, env) {
   // Map of Stripe price IDs to download info
   // TODO: Move this to a database or KV store in production
   const productDownloads = {
-    'price_1SefgI0HWozPhzBNiWHWUeis': {
+    'price_1Sxj250dru4mSFELaaA5gkTb': {
       name: 'human voice (vol. 1)',
       // R2 object key or direct URL
       fileKey: 'samples/human-voice-vol-1.zip',
-      size: '~150 MB',
+      size: '~484 MB',
     },
     // Add more products as needed
   };
