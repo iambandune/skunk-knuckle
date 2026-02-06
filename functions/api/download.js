@@ -43,7 +43,7 @@ export async function onRequestGet(context) {
         );
       }
       
-      const testFile = 'human-voice-vol-1.zip';
+      const testFile = 'samples/human-voice-vol-1.zip';
       const object = await env.SAMPLES_BUCKET.get(testFile);
       
       if (!object) {
