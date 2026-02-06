@@ -98,7 +98,7 @@ export async function onRequestGet(context) {
 async function sendDownloadEmail({ resendApiKey, to, orderId, downloads, siteUrl }) {
   const downloadLinksHtml = downloads.map(d => {
     // Encode & as &amp; for HTML email compatibility
-    const safeUrl = (siteUrl + d.url).replace(/&/g, '&amp;');
+    const safeUrl = (siteUrl.replace(/\/+$/, '') + d.url).replace(/&/g, '&amp;');
     return '<tr>' +
       '<td style="padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">' +
         '<div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 4px;">' + d.name + '</div>' +
