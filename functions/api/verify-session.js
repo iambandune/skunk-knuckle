@@ -141,7 +141,7 @@ async function sendDownloadEmail({ resendApiKey, to, orderId, downloads, siteUrl
                 '<td style="padding: 24px 32px; border-top: 1px solid rgba(255,255,255,0.08); text-align: center;">' +
                   '<div style="font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.6;">' +
                     'download links expire in 24 hours.<br>' +
-                    'need help? reach out at journals.mp3@gmail.com' +
+                    'need help? reach out at journals.sound@gmail.com' +
                   '</div>' +
                 '</td>' +
               '</tr>' +
