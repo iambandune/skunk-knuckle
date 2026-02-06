@@ -96,15 +96,17 @@ export async function onRequestGet(context) {
  * Send download links email via Resend
  */
 async function sendDownloadEmail({ resendApiKey, to, orderId, downloads, siteUrl }) {
-  const downloadLinksHtml = downloads.map(d =>
-    '<tr>' +
+  const downloadLinksHtml = downloads.map(d => {
+    // Encode & as &amp; for HTML email compatibility
+    const safeUrl = (siteUrl + d.url).replace(/&/g, '&amp;');
+    return '<tr>' +
       '<td style="padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">' +
         '<div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 4px;">' + d.name + '</div>' +
         '<div style="font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 12px;">' + d.size + '</div>' +
-        '<a href="' + siteUrl + d.url + '" style="display: inline-block; padding: 10px 24px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 500;">download</a>' +
+        '<a href="' + safeUrl + '" style="display: inline-block; padding: 10px 24px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 500;">download</a>' +
       '</td>' +
-    '</tr>'
-  ).join('');
+    '</tr>';
+  }).join('');
 
   const html =
     '<!DOCTYPE html>' +
