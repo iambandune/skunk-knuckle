@@ -2,11 +2,13 @@
  * Verify Session API - Cloudflare Pages Function
  * 
  * Verifies a Stripe checkout session and returns download links.
+ * Sends backup download links via email using Resend.
  * 
  * Environment Variables Required:
  * - STRIPE_SECRET_KEY: Your Stripe secret key
  * - R2_BUCKET: (optional) R2 bucket binding for file storage
  * - DOWNLOAD_SECRET: Secret for signing download URLs
+ * - RESEND_API_KEY: Resend API key for sending emails
  */
 
 export async function onRequestGet(context) {
@@ -47,13 +49,33 @@ export async function onRequestGet(context) {
     }
 
     // Build download links based on purchased items
+    const siteUrl = env.SITE_URL || new URL(request.url).origin;
     const downloads = await generateDownloadLinks(session, env);
+
+    // Get customer email
+    const customerEmail = session.customer_details?.email || session.customer_email;
+    const orderId = session.id.slice(-8).toUpperCase();
+
+    // Send backup download email (don't block the response if it fails)
+    if (customerEmail && env.RESEND_API_KEY) {
+      try {
+        await sendDownloadEmail({
+          resendApiKey: env.RESEND_API_KEY,
+          to: customerEmail,
+          orderId,
+          downloads,
+          siteUrl,
+        });
+      } catch (emailError) {
+        console.error('Failed to send download email:', emailError);
+      }
+    }
 
     return new Response(
       JSON.stringify({
         success: true,
-        orderId: session.id.slice(-8).toUpperCase(),
-        email: session.customer_details?.email || session.customer_email,
+        orderId,
+        email: customerEmail,
         total: session.amount_total,
         currency: session.currency,
         downloads,
@@ -71,14 +93,94 @@ export async function onRequestGet(context) {
 }
 
 /**
+ * Send download links email via Resend
+ */
+async function sendDownloadEmail({ resendApiKey, to, orderId, downloads, siteUrl }) {
+  const downloadLinksHtml = downloads.map(d =>
+    '<tr>' +
+      '<td style="padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">' +
+        '<div style="font-size: 16px; font-weight: 600; color: #ffffff; margin-bottom: 4px;">' + d.name + '</div>' +
+        '<div style="font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 12px;">' + d.size + '</div>' +
+        '<a href="' + siteUrl + d.url + '" style="display: inline-block; padding: 10px 24px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 500;">download</a>' +
+      '</td>' +
+    '</tr>'
+  ).join('');
+
+  const html =
+    '<!DOCTYPE html>' +
+    '<html>' +
+    '<body style="margin: 0; padding: 0; background-color: #1a1a2e; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif;">' +
+      '<table width="100%" cellpadding="0" cellspacing="0" style="background: linear-gradient(180deg, #4A90E2 0%, #6CAFE3 25%, #89C4E8 40%, #F4B674 55%, #FF9F5C 70%, #FF7A42 85%, #FF6B35 100%); padding: 40px 20px;">' +
+        '<tr>' +
+          '<td align="center">' +
+            '<table width="100%" cellpadding="0" cellspacing="0" style="max-width: 500px; background: rgba(0,0,0,0.6); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden;">' +
+              '<tr>' +
+                '<td style="padding: 32px 32px 16px; text-align: center;">' +
+                  '<div style="font-size: 28px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px;">journals.</div>' +
+                  '<div style="font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px;">your download is ready</div>' +
+                '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<td style="padding: 0 32px 24px;">' +
+                  '<div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 16px; text-align: center;">' +
+                    '<div style="font-size: 12px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px;">order</div>' +
+                    '<div style="font-size: 18px; font-weight: 600; color: #ffffff; margin-top: 4px;">#' + orderId + '</div>' +
+                  '</div>' +
+                '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<td style="padding: 0 32px 32px;">' +
+                  '<table width="100%" cellpadding="0" cellspacing="0">' +
+                    downloadLinksHtml +
+                  '</table>' +
+                '</td>' +
+              '</tr>' +
+              '<tr>' +
+                '<td style="padding: 24px 32px; border-top: 1px solid rgba(255,255,255,0.08); text-align: center;">' +
+                  '<div style="font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.6;">' +
+                    'download links expire in 24 hours.<br>' +
+                    'need help? reach out at journals.mp3@gmail.com' +
+                  '</div>' +
+                '</td>' +
+              '</tr>' +
+            '</table>' +
+          '</td>' +
+        '</tr>' +
+      '</table>' +
+    '</body>' +
+    '</html>';
+
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + resendApiKey,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'journals. <noreply@mail.journals-studio.com>',
+      to: [to],
+      subject: 'your downloads are ready \u2014 order #' + orderId,
+      html: html,
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Resend API error');
+  }
+
+  return response.json();
+}
+
+/**
  * Retrieve a Stripe checkout session
  */
 async function getStripeCheckoutSession(secretKey, sessionId) {
   const response = await fetch(
-    `https://api.stripe.com/v1/checkout/sessions/${sessionId}?expand[]=line_items`,
+    'https://api.stripe.com/v1/checkout/sessions/' + sessionId + '?expand[]=line_items',
     {
       headers: {
-        'Authorization': `Bearer ${secretKey}`,
+        'Authorization': 'Bearer ' + secretKey,
       },
     }
   );
@@ -97,19 +199,14 @@ async function getStripeCheckoutSession(secretKey, sessionId) {
 async function generateDownloadLinks(session, env) {
   const downloads = [];
   
-  // Map of Stripe price IDs to download info
-  // TODO: Move this to a database or KV store in production
   const productDownloads = {
     'price_1Sxj250dru4mSFELaaA5gkTb': {
       name: 'human voice (vol. 1)',
-      // R2 object key or direct URL
       fileKey: 'samples/human-voice-vol-1.zip',
       size: '~484 MB',
     },
-    // Add more products as needed
   };
 
-  // Get purchased items from session metadata or line items
   const purchasedItems = session.metadata?.items 
     ? JSON.parse(session.metadata.items) 
     : [];
@@ -117,7 +214,6 @@ async function generateDownloadLinks(session, env) {
   for (const priceId of purchasedItems) {
     const product = productDownloads[priceId];
     if (product) {
-      // Generate a signed download URL
       const downloadUrl = await generateSignedUrl(product.fileKey, env, session.id);
       
       downloads.push({
@@ -128,13 +224,11 @@ async function generateDownloadLinks(session, env) {
     }
   }
 
-  // Fallback: if no specific items found, return a generic download
   if (downloads.length === 0 && session.amount_total > 0) {
     downloads.push({
       name: 'human voice (vol. 1)',
       size: '~150 MB',
-      // This will be a placeholder until R2 is set up
-      url: `/api/download?session=${session.id}&file=human-voice-vol-1`,
+      url: '/api/download?session=' + session.id + '&file=human-voice-vol-1',
     });
   }
 
@@ -147,9 +241,8 @@ async function generateDownloadLinks(session, env) {
  */
 async function generateSignedUrl(fileKey, env, sessionId) {
   const secret = env.DOWNLOAD_SECRET || 'dev-secret-change-me';
-  const expires = Date.now() + (24 * 60 * 60 * 1000); // 24 hours
+  const expires = Date.now() + (24 * 60 * 60 * 1000);
   
-  // Create signature
   const encoder = new TextEncoder();
   const key = await crypto.subtle.importKey(
     'raw',
@@ -159,17 +252,16 @@ async function generateSignedUrl(fileKey, env, sessionId) {
     ['sign']
   );
   
-  const data = `${fileKey}:${sessionId}:${expires}`;
+  const data = fileKey + ':' + sessionId + ':' + expires;
   const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(data));
   const sig = btoa(String.fromCharCode(...new Uint8Array(signature))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
   
-  // Build download URL
   const params = new URLSearchParams({
     file: fileKey,
     session: sessionId,
     expires: expires.toString(),
-    sig,
+    sig: sig,
   });
   
-  return `/api/download?${params.toString()}`;
+  return '/api/download?' + params.toString();
 }
