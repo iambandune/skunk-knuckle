@@ -21,7 +21,6 @@
     fbq('init', '2076925979518264');
     fbq('track', 'PageView');
     fbq('track', 'Lead');
-    fbq('track', 'Purchase', {currency: 'USD', value: 0});
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=2076925979518264&ev=PageView&noscript=1"
@@ -448,6 +447,14 @@
                 document.getElementById('orderId').textContent = data.orderId || sessionId.slice(-8);
                 document.getElementById('customerEmail').textContent = data.email || '—';
                 document.getElementById('totalAmount').textContent = data.total ? `$${(data.total / 100).toFixed(0)}` : '$49';
+
+                // Fire Meta Pixel Purchase event with real value
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Purchase', {
+                        value: data.total ? (data.total / 100) : 49,
+                        currency: data.currency || 'USD'
+                    });
+                }
 
                 // Populate downloads
                 const downloadsList = document.getElementById('downloadsList');
