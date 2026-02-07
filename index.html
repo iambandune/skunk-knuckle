@@ -1838,20 +1838,24 @@
                 statusHint.textContent = 'sending...';
 
                 try {
+                    // Generate unique event ID for Meta CAPI deduplication
+                    const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                    
                     const res = await fetch('/api/intake', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ name, email, phone, service, link, notes })
+                        body: JSON.stringify({ name, email, phone, service, link, notes, eventId })
                     });
                     const data = await res.json().catch(() => ({}));
                     if (!res.ok) { throw new Error(data.error || 'something went wrong.'); }
                     
                     // Fire Meta Pixel Lead event on successful form submission
+                    // Uses eventId for deduplication with server-side CAPI
                     if (typeof fbq === 'function') {
                         fbq('track', 'Lead', {
                             content_name: 'Mix & Master Intake',
                             content_category: service || 'mix-master'
-                        });
+                        }, { eventID: eventId });
                     }
                     
                     form.style.display = 'none';

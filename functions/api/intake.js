@@ -3,10 +3,23 @@
  * 
  * Receives intake form submissions, validates them, and sends
  * an email notification via Resend API.
+ * Also sends conversion data to Meta via Conversions API.
  * 
  * Environment Variables Required:
  * - RESEND_API_KEY: Your Resend API key (re_...)
+ * - META_ACCESS_TOKEN: Your Meta Conversions API access token
  */
+
+// SHA-256 hash helper for Meta CAPI (requires lowercase, trimmed input)
+async function hashForMeta(value) {
+  if (!value) return null;
+  const normalized = String(value).trim().toLowerCase();
+  const encoder = new TextEncoder();
+  const data = encoder.encode(normalized);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -20,7 +33,7 @@ export async function onRequestPost(context) {
 
   try {
     const body = await request.json();
-    const { name, email, phone, service, link, notes } = body;
+    const { name, email, phone, service, link, notes, eventId } = body;
 
     // ─────────────────────────────────────────────────────────────
     // VALIDATION
@@ -169,6 +182,68 @@ Submitted: ${new Date().toISOString()}
         JSON.stringify({ error: 'Failed to send notification. Please try again or contact us directly.' }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // META CONVERSIONS API (Server-Side Lead Event)
+    // ─────────────────────────────────────────────────────────────
+    const metaAccessToken = env.META_ACCESS_TOKEN;
+    const metaPixelId = '2076925979518264';
+    
+    if (metaAccessToken) {
+      try {
+        // Hash user data for privacy (Meta requires SHA-256 lowercase hex)
+        const hashedEmail = await hashForMeta(sanitized.email);
+        const hashedPhone = sanitized.phone ? await hashForMeta(sanitized.phone.replace(/\D/g, '')) : null;
+        const hashedName = await hashForMeta(sanitized.name.split(' ')[0]); // First name only
+        
+        const eventData = {
+          data: [{
+            event_name: 'Lead',
+            event_time: Math.floor(Date.now() / 1000),
+            event_id: eventId || `lead_${Date.now()}`, // For deduplication with browser pixel
+            event_source_url: 'https://journals-studio.com/',
+            action_source: 'website',
+            user_data: {
+              em: hashedEmail ? [hashedEmail] : undefined,
+              ph: hashedPhone ? [hashedPhone] : undefined,
+              fn: hashedName ? [hashedName] : undefined,
+              client_user_agent: request.headers.get('user-agent') || undefined,
+              client_ip_address: request.headers.get('cf-connecting-ip') || undefined,
+            },
+            custom_data: {
+              content_name: 'Mix & Master Intake',
+              content_category: sanitized.service || 'mix-master',
+            },
+          }],
+        };
+        
+        // Remove undefined values from user_data
+        Object.keys(eventData.data[0].user_data).forEach(key => {
+          if (eventData.data[0].user_data[key] === undefined) {
+            delete eventData.data[0].user_data[key];
+          }
+        });
+        
+        const capiResponse = await fetch(
+          `https://graph.facebook.com/v18.0/${metaPixelId}/events?access_token=${metaAccessToken}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(eventData),
+          }
+        );
+        
+        if (!capiResponse.ok) {
+          const capiError = await capiResponse.text();
+          console.error('Meta CAPI error:', capiResponse.status, capiError);
+        } else {
+          console.log('Meta CAPI Lead event sent successfully');
+        }
+      } catch (capiErr) {
+        // Don't fail the request if CAPI fails - just log it
+        console.error('Meta CAPI error:', capiErr);
+      }
     }
 
     // Success!
