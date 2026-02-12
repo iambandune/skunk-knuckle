@@ -202,7 +202,7 @@ async function generateDownloadLinks(session, env) {
   const downloads = [];
   
   const productDownloads = {
-    'price_1Sxj250dru4mSFELaaA5gkTb': {
+    'price_1SznC60dru4mSFEL0wG8wbYH': {
       name: 'human voice (vol. 1)',
       fileKey: 'samples/human-voice-vol-1.zip',
       size: '~484 MB',
