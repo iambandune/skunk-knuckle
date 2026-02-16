@@ -34,41 +34,69 @@
                 #FF6B35 100%);
             background-attachment: fixed;
             color: #fff;
-            padding: 24px;
+            padding: 32px 24px;
             max-width: 860px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+            min-height: 100dvh;
         }
         
-        .header { text-align: center; margin-bottom: 20px; }
+        .header { text-align: center; margin-bottom: 36px; }
         
-        .header h1 { font-size: 32px; font-weight: 300; letter-spacing: 0.5px; margin-bottom: 8px; text-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .header p { font-size: 14px; color: rgba(255,255,255,0.9); letter-spacing: 0.3px; font-weight: 300; }
-        .pricing-container { display: flex; flex-direction: column; gap: 14px; max-width: 700px; margin: 0 auto; }
-        .pricing-item { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 12px; padding: 16px 18px; transition: all 0.3s ease; }
+        .header h1 { font-size: 36px; font-weight: 300; letter-spacing: 0.5px; margin-bottom: 8px; text-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .header p { font-size: 14px; color: rgba(255,255,255,0.85); letter-spacing: 0.3px; font-weight: 300; }
+
+        .pricing-container { display: flex; flex-direction: column; gap: 18px; max-width: 520px; margin: 0 auto; width: 100%; }
+
+        .pricing-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 22px 24px;
+            transition: all 0.3s ease;
+        }
         .pricing-item:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
         
-        .pricing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
+        .pricing-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
         .service-name-wrapper {
             display: flex;
             align-items: center;
             gap: 12px;
         }
         
-        .service-name { font-size: 20px; font-weight: 400; letter-spacing: 0.5px; }
+        .service-name { font-size: 22px; font-weight: 400; letter-spacing: 0.5px; }
         
-        .price { font-size: 26px; font-weight: 300; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .price { font-size: 28px; font-weight: 300; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .price-symbol { font-size: 18px; color: rgba(255,255,255,0.8); margin-right: 2px; }
         
         .details { display: flex; flex-direction: column; gap: 8px; }
         
-        .detail-item { font-size: 13px; color: rgba(255,255,255,0.95); line-height: 1.5; padding-left: 18px; position: relative; font-weight: 300; }
-        .detail-item:before { content: "•"; position: absolute; left: 0; color: rgba(255,255,255,0.7); font-size: 14px; }
-        .bundle-badge { display: inline-block; background: rgba(255, 255, 255, 0.25); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px; padding: 3px 10px; font-size: 10px; letter-spacing: 0.5px; text-transform: lowercase; color: rgba(255,255,255,0.95); font-weight: 400; }
-        .footer { margin-top: 16px; text-align: center; font-size: 12px; color: rgba(255,255,255,0.85); letter-spacing: 0.3px; font-weight: 300; }
+        .detail-item { font-size: 13.5px; color: rgba(255,255,255,0.95); line-height: 1.5; padding-left: 18px; position: relative; font-weight: 300; }
+        .detail-item:before { content: "•"; position: absolute; left: 0; color: rgba(255,255,255,0.6); font-size: 14px; }
+
+        .footer {
+            margin-top: 36px;
+            text-align: center;
+            font-size: 12.5px;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.3px;
+            font-weight: 300;
+        }
 
         @media print {
             body {
@@ -88,38 +116,40 @@
         @media (max-width: 640px) {
             body {
                 width: 100%;
-                padding: 12px;
+                padding: 24px 16px;
                 margin: 0;
             }
-            .header { margin-bottom: 16px; }
-            .header h1 { font-size: 24px; margin-bottom: 6px; }
+            .header { margin-bottom: 28px; }
+            .header h1 { font-size: 28px; margin-bottom: 6px; }
             .header p { font-size: 12px; }
 
-            .pricing-container { max-width: 100%; gap: 8px; }
-            .pricing-item { padding: 10px 12px; border-radius: 10px; }
-            .pricing-header { margin-bottom: 8px; padding-bottom: 6px; }
+            .pricing-container { max-width: 100%; gap: 14px; }
+            .pricing-item { padding: 18px 16px; border-radius: 14px; }
+            .pricing-header { margin-bottom: 10px; padding-bottom: 10px; }
 
-            .service-name { font-size: 16px; }
-            .price { font-size: 20px; }
+            .service-name { font-size: 18px; }
+            .price { font-size: 24px; }
             .price-symbol { font-size: 14px; }
 
-            .details { gap: 4px; }
-            .detail-item { font-size: 11px; line-height: 1.4; }
+            .details { gap: 6px; }
+            .detail-item { font-size: 12px; line-height: 1.4; }
             .detail-item:before { font-size: 12px; }
 
-            .bundle-badge { font-size: 9px; padding: 2px 8px; }
-            .footer { margin-top: 10px; font-size: 11px; }
+            .footer { margin-top: 28px; font-size: 11px; }
         }
 
         @media (max-height: 720px) {
-            .header h1 { font-size: 24px; }
+            body { padding: 20px 24px; }
+            .header { margin-bottom: 24px; }
+            .header h1 { font-size: 28px; }
             .header p { font-size: 12px; }
-            .pricing-item { padding: 12px 14px; }
+            .pricing-container { gap: 14px; }
+            .pricing-item { padding: 16px 18px; }
             .service-name { font-size: 18px; }
-            .price { font-size: 22px; }
+            .price { font-size: 24px; }
             .price-symbol { font-size: 14px; }
-            .detail-item { font-size: 12px; }
-            .footer { font-size: 11px; }
+            .detail-item { font-size: 12.5px; }
+            .footer { margin-top: 24px; font-size: 11px; }
         }
     </style>
 </head>
@@ -141,6 +171,8 @@
             </div>
             <div class="details">
                 <div class="detail-item">up to 7 group stems</div>
+                <div class="detail-item">5 revisions included</div>
+                <div class="detail-item">$25 per additional revision</div>
             </div>
         </div>
         
@@ -148,11 +180,15 @@
             <div class="pricing-header">
                 <div class="service-name-wrapper">
                     <h2 class="service-name">mix + master</h2>
-                    <span class="bundle-badge">bundle</span>
                 </div>
                 <div class="price">
                     <span class="price-symbol">$</span>100
                 </div>
+            </div>
+            <div class="details">
+                <div class="detail-item">up to 50 tracks</div>
+                <div class="detail-item">5 revisions included</div>
+                <div class="detail-item">$25 per additional revision</div>
             </div>
         </div>
     </div>
