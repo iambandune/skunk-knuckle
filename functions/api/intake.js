@@ -120,7 +120,7 @@ export async function onRequestPost(context) {
     }
 
     // Service must be one of the allowed values
-    const allowedServices = ['mix', 'master', 'both'];
+    const allowedServices = ['stem-master', 'mix-and-master'];
     if (!allowedServices.includes(sanitized.service)) {
       return new Response(
         JSON.stringify({ error: 'Invalid service selection.' }),
@@ -141,6 +141,13 @@ export async function onRequestPost(context) {
       );
     }
 
+    // Map service slugs to display labels
+    const serviceLabels = {
+      'stem-master': 'Stem Master',
+      'mix-and-master': 'Mix + Master',
+    };
+    const serviceDisplay = serviceLabels[sanitized.service] || sanitized.service;
+
     // Format the email body
     const emailBody = `
 New Intake Form Submission
@@ -149,7 +156,7 @@ New Intake Form Submission
 Name: ${sanitized.name}
 Email: ${sanitized.email}
 Phone: ${sanitized.phone || '(not provided)'}
-Service: ${sanitized.service}
+Service: ${serviceDisplay}
 Streaming Link: ${parsedUrl.href}
 
 Notes:
@@ -170,7 +177,7 @@ Submitted: ${new Date().toISOString()}
         from: 'journals. intake <onboarding@resend.dev>', // Use your verified domain later
         to: ['journals.sound@gmail.com'],
         reply_to: sanitized.email,
-        subject: `🎧 New Intake: ${sanitized.name} — ${sanitized.service}`,
+        subject: `🎧 New Intake: ${sanitized.name} — ${serviceDisplay}`,
         text: emailBody,
       }),
     });
