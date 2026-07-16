@@ -168,5 +168,14 @@
       });
     });
   </script>
+<script>
+  // close the hamburger menu when returning via back/forward navigation (bfcache restore)
+  window.addEventListener('pageshow', function() {
+    var overlay = document.querySelector('.menu-overlay');
+    var icon = document.querySelector('.menu-icon');
+    if (overlay) overlay.classList.remove('active');
+    if (icon) icon.classList.remove('active');
+  });
+</script>
 </body>
 </html>
