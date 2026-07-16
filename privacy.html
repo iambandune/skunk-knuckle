@@ -97,7 +97,7 @@
         <span></span>
       </div>
     </div>
-    <a href="/" class="back-icon" aria-label="back to home" title="back">
+    <a href="/" class="back-icon" aria-label="back" title="back" onclick="if (history.length > 1 && document.referrer.indexOf(location.hostname) !== -1) { history.back(); return false; }">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M15 6l-6 6 6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -105,8 +105,8 @@
   </div>
   <div class="menu-overlay">
     <nav class="menu-content">
-      <a href="coming_soon.html">samples (coming soon)</a>
-      <a href="/">mixing/mastering</a>
+      <a href="/privacy">privacy policy</a>
+      <a href="/">home</a>
     </nav>
   </div>
 
