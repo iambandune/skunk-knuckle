@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>journals. - Privacy</title>
+  <!-- Open Graph for rich link previews -->
+  <meta property="og:title" content="journals. — privacy" />
+  <meta property="og:description" content="how we handle your information at journals." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/privacy.html" />
+  <meta property="og:image" content="/og-card.png?v=8" />
+  <meta property="og:image:width" content="2400" />
+  <meta property="og:image:height" content="2400" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="journals. — privacy" />
+  <meta name="twitter:description" content="how we handle your information at journals." />
+  <meta name="twitter:image" content="/og-card.png?v=8" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Render all UI text in lowercase */
+    html, body { text-transform: lowercase; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
+      min-height: 100vh;
+      background: linear-gradient(180deg,
+        #4A90E2 0%,
+        #6CAFE3 25%,
+        #89C4E8 40%,
+        #F4B674 55%,
+        #FF9F5C 70%,
+        #FF7A42 85%,
+        #FF6B35 100%);
+      position: relative; overflow-x: hidden;
+    }
+
+    .container { max-width: 840px; margin: 0 auto; padding: 66px 20px 60px; position: relative; z-index: 10; }
+    /* Pixelated clouds */
+    .cloud { position: absolute; background: rgba(255, 255, 255, 0.3); border-radius: 100px; opacity: 0.4; filter: contrast(150%) brightness(120%); }
+    .cloud::before { content: ''; position: absolute; background: rgba(255, 255, 255, 0.3); border-radius: 100px; }
+    .cloud1 { width: 120px; height: 40px; top: 20%; animation: drift 45s infinite; }
+    .cloud1::before { width: 60px; height: 50px; top: -25px; left: 20px; }
+    .cloud2 { width: 80px; height: 35px; top: 40%; animation: drift 60s infinite; animation-delay: -20s; }
+    .cloud2::before { width: 50px; height: 40px; top: -20px; right: 15px; }
+    .cloud3 { width: 100px; height: 30px; top: 60%; animation: drift 50s infinite; animation-delay: -35s; }
+    .cloud3::before { width: 45px; height: 35px; top: -15px; left: 30px; }
+    .cloud4 { width: 140px; height: 45px; top: 75%; animation: drift 55s infinite; animation-delay: -10s; }
+    .cloud4::before { width: 70px; height: 55px; top: -28px; right: 25px; }
+    @keyframes drift { 0% { left: -200px; } 100% { left: 100%; } }
+
+    h1 {
+      font-size: 64px; font-weight: 400; text-align: center; color: #fff; margin-bottom: 16px; letter-spacing: -2px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+    .intro { color: rgba(255,255,255,0.9); text-align: center; font-size: 18px; line-height: 1.6; margin: 8px auto 24px; max-width: 680px; }
+
+    /* Menu button (same as other pages) */
+    .top-left-controls { position: fixed; top: 18px; left: 18px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
+    .menu-button { cursor: pointer; padding: 14px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 28px; transition: all 0.3s ease; }
+    .back-icon { display: inline-flex; align-items: center; justify-content: center; padding: 14px; color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); border-radius: 28px; backdrop-filter: blur(10px); text-decoration: none; transition: all 0.2s ease; }
+    .back-icon:hover { background: rgba(255,255,255,0.14); transform: translateY(-1px); }
+    .back-icon svg { width: 20px; height: 20px; stroke: currentColor; }
+    .menu-icon { display: flex; flex-direction: column; gap: 4px; width: 20px; }
+    .menu-icon span { display: block; width: 100%; height: 2px; background-color: #fff; transition: all 0.3s ease; }
+    .menu-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s ease; }
+    .menu-overlay.active { display:flex; opacity: 1; }
+    .menu-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+    .menu-content a { display:block; color:#fff; text-decoration:none; font-size:24px; margin: 20px 0; opacity:0.8; transition:all 0.3s ease; }
+    .menu-content a:hover { opacity:1; transform: scale(1.1); }
+
+    .policy-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); border-radius: 16px; backdrop-filter: blur(12px); padding: 28px 26px; color: #fff; }
+    .policy-card .updated { font-size: 13px; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+    .policy-card h2 { font-size: 18px; font-weight: 600; color: rgba(255,255,255,0.95); margin: 22px 0 8px; }
+    .policy-card h2:first-of-type { margin-top: 0; }
+    .policy-card p { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.88); margin-bottom: 10px; }
+    .policy-card a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    .policy-card a:hover { opacity: 0.85; }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 42px; margin-bottom: 10px; }
+      .container { padding: 60px 16px; }
+      .policy-card { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated pixelated clouds -->
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+  <div class="cloud cloud3"></div>
+  <div class="cloud cloud4"></div>
+  <div class="top-left-controls">
+    <div class="menu-button">
+      <div class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <a href="/" class="back-icon" aria-label="back to home" title="back">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M15 6l-6 6 6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+  <div class="menu-overlay">
+    <nav class="menu-content">
+      <a href="coming_soon.html">samples (coming soon)</a>
+      <a href="/">mixing/mastering</a>
+    </nav>
+  </div>
+
+  <div class="container">
+    <h1>privacy</h1>
+
+    <p class="intro">
+      the short version: we only collect what we need to work with you, we never sell it, and you can ask us to delete it anytime.
+    </p>
+
+    <div class="policy-card">
+      <p class="updated">last updated: july 14, 2026</p>
+
+      <h2>who we are</h2>
+      <p>journals. is a music production studio offering sample packs and mixing &amp; mastering services at journals-studio.com. this policy explains what information we collect, how we use it, and the choices you have.</p>
+
+      <h2>what we collect</h2>
+      <p>when you fill out our intake form — on this site or through an instant form in a facebook or instagram ad — we collect what you share with us: your name, email address, phone number (if you include it), the service you're interested in, a link to your track, and any notes you add.</p>
+      <p>when you purchase a sample pack, payment is handled by stripe. we never see or store your full card details — stripe processes those under <a href="https://stripe.com/privacy" target="_blank" rel="noopener">its own privacy policy</a>. we receive your email address so we can deliver your download.</p>
+
+      <h2>how we use it</h2>
+      <p>we use your information to respond to your inquiry, deliver the services or products you've requested, keep you updated on your project, and occasionally share new releases or offers. we do not sell your personal information to anyone.</p>
+
+      <h2>ads and lead forms</h2>
+      <p>if you submit your information through an instant form on facebook or instagram, it's collected by meta and shared with us under <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">meta's privacy policy</a>. we use it only for the purposes described above.</p>
+      <p>our site uses the meta pixel and cloudflare web analytics to understand how people find us and how our ads perform. these tools may use cookies or similar technologies.</p>
+
+      <h2>service providers</h2>
+      <p>we share information only with the services we need to run the studio — stripe for payments, resend for transactional email, cloudflare for hosting and analytics, and meta for advertising — and only as needed for them to do their jobs. we may disclose information if required by law.</p>
+
+      <h2>retention</h2>
+      <p>we keep your information for as long as we're working together, or as required for legal and accounting purposes. you can ask us to delete it at any time.</p>
+
+      <h2>your choices</h2>
+      <p>you can ask us to access, correct, or delete your personal information, or to stop contacting you, by emailing us. we'll respond as quickly as we can.</p>
+
+      <h2>contact</h2>
+      <p>questions about this policy? reach us at <a href="mailto:journals.sound@gmail.com">journals.sound@gmail.com</a>.</p>
+    </div>
+  </div>
+
+  <script>
+    // Menu overlay
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuButton = document.querySelector('.menu-button');
+      const menuOverlay = document.querySelector('.menu-overlay');
+      const menuIcon = document.querySelector('.menu-icon');
+
+      menuButton.addEventListener('click', function() {
+        menuOverlay.classList.toggle('active');
+        menuIcon.classList.toggle('active');
+      });
+
+      menuOverlay.addEventListener('click', function(e) {
+        if (e.target === menuOverlay) {
+          menuOverlay.classList.remove('active');
+          menuIcon.classList.remove('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
