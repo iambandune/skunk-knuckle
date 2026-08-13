@@ -205,7 +205,7 @@ async function generateDownloadLinks(session, env) {
     'price_1SznC60dru4mSFEL0wG8wbYH': {
       name: 'human voice (vol. 1)',
       fileKey: 'samples/human-voice-vol-1.zip',
-      size: '~484 MB',
+      size: '451 KB',
     },
   };
 
@@ -226,11 +226,15 @@ async function generateDownloadLinks(session, env) {
     }
   }
 
+  // Fallback for a paid session whose metadata did not map to a known price.
+  // The previous version built an unsigned URL, which download.js rejects by
+  // construction - a paying customer got a button that could never work.
   if (downloads.length === 0 && session.amount_total > 0) {
+    const fallback = productDownloads['price_1SznC60dru4mSFEL0wG8wbYH'];
     downloads.push({
-      name: 'human voice (vol. 1)',
-      size: '~150 MB',
-      url: '/api/download?session=' + session.id + '&file=human-voice-vol-1',
+      name: fallback.name,
+      size: fallback.size,
+      url: await generateSignedUrl(fallback.fileKey, env, session.id),
     });
   }
 
@@ -242,7 +246,10 @@ async function generateDownloadLinks(session, env) {
  * Uses HMAC signature to prevent URL tampering
  */
 async function generateSignedUrl(fileKey, env, sessionId) {
-  const secret = env.DOWNLOAD_SECRET || 'dev-secret-change-me';
+  const secret = env.DOWNLOAD_SECRET;
+  if (!secret) {
+    throw new Error('DOWNLOAD_SECRET is not configured');
+  }
   const expires = Date.now() + (24 * 60 * 60 * 1000);
   
   const encoder = new TextEncoder();

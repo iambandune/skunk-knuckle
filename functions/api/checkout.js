@@ -28,10 +28,25 @@ export async function onRequestPost(context) {
       );
     }
 
+    // Only prices we actually sell. Without this a client can post any price
+    // id that exists in the Stripe account - including a $0 or test price -
+    // and still be handed a download afterwards.
+    const ALLOWED_PRICES = new Set([
+      'price_1SznC60dru4mSFEL0wG8wbYH', // human voice (vol. 1)
+    ]);
+
+    const invalid = items.filter(i => !ALLOWED_PRICES.has(i.priceId));
+    if (invalid.length) {
+      return new Response(
+        JSON.stringify({ error: 'Unknown product.' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     // Build line items for Stripe
     const line_items = items.map(item => ({
       price: item.priceId,
-      quantity: item.quantity || 1,
+      quantity: Math.min(Math.max(parseInt(item.quantity, 10) || 1, 1), 10),
     }));
 
     // Get the site URL for redirects

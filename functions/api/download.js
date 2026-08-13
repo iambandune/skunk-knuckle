@@ -22,47 +22,6 @@ export async function onRequestGet(context) {
     const expires = url.searchParams.get('expires');
     const signature = url.searchParams.get('sig');
     
-    // TEST MODE: If ?test=1, just check R2 connection
-    if (url.searchParams.get('test') === '1') {
-      return new Response(
-        JSON.stringify({ 
-          message: 'Download API working!',
-          hasBucket: !!env.SAMPLES_BUCKET,
-          timestamp: new Date().toISOString()
-        }),
-        { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
-    }
-    
-    // TEST MODE: If ?test=download, try to download the file directly
-    if (url.searchParams.get('test') === 'download') {
-      if (!env.SAMPLES_BUCKET) {
-        return new Response(
-          JSON.stringify({ error: 'R2 bucket not configured' }),
-          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
-      
-      const testFile = 'samples/human-voice-vol-1.zip';
-      const object = await env.SAMPLES_BUCKET.get(testFile);
-      
-      if (!object) {
-        return new Response(
-          JSON.stringify({ error: 'File not found', file: testFile }),
-          { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
-      
-      return new Response(object.body, {
-        headers: {
-          ...corsHeaders,
-          'Content-Type': 'application/zip',
-          'Content-Disposition': `attachment; filename="${testFile}"`,
-          'Content-Length': object.size,
-        },
-      });
-    }
-
     // Validate required params
     if (!file || !sessionId || !expires || !signature) {
       return new Response(
@@ -135,7 +94,12 @@ export async function onRequestGet(context) {
  * Verify the HMAC signature of the download URL
  */
 async function verifySignature(file, sessionId, expires, providedSig, env) {
-  const secret = env.DOWNLOAD_SECRET || 'dev-secret-change-me';
+  const secret = env.DOWNLOAD_SECRET;
+  if (!secret) {
+    // Fail closed. A default here would make every signed URL forgeable by
+    // anyone who can read this repo.
+    throw new Error('DOWNLOAD_SECRET is not configured');
+  }
   
   const encoder = new TextEncoder();
   const key = await crypto.subtle.importKey(
