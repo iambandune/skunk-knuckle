@@ -1,0 +1,90 @@
+[
+  {
+    "slug": "sweat",
+    "name": "sweat",
+    "label": "mau5trap",
+    "spotify_embed": "https://open.spotify.com/embed/track/2tP7W4KskPeCX38I5S9Jhx?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/sweat/1805695126?i=1805695127&app=music",
+    "featured": true
+  },
+  {
+    "slug": "watch-me",
+    "name": "watch me",
+    "label": "sable valley",
+    "spotify_embed": "https://open.spotify.com/embed/track/7JuUz68cHrb8McfIFB4fgM?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/watch-me/1699677157?i=1699677676&app=music",
+    "featured": true
+  },
+  {
+    "slug": "body-on-mine",
+    "name": "body on mine",
+    "label": "hexagon",
+    "spotify_embed": "https://open.spotify.com/embed/track/2lsHvYMw4lqSjWCwJhuuKE?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/body-on-mine/1840160745?i=1840160746&app=music",
+    "featured": true
+  },
+  {
+    "slug": "used-to-be",
+    "name": "used to be",
+    "label": "insomniac",
+    "spotify_embed": "https://open.spotify.com/embed/track/4HbAHIdZncpoOxLJninXwO?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/used-to-be/1683441299?i=1683441301&app=music",
+    "featured": false
+  },
+  {
+    "slug": "respawn",
+    "name": "respawn",
+    "label": "insomniac",
+    "spotify_embed": "https://open.spotify.com/embed/track/3Qrmfu75oZzfQppeaUKOkm?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/respawn-feat-ero808-jvss/1617320073?i=1617320075&app=music",
+    "featured": false
+  },
+  {
+    "slug": "younger-me",
+    "name": "younger me",
+    "label": "independent",
+    "spotify_embed": "https://open.spotify.com/embed/track/3pUFitri0MDyx4n58DDBjS?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/younger-me/1771838770?i=1771838771&app=music",
+    "featured": false
+  },
+  {
+    "slug": "you-got-that",
+    "name": "you got that",
+    "label": "independent",
+    "spotify_embed": "https://open.spotify.com/embed/track/2KZNcQzlkmJV6UlH69kGpy?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/you-got-that-colson-xl-remix/1590757906?i=1590757907&app=music",
+    "featured": false
+  },
+  {
+    "slug": "small-talk",
+    "name": "small talk",
+    "label": "independent",
+    "spotify_embed": "https://open.spotify.com/embed/track/3VUB2APjgQ5kHMgWjtfEGD?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/small-talk-colson-xl-remix/1538094657?i=1538094658&app=music",
+    "featured": false
+  },
+  {
+    "slug": "huant",
+    "name": "huant",
+    "label": "independent",
+    "spotify_embed": "https://open.spotify.com/embed/track/28vT0vfn4O1QDo2GkEzx9S?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/huant/1702909191?i=1702909192&app=music",
+    "featured": false
+  },
+  {
+    "slug": "too-easy",
+    "name": "too easy",
+    "label": "independent",
+    "spotify_embed": "https://open.spotify.com/embed/track/2hzlsZHIoKK3g2n7FWBDoG?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/too-easy/1694801612?i=1694801613&app=music",
+    "featured": false
+  },
+  {
+    "slug": "dreamgirl-ep",
+    "name": "dreamgirl ep",
+    "label": "independent",
+    "spotify_embed": "https://open.spotify.com/embed/album/2YO4jKw7zppJhdjnmwvYwp?utm_source=generator&theme=0&view=list",
+    "apple_embed": "https://embed.music.apple.com/us/album/dreamgirl-ep/1577870495?app=music",
+    "featured": false
+  }
+]
