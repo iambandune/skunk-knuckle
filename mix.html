@@ -107,11 +107,12 @@
 
         /* Hamburger menu (same as other pages) */
         .top-left-controls { position: fixed; top: 18px; left: 18px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
-        .menu-button { cursor: pointer; padding: 14px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 28px; transition: all 0.3s ease; }
+        .menu-button { cursor: pointer; border: 0; -webkit-appearance: none; display: block; padding: 14px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 28px; transition: all 0.3s ease; }
         .menu-icon { display: flex; flex-direction: column; gap: 4px; width: 20px; }
         .menu-icon span { display: block; width: 100%; height: 2px; background-color: #fff; transition: all 0.3s ease; }
+        .menu-button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
         .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s ease; }
-        .menu-overlay.active { display: flex; opacity: 1; }
+        .menu-overlay.active { display: flex; opacity: 1; overflow-y: auto; }
         .menu-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
         .menu-content a { display: block; color: #fff; text-decoration: none; font-size: 24px; margin: 20px 0; opacity: 0.8; transition: all 0.3s ease; }
         .menu-content a:hover { opacity: 1; transform: scale(1.1); }
@@ -162,18 +163,22 @@
             transition: transform 0.18s ease, box-shadow 0.18s ease;
         }
         .cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); }
-        .microcopy { font-size: 13.5px; color: rgba(255, 255, 255, 0.72); margin-top: 12px; }
-        .credline { font-size: 14px; color: rgba(255, 255, 255, 0.72); margin-top: 24px; }
+        .microcopy { font-size: 13.5px; color: rgba(255, 255, 255, 0.9); margin-top: 12px; }
+        .credline { font-size: 14px; color: rgba(255, 255, 255, 0.9); margin-top: 24px; }
 
         section { padding: 52px 0; }
         .sechead { font-size: clamp(26px, 3.6vw, 38px); font-weight: 400; letter-spacing: -0.6px; margin-bottom: 10px; }
         .secsub { font-size: 16px; color: rgba(255, 255, 255, 0.82); margin-bottom: 28px; line-height: 1.55; }
         .center { text-align: center; }
+        /* Text sitting directly on the gradient (not on a card) cannot reach
+           WCAG AA over the pale band without changing the palette. A shadow
+           lifts legibility; the palette decision is deliberately left alone. */
+        .sechead, .secsub, .hubsub, .credline, .microcopy, h1 { text-shadow: 0 1px 3px rgba(0,0,0,0.32); }
         .center .secsub { margin-left: auto; margin-right: auto; max-width: 620px; }
 
         .card {
-            background: rgba(255, 255, 255, 0.09);
-            border: 1px solid rgba(255, 255, 255, 0.22);
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 20px;
             backdrop-filter: blur(12px);
         }
@@ -217,7 +222,7 @@
         .tmeta { display: flex; align-items: baseline; justify-content: space-between; gap: 6px 10px; flex-wrap: wrap; }
         .tname { font-size: 17px; flex: 1 1 auto; min-width: 0; line-height: 1.25; }
         .tlabel { font-size: 11.5px; color: rgba(255,255,255,0.95); background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 100px; padding: 2px 9px; white-space: nowrap; }
-        .tcred { font-size: 12.5px; color: rgba(255,255,255,0.7); margin-top: -4px; }
+        .tcred { font-size: 12.5px; color: rgba(255,255,255,0.9); margin-top: -4px; }
         .trackgrid.dense .tname { font-size: 15.5px; }
         .trackgrid.dense .tcred { font-size: 11.5px; }
 
@@ -225,7 +230,7 @@
         .player { margin-top: 2px; }
         .ptabs { display: flex; gap: 6px; margin-bottom: 8px; }
         .ptab {
-            flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+            flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
             color: rgba(255,255,255,0.8); border-radius: 100px; padding: 5px 10px; font-size: 12px;
             cursor: pointer; font-family: inherit; text-transform: lowercase; transition: all 0.2s ease;
         }
@@ -239,8 +244,8 @@
         /* Pricing */
         .pricegrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; align-items: start; }
         .plan { padding: 30px 28px; cursor: pointer; transition: all 0.22s ease; text-align: left; }
-        .plan:hover { background: rgba(255, 255, 255, 0.14); transform: translateY(-3px); }
-        .plan.selected { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28); }
+        .plan:hover { background: rgba(0, 0, 0, 0.55); transform: translateY(-3px); }
+        .plan.selected { background: rgba(0, 0, 0, 0.62); border-color: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28); }
         .plan .pname { font-size: 24px; margin-bottom: 4px; }
         .plan .pprice { font-size: 44px; font-weight: 500; letter-spacing: -1.5px; margin-bottom: 14px; }
         .plan .pprice.quote { font-size: 30px; }
@@ -248,8 +253,9 @@
         .plan ul { list-style: none; padding: 0; }
         .plan li { font-size: 15px; color: rgba(255, 255, 255, 0.88); padding: 6px 0 6px 24px; position: relative; line-height: 1.45; }
         .plan li:before { content: '\2192'; position: absolute; left: 0; color: rgba(255, 255, 255, 0.6); }
-        .plan .pick { margin-top: 18px; font-size: 14px; color: rgba(255, 255, 255, 0.7); }
+        .plan .pick { margin-top: 18px; font-size: 14px; color: rgba(255, 255, 255, 0.9); }
         .plan.selected .pick { color: #fff; font-weight: 600; }
+        .plan:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
         /* Form */
         .formwrap { padding: 36px 34px; max-width: 660px; margin: 0 auto; }
@@ -264,9 +270,12 @@
             transition: border-color 0.18s ease, background 0.18s ease;
         }
         input::placeholder { color: rgba(255, 255, 255, 0.55); }
-        input:focus, select:focus { border-color: rgba(255, 255, 255, 0.7); background: rgba(255, 255, 255, 0.2); }
+        input:focus, select:focus { border-color: rgba(255, 255, 255, 0.9); background: rgba(255, 255, 255, 0.2); }
+        input:focus-visible, select:focus-visible, button:focus-visible, .submit:focus-visible, .cta:focus-visible {
+            outline: 2px solid #fff; outline-offset: 2px;
+        }
         select option { background: #4A90E2; color: #fff; }
-        .hint { font-size: 13px; color: rgba(255, 255, 255, 0.68); margin-top: 6px; line-height: 1.45; }
+        .hint { font-size: 13px; color: rgba(255, 255, 255, 0.9); margin-top: 6px; line-height: 1.45; }
         .servicepill { display: inline-flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 100px; padding: 9px 16px; font-size: 14.5px; }
         .servicepill button { background: none; border: none; color: rgba(255, 255, 255, 0.75); cursor: pointer; font-family: inherit; font-size: 13px; text-decoration: underline; text-transform: lowercase; padding: 0; }
         .submit {
@@ -300,15 +309,15 @@
     <div class="cloud cloud4"></div>
 
     <div class="top-left-controls">
-        <div class="menu-button">
+        <button type="button" class="menu-button" aria-label="menu" aria-expanded="false" aria-controls="menuOverlay">
             <div class="menu-icon">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-        </div>
+        </button>
     </div>
-    <div class="menu-overlay">
+    <div class="menu-overlay" id="menuOverlay">
         <nav class="menu-content">
             <a href="/">home</a>
             <a href="#pricing">pricing</a>
@@ -443,8 +452,8 @@
                 <h2 class="sechead">pricing.</h2>
                 <p class="secsub">pick one and it carries into the form.</p>
             </div>
-            <div class="pricegrid">
-                <div class="card plan" data-service="mix-and-master">
+            <div class="pricegrid" role="radiogroup" aria-label="choose a service">
+                <div class="card plan" data-service="mix-and-master" role="radio" aria-checked="true" tabindex="0">
                     <div class="pname">full mix + master</div>
                     <div class="pprice">$150 <span>/ song</span></div>
                     <ul>
@@ -455,7 +464,7 @@
                     </ul>
                     <div class="pick">tap to select</div>
                 </div>
-                <div class="card plan" data-service="stem-master">
+                <div class="card plan" data-service="stem-master" role="radio" aria-checked="false" tabindex="-1">
                     <div class="pname">stem master</div>
                     <div class="pprice">$125 <span>/ song</span></div>
                     <ul>
@@ -466,7 +475,7 @@
                     </ul>
                     <div class="pick">tap to select</div>
                 </div>
-                <div class="card plan" data-service="coproduction">
+                <div class="card plan" data-service="coproduction" role="radio" aria-checked="false" tabindex="-1">
                     <div class="pname">coproduction</div>
                     <div class="pprice quote">per project</div>
                     <ul>
@@ -487,7 +496,7 @@
                 <h2 class="sechead">get started.</h2>
                 </div>
             <div class="card formwrap">
-                <div id="successMessage" style="display: none;">
+                <div id="successMessage" role="status" aria-live="polite" style="display: none;">
                     <h2>thank you.</h2>
                     <p>we got your track and will reach out shortly.</p>
                 </div>
@@ -503,17 +512,17 @@
 
                     <div class="field">
                         <label for="name">name <span class="req">(required)</span></label>
-                        <input type="text" id="name" name="name" placeholder="your name" required />
+                        <input type="text" id="name" name="name" placeholder="your name" autocomplete="name" required />
                     </div>
 
                     <div class="field">
                         <label for="email">email <span class="req">(required)</span></label>
-                        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+                        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" inputmode="email" required />
                     </div>
 
                     <div class="field">
                         <label for="link">link to your track <span class="req">(required)</span></label>
-                        <input type="text" id="link" name="link" placeholder="soundcloud, drive, dropbox, spotify" required />
+                        <input type="url" id="link" name="link" placeholder="soundcloud, drive, dropbox, spotify" autocomplete="url" inputmode="url" required />
                         <div class="hint" id="linkHint">private soundcloud or unlisted drive/dropbox works great. sending files later is fine &mdash; 24-bit wav preferred.</div>
                     </div>
 
@@ -531,7 +540,7 @@
                     </div>
 
                     <button type="submit" class="submit" id="submitBtn">send it over</button>
-                    <div id="statusHint">goes straight to journals.sound@gmail.com</div>
+                    <div id="statusHint" role="status" aria-live="polite">goes straight to journals.sound@gmail.com</div>
                 </form>
             </div>
         </div>
@@ -683,14 +692,26 @@
         const menuIcon = document.querySelector('.menu-icon');
 
         menuButton.addEventListener('click', function() {
-            menuOverlay.classList.toggle('active');
+            var open = menuOverlay.classList.toggle('active');
             menuIcon.classList.toggle('active');
+            menuButton.setAttribute('aria-expanded', String(open));
+            if (open) { var f = menuOverlay.querySelector('a'); if (f) f.focus(); }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+                menuOverlay.classList.remove('active');
+                menuIcon.classList.remove('active');
+                menuButton.setAttribute('aria-expanded', 'false');
+                menuButton.focus();
+            }
         });
 
         menuOverlay.addEventListener('click', function(e) {
             if (e.target === menuOverlay) {
                 menuOverlay.classList.remove('active');
                 menuIcon.classList.remove('active');
+                menuButton.setAttribute('aria-expanded', 'false');
             }
         });
 
@@ -706,25 +727,41 @@
     // Artwork wall.
     //
     // Covers are the content; nothing third-party loads on page view. The
-    // first cover click lazy-loads Spotify's iframe API, builds a controller
-    // for that track and starts it. Because the call chain begins in a real
-    // click, browser autoplay policy allows the sound.
+    // first cover click lazy-loads Spotify's iframe API and starts that
+    // track. Because the chain begins in a real click, autoplay policy
+    // allows the sound.
     //
-    // Logged-out visitors get Spotify's 30 second preview; if they happen to
-    // be signed in to Spotify, they get the full track.
+    // Three failure modes this has to survive:
+    //   1. the API script is blocked (content blockers do this routinely)
+    //   2. a second cover is clicked before the first controller exists
+    //   3. controllers accumulating as live iframes across a session
     (function() {
-        var apiPromise = null;      // resolves to the Spotify IFrameAPI
-        var current = null;         // { tile, controller } currently playing
+        var apiPromise = null;
+        var seq = 0;            // bumped on every open; stale callbacks check it
+        var openTile = null;    // the single tile currently open
 
         function loadSpotifyApi() {
             if (apiPromise) return apiPromise;
-            apiPromise = new Promise(function(resolve) {
-                window.onSpotifyIframeApiReady = resolve;
+            apiPromise = new Promise(function(resolve, reject) {
+                var settled = false;
+                var timer = setTimeout(function() {
+                    if (!settled) { settled = true; reject(new Error('spotify api timeout')); }
+                }, 8000);
+                window.onSpotifyIframeApiReady = function(api) {
+                    if (settled) return;
+                    settled = true; clearTimeout(timer); resolve(api);
+                };
                 var sc = document.createElement('script');
                 sc.src = 'https://open.spotify.com/embed/iframe-api/v1';
                 sc.async = true;
+                sc.onerror = function() {
+                    if (settled) return;
+                    settled = true; clearTimeout(timer); reject(new Error('spotify api blocked'));
+                };
                 document.head.appendChild(sc);
             });
+            // allow a later retry rather than leaving a permanently pending promise
+            apiPromise.catch(function() { apiPromise = null; });
             return apiPromise;
         }
 
@@ -733,31 +770,53 @@
             return m ? 'spotify:' + m[1] + ':' + m[2] : null;
         }
 
-        function closeTile(tile) {
-            if (!tile) return;
+        function webUrlFrom(embedUrl) {
+            var m = /open\.spotify\.com\/embed\/(track|album)\/([A-Za-z0-9]+)/.exec(embedUrl || '');
+            return m ? 'https://open.spotify.com/' + m[1] + '/' + m[2] : null;
+        }
+
+        // Closes whatever is open, whether or not a controller ever appeared.
+        // The DOM is the source of truth here; keying this off controller
+        // state is what previously left tiles stuck open.
+        function closeOpen() {
+            if (!openTile) return;
+            var tile = openTile;
+            openTile = null;
             tile.classList.remove('open');
             var art = tile.querySelector('.tileart');
             if (art) art.setAttribute('aria-expanded', 'false');
             var slot = tile.querySelector('.player');
-            if (slot) slot.hidden = true;
+            if (!slot) return;
+            slot.hidden = true;
+            var c = slot.spotifyController;
+            if (c) {
+                try { c.pause(); } catch (e) {}
+                // destroy, not just hide - otherwise a browsing session
+                // accumulates one live third-party iframe per track sampled
+                try { c.destroy(); } catch (e) {}
+                slot.spotifyController = null;
+                slot.dataset.mounted = '';
+                slot.innerHTML = '';
+            }
         }
 
-        function stopCurrent() {
-            if (!current) return;
-            try { current.controller.pause(); } catch (e) {}
-            closeTile(current.tile);
-            current = null;
+        function fallbackLink(slot, art) {
+            var href = webUrlFrom(art.dataset.sp);
+            slot.innerHTML = '<a class="ptab" style="display:block;text-align:center;text-decoration:none" '
+                           + 'target="_blank" rel="noopener" href="' + (href || '#') + '">open in spotify</a>';
+            slot.dataset.mounted = '';
         }
 
         document.addEventListener('click', function(e) {
             var tab = e.target.closest('.ptab');
-            if (tab) {
-                // Apple Music cannot be started from the parent page, so its
-                // tab is a manual player - switching to it stops Spotify.
+            if (tab && tab.dataset.p) {
                 var scope = tab.closest('.tile');
                 var want = tab.getAttribute('data-p');
-                if (want === 'ap' && current && current.tile === scope) {
-                    try { current.controller.pause(); } catch (err) {}
+                var slotT = scope.querySelector('.player');
+                // Apple cannot be driven from the parent page, so switching to
+                // it pauses Spotify rather than pretending to hand over.
+                if (want === 'ap' && slotT && slotT.spotifyController) {
+                    try { slotT.spotifyController.pause(); } catch (err) {}
                 }
                 scope.querySelectorAll('.ptab').forEach(function(t) { t.classList.toggle('active', t === tab); });
                 scope.querySelectorAll('.pane').forEach(function(f) {
@@ -773,19 +832,16 @@
             if (!art) return;
 
             var tile = art.closest('.tile');
+            if (tile === openTile) { closeOpen(); return; }
+
+            closeOpen();
+            var my = ++seq;
+
             var slot = tile.querySelector('.player');
-
-            // Clicking the open tile again closes and stops it.
-            if (tile.classList.contains('open')) {
-                stopCurrent();
-                return;
-            }
-
-            stopCurrent();  // only one track at a time
-
             tile.classList.add('open');
             art.setAttribute('aria-expanded', 'true');
             slot.hidden = false;
+            openTile = tile;
 
             var ap = art.dataset.ap;
             if (!slot.dataset.mounted) {
@@ -808,28 +864,29 @@
             }
 
             var uri = uriFrom(art.dataset.sp);
-            if (!uri) return;
-
-            if (slot.spotifyController) {
-                current = { tile: tile, controller: slot.spotifyController };
-                try { slot.spotifyController.play(); } catch (err) {}
-                return;
-            }
+            if (!uri) { closeOpen(); return; }
 
             loadSpotifyApi().then(function(IFrameAPI) {
+                if (my !== seq) return;                     // user moved on
                 var mount = slot.querySelector('.spmount');
                 if (!mount) return;
                 IFrameAPI.createController(
                     mount,
                     { uri: uri, width: '100%', height: 80 },
                     function(controller) {
+                        if (my !== seq) {                   // stale: never claim state
+                            try { controller.destroy(); } catch (err) {}
+                            return;
+                        }
                         slot.spotifyController = controller;
-                        current = { tile: tile, controller: controller };
-                        // play() right after creation is still inside the
-                        // gesture's activation window
                         try { controller.play(); } catch (err) {}
                     }
                 );
+            }).catch(function() {
+                if (my !== seq) return;
+                // Script blocked or timed out: give a working way through
+                // instead of an empty box that can never be closed.
+                fallbackLink(slot, art);
             });
         });
     })();
@@ -874,8 +931,12 @@
         function select(el, scroll) {
             plans.forEach(function(p) {
                 p.classList.remove('selected');
+                p.setAttribute('aria-checked', 'false');
+                p.setAttribute('tabindex', '-1');
                 p.querySelector('.pick').textContent = 'tap to select';
             });
+            el.setAttribute('aria-checked', 'true');
+            el.setAttribute('tabindex', '0');
             el.classList.add('selected');
             el.querySelector('.pick').textContent = 'selected \u2713';
             var svc = el.getAttribute('data-service');
@@ -884,7 +945,19 @@
             applyLinkCopy(svc);
             if (scroll) { document.getElementById('start').scrollIntoView({ behavior: 'smooth' }); }
         }
-        plans.forEach(function(p) { p.addEventListener('click', function() { select(p, true); }); });
+        plans.forEach(function(p, i) {
+            p.addEventListener('click', function() { select(p, true); });
+            p.addEventListener('keydown', function(e) {
+                if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); select(p, true); return; }
+                var dir = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? 1
+                        : (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   ? -1 : 0;
+                if (!dir) return;
+                e.preventDefault();
+                var next = plans[(i + dir + plans.length) % plans.length];
+                select(next, false);
+                next.focus();
+            });
+        });
         select(plans[0], false);
 
         document.getElementById('changeService').addEventListener('click', function() {
@@ -948,7 +1021,10 @@
                 }
 
                 form.style.display = 'none';
-                document.getElementById('successMessage').style.display = 'block';
+                var ok = document.getElementById('successMessage');
+                ok.style.display = 'block';
+                ok.setAttribute('tabindex', '-1');
+                ok.focus();
             } catch (err) {
                 console.error(err);
                 hint.textContent = err.message || 'something went wrong. please try again.';
@@ -965,6 +1041,8 @@
     var icon = document.querySelector('.menu-icon');
     if (overlay) overlay.classList.remove('active');
     if (icon) icon.classList.remove('active');
+    var mb = document.querySelector('.menu-button');
+    if (mb) mb.setAttribute('aria-expanded', 'false');
   });
 </script>
 </body>
