@@ -230,10 +230,11 @@
             cursor: pointer; font-family: inherit; text-transform: lowercase; transition: all 0.2s ease;
         }
         .ptab.active { background: rgba(255,255,255,0.28); color: #fff; border-color: rgba(255,255,255,0.5); }
-        .pframe { display: none; width: 100%; border: 0; border-radius: 12px; }
-        .pframe.active { display: block; }
-        .pframe.sp { height: 80px; }
-        .pframe.ap { height: 175px; }
+        .pane { display: none; }
+        .pane.active { display: block; }
+        .pane iframe, .pane .spmount iframe { width: 100%; border: 0; border-radius: 12px; display: block; }
+        .pane.sp, .pane.sp .spmount { min-height: 80px; }
+        .pane.ap iframe { height: 175px; }
 
         /* Pricing */
         .pricegrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; align-items: start; }
@@ -702,19 +703,92 @@
         });
     });
 
-    // Artwork wall. Clicking a cover mounts its player on first open, so a
-    // page view costs zero third-party iframes.
-    document.addEventListener('click', function(e) {
-        var art = e.target.closest('.tileart');
-        if (art) {
+    // Artwork wall.
+    //
+    // Covers are the content; nothing third-party loads on page view. The
+    // first cover click lazy-loads Spotify's iframe API, builds a controller
+    // for that track and starts it. Because the call chain begins in a real
+    // click, browser autoplay policy allows the sound.
+    //
+    // Logged-out visitors get Spotify's 30 second preview; if they happen to
+    // be signed in to Spotify, they get the full track.
+    (function() {
+        var apiPromise = null;      // resolves to the Spotify IFrameAPI
+        var current = null;         // { tile, controller } currently playing
+
+        function loadSpotifyApi() {
+            if (apiPromise) return apiPromise;
+            apiPromise = new Promise(function(resolve) {
+                window.onSpotifyIframeApiReady = resolve;
+                var sc = document.createElement('script');
+                sc.src = 'https://open.spotify.com/embed/iframe-api/v1';
+                sc.async = true;
+                document.head.appendChild(sc);
+            });
+            return apiPromise;
+        }
+
+        function uriFrom(embedUrl) {
+            var m = /open\.spotify\.com\/embed\/(track|album)\/([A-Za-z0-9]+)/.exec(embedUrl || '');
+            return m ? 'spotify:' + m[1] + ':' + m[2] : null;
+        }
+
+        function closeTile(tile) {
+            if (!tile) return;
+            tile.classList.remove('open');
+            var art = tile.querySelector('.tileart');
+            if (art) art.setAttribute('aria-expanded', 'false');
+            var slot = tile.querySelector('.player');
+            if (slot) slot.hidden = true;
+        }
+
+        function stopCurrent() {
+            if (!current) return;
+            try { current.controller.pause(); } catch (e) {}
+            closeTile(current.tile);
+            current = null;
+        }
+
+        document.addEventListener('click', function(e) {
+            var tab = e.target.closest('.ptab');
+            if (tab) {
+                // Apple Music cannot be started from the parent page, so its
+                // tab is a manual player - switching to it stops Spotify.
+                var scope = tab.closest('.tile');
+                var want = tab.getAttribute('data-p');
+                if (want === 'ap' && current && current.tile === scope) {
+                    try { current.controller.pause(); } catch (err) {}
+                }
+                scope.querySelectorAll('.ptab').forEach(function(t) { t.classList.toggle('active', t === tab); });
+                scope.querySelectorAll('.pane').forEach(function(f) {
+                    var on = f.classList.contains(want);
+                    f.classList.toggle('active', on);
+                    var frame = f.querySelector('iframe[data-src]');
+                    if (on && frame && !frame.src) { frame.src = frame.dataset.src; }
+                });
+                return;
+            }
+
+            var art = e.target.closest('.tileart');
+            if (!art) return;
+
             var tile = art.closest('.tile');
             var slot = tile.querySelector('.player');
-            var open = tile.classList.toggle('open');
-            art.setAttribute('aria-expanded', String(open));
-            slot.hidden = !open;
 
-            if (open && !slot.dataset.mounted) {
-                var sp = art.dataset.sp, ap = art.dataset.ap;
+            // Clicking the open tile again closes and stops it.
+            if (tile.classList.contains('open')) {
+                stopCurrent();
+                return;
+            }
+
+            stopCurrent();  // only one track at a time
+
+            tile.classList.add('open');
+            art.setAttribute('aria-expanded', 'true');
+            slot.hidden = false;
+
+            var ap = art.dataset.ap;
+            if (!slot.dataset.mounted) {
                 var html = '';
                 if (ap) {
                     html += '<div class="ptabs">'
@@ -722,31 +796,43 @@
                           + '<button type="button" class="ptab" data-p="ap">apple music</button>'
                           + '</div>';
                 }
-                html += '<iframe class="pframe sp active" src="' + sp + '" '
-                      + 'allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>';
+                html += '<div class="pane sp active"><div class="spmount"></div></div>';
                 if (ap) {
-                    html += '<iframe class="pframe ap" data-src="' + ap + '" '
+                    html += '<div class="pane ap"><iframe class="pframe ap" data-src="' + ap + '" '
                           + 'allow="encrypted-media *; fullscreen *;" '
                           + 'sandbox="allow-forms allow-popups allow-same-origin allow-scripts '
-                          + 'allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>';
+                          + 'allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe></div>';
                 }
                 slot.innerHTML = html;
                 slot.dataset.mounted = '1';
             }
-            return;
-        }
 
-        var tab = e.target.closest('.ptab');
-        if (!tab) return;
-        var scope = tab.closest('.tile');
-        var want = tab.getAttribute('data-p');
-        scope.querySelectorAll('.ptab').forEach(function(t) { t.classList.toggle('active', t === tab); });
-        scope.querySelectorAll('.pframe').forEach(function(f) {
-            var on = f.classList.contains(want);
-            f.classList.toggle('active', on);
-            if (on && !f.src && f.dataset.src) { f.src = f.dataset.src; }
+            var uri = uriFrom(art.dataset.sp);
+            if (!uri) return;
+
+            if (slot.spotifyController) {
+                current = { tile: tile, controller: slot.spotifyController };
+                try { slot.spotifyController.play(); } catch (err) {}
+                return;
+            }
+
+            loadSpotifyApi().then(function(IFrameAPI) {
+                var mount = slot.querySelector('.spmount');
+                if (!mount) return;
+                IFrameAPI.createController(
+                    mount,
+                    { uri: uri, width: '100%', height: 80 },
+                    function(controller) {
+                        slot.spotifyController = controller;
+                        current = { tile: tile, controller: controller };
+                        // play() right after creation is still inside the
+                        // gesture's activation window
+                        try { controller.play(); } catch (err) {}
+                    }
+                );
+            });
         });
-    });
+    })();
 
     // Pricing cards double as the service selector
     (function() {
