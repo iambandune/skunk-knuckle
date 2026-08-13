@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>journals. - Mixing & Mastering</title>
+    <title>journals. - Mixing &amp; Mastering</title>
+    <meta name="description" content="mixing and mastering for artists who care how it feels. $150 full mix + master, $125 stem master. credits on mau5trap, sable valley, hexagon, insomniac." />
     <!-- Open Graph for rich link previews -->
-    <meta property="og:title" content="journals. — samples/mixing/mastering" />
-    <meta property="og:description" content="vocal packs for producers who care about the vibe. mixing & mastering that makes your tracks hit different." />
+    <meta property="og:title" content="journals. — mixing &amp; mastering" />
+    <meta property="og:description" content="mix and master that sounds like you meant it. $150 full mix + master, $125 stem master." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://journals-studio.com" />
     <meta property="og:image" content="https://journals-studio.com/og-card.png?v=12" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="1200" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="journals. — samples/mixing/mastering" />
-    <meta name="twitter:description" content="vocal packs for producers who care about the vibe. mixing & mastering that makes your tracks hit different." />
+    <meta name="twitter:title" content="journals. — mixing &amp; mastering" />
+    <meta name="twitter:description" content="mix and master that sounds like you meant it. $150 full mix + master, $125 stem master." />
     <meta name="twitter:image" content="https://journals-studio.com/og-card.png?v=12" />
     <!-- Mobile browser theme color - matches gradient top -->
     <meta name="theme-color" content="#4A90E2" />
@@ -37,11 +38,7 @@
     /></noscript>
     <!-- End Meta Pixel Code -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         /* Render all UI text in lowercase */
         html, body { text-transform: lowercase; }
@@ -50,26 +47,27 @@
             height: 100%;
             background: #4A90E2;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
             min-height: 100%;
             min-height: 100dvh;
-            background: linear-gradient(180deg, 
-                #4A90E2 0%, 
-                #6CAFE3 25%,
-                #89C4E8 40%,
-                #FF9F5C 75%, 
+            background: linear-gradient(180deg,
+                #4A90E2 0%,
+                #6CAFE3 22%,
+                #89C4E8 38%,
+                #FF9F5C 74%,
                 #FF7A42 90%,
                 #E67E22 100%);
             background-attachment: fixed;
             position: relative;
             overflow-x: hidden;
-            margin: 0;
-            padding: 0;
             width: 100%;
             max-width: 100vw;
+            color: #fff;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Pixelated clouds */
@@ -79,1236 +77,32 @@
             border-radius: 100px;
             opacity: 0.4;
             filter: contrast(150%) brightness(120%);
+            pointer-events: none;
+            z-index: 1;
         }
-
         .cloud::before {
             content: '';
             position: absolute;
             background: rgba(255, 255, 255, 0.3);
             border-radius: 100px;
         }
-
-        .cloud1 { width: 120px; height: 40px; top: 20%; animation: drift 45s infinite; }
+        .cloud1 { width: 120px; height: 40px; top: 14%; animation: drift 45s infinite; }
         .cloud1::before { width: 60px; height: 50px; top: -25px; left: 20px; }
-        
-        .cloud2 { width: 80px; height: 35px; top: 40%; animation: drift 60s infinite; animation-delay: -20s; }
+        .cloud2 { width: 80px; height: 35px; top: 34%; animation: drift 60s infinite; animation-delay: -20s; }
         .cloud2::before { width: 50px; height: 40px; top: -20px; right: 15px; }
-
-        .cloud3 { width: 100px; height: 30px; top: 60%; animation: drift 50s infinite; animation-delay: -35s; }
+        .cloud3 { width: 100px; height: 30px; top: 56%; animation: drift 50s infinite; animation-delay: -35s; }
         .cloud3::before { width: 45px; height: 35px; top: -15px; left: 30px; }
-
-        .cloud4 { width: 140px; height: 45px; top: 75%; animation: drift 55s infinite; animation-delay: -10s; }
+        .cloud4 { width: 140px; height: 45px; top: 78%; animation: drift 55s infinite; animation-delay: -10s; }
         .cloud4::before { width: 70px; height: 55px; top: -28px; right: 25px; }
-
-        @keyframes drift {
-            0% { left: -200px; }
-            100% { left: 100%; }
-        }
+        @keyframes drift { 0% { left: -220px; } 100% { left: 100%; } }
 
         .container {
-            max-width: 1400px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 0 20px;
             position: relative;
             z-index: 10;
             width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* Section 1: Title */
-        h1 {
-            font-size: 64px;
-            font-weight: 400;
-            text-align: center;
-            color: #fff;
-            margin: 0 auto 60px auto;
-            letter-spacing: -1px;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            cursor: default;
-        }
-
-        /* Section 2: Expandable Sections Grid */
-        .sections-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .section-block {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: 20px;
-            padding: 30px 40px;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            min-height: 180px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .section-block:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-2px);
-        }
-
-        .section-block.expanded {
-            cursor: default;
-            grid-column: 1 / -1;
-            min-height: auto;
-            display: block;
-            padding: 40px;
-        }
-
-        .section-block.expanded:hover {
-            transform: none;
-        }
-
-        .section-header {
-            margin-bottom: 0;
-        }
-
-        .section-block.expanded .section-header {
-            margin-bottom: 12px;
-        }
-
-        .section-title {
-            font-size: 42px;
-            font-weight: 400;
-            color: #fff;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        .section-subtitle {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.85);
-            line-height: 1.5;
-        }
-
-        /* Expand hint - chevron and text */
-        .expand-hint {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: auto;
-            padding-top: 12px;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-        }
-
-        .section-block.expanded .expand-hint {
-            display: none;
-        }
-
-        .expand-hint-text {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 4px;
-            letter-spacing: 0.5px;
-        }
-
-        .expand-chevron {
-            width: 20px;
-            height: 20px;
-            color: rgba(255, 255, 255, 0.7);
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(6px);
-            }
-            60% {
-                transform: translateY(3px);
-            }
-        }
-
-        .section-block:hover .expand-hint {
-            opacity: 1;
-        }
-
-        .section-content {
-            display: none;
-            margin-top: 30px;
-        }
-
-        .section-block.expanded .section-content {
-            display: block;
-        }
-
-        .section-block.expanded .section-header {
-            cursor: pointer;
-        }
-
-        /* Samples carousel */
-        .samples-carousel {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 60px;
-        }
-
-        .samples-viewport {
-            display: flex;
-            gap: 24px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            padding: 20px 0;
-        }
-
-        .samples-viewport::-webkit-scrollbar {
-            display: none;
-        }
-
-        .sample-card {
-            flex: 0 0 360px;
-            scroll-snap-align: center;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 16px;
-            padding: 24px;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-        }
-
-        .sample-card:hover {
-            transform: translateY(-4px);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .sample-image {
-            width: 100%;
-            aspect-ratio: auto;
-            border-radius: 12px;
-            object-fit: cover;
-            margin-bottom: 16px;
-        }
-
-        .sample-text {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 12px;
-        }
-
-        .sample-price {
-            color: #fff;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            transform: translateY(-50%);
-            pointer-events: none;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 10px;
-        }
-
-        .carousel-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            color: #fff;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.25s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: auto;
-        }
-
-        .carousel-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
-        /* Mix & Master form styles */
-        .intake-intro {
-            color: rgba(255,255,255,0.9);
-            text-align: center;
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 24px;
-            max-width: 680px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .form-card {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.22);
-            border-radius: 16px;
-            backdrop-filter: blur(12px);
-            padding: 22px;
-            color: #fff;
-            max-width: 840px;
-            margin: 0 auto;
-        }
-
-        .field {
-            margin-bottom: 14px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.95);
-        }
-
-        .hint {
-            display: block;
-            font-size: 12px;
-            color: rgba(255,255,255,0.78);
-            margin-top: 6px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        textarea,
-        select {
-            width: 100%;
-            padding: 12px 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.38);
-            background: rgba(0,0,0,0.32);
-            color: rgba(255,255,255,0.98);
-            font-family: inherit;
-        }
-
-        input::placeholder,
-        textarea::placeholder {
-            color: rgba(255,255,255,0.86);
-            text-transform: lowercase;
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
-            margin-top: 6px;
-        }
-
-        .btn {
-            color: #fff;
-            background: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.22);
-            padding: 12px 22px;
-            border-radius: 999px;
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: 0.4px;
-            backdrop-filter: blur(10px);
-            cursor: pointer;
-            transition: all 0.25s ease;
-            font-family: inherit;
-        }
-
-        .btn:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-1px);
-        }
-
-        .required {
-            color: #ffd9d9;
-            font-size: 12px;
-            margin-left: 6px;
-        }
-
-        /* Pricing modal */
-        body.modal-open {
-            overflow: hidden;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.55);
-            backdrop-filter: blur(8px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            width: min(92vw, 860px);
-            max-height: 95vh;
-            background: rgba(0,0,0,0.35);
-            border: 1px solid rgba(255,255,255,0.22);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.35);
-            color: #fff;
-        }
-
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 14px;
-            background: rgba(255,255,255,0.08);
-            border-bottom: 1px solid rgba(255,255,255,0.18);
-        }
-
-        .modal-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.95);
-        }
-
-        .modal-close {
-            appearance: none;
-            border: 1px solid rgba(255,255,255,0.25);
-            background: rgba(255,255,255,0.12);
-            color: #fff;
-            width: 32px;
-            height: 32px;
-            border-radius: 999px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            font-size: 20px;
-        }
-
-        .modal-close:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-1px);
-        }
-
-        .modal-body {
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-body iframe {
-            width: 100%;
-            border: 0;
-            background: transparent;
-            display: block;
-            min-height: 600px;
-        }
-
-        /* Section 3: Credits Section */
-        .credits-section {
-            margin-top: 60px;
-        }
-
-        .credits-header {
-            font-size: 64px;
-            font-weight: 400;
-            text-align: center;
-            color: #fff;
-            margin: 0 auto 60px auto;
-            letter-spacing: -1px;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            cursor: default;
-        }
-
-        .carousel-container {
-            max-width: 1200px;
-            height: 550px;
-            margin: 0 auto;
-            padding: 20px 60px;
-            position: relative;
-        }
-
-        .carousel-viewport {
-            overflow-x: auto;
-            overflow-y: hidden;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            gap: 20px;
-            display: flex;
-            height: 100%;
-        }
-
-        .carousel-viewport::-webkit-scrollbar {
-            display: none;
-        }
-
-        .track-container {
-            flex: 0 0 360px;
-            scroll-snap-align: center;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.18);
-            border-radius: 16px;
-            padding: 18px 18px 48px 18px;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .track-container:hover {
-            transform: translateY(-6px);
-            background: rgba(255,255,255,0.1);
-        }
-
-        .cover-art {
-            width: 220px;
-            height: 220px;
-            border-radius: 12px;
-            object-fit: cover;
-            margin-bottom: 16px;
-        }
-
-        .label-row {
-            text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .label-badge {
-            display: inline-block;
-            padding: 3px 10px;
-            font-size: 0.78em;
-            font-weight: 550;
-            letter-spacing: 0.5px;
-            color: rgba(255,255,255,0.92);
-            background: rgba(255, 255, 255, 0.14);
-            border: 1px solid rgba(255,255,255,0.28);
-            border-radius: 999px;
-            backdrop-filter: blur(8px);
-        }
-
-        .track-credits {
-            color: #fff;
-            text-align: center;
-            font-size: 0.9em;
-            margin-bottom: 18px;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .music-players {
-            width: 100%;
-        }
-
-        .platform-buttons {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .platform-button {
-            flex: 1;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            color: rgba(255, 255, 255, 0.7);
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            backdrop-filter: blur(8px);
-            font-family: inherit;
-        }
-
-        .platform-button:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .platform-button.active {
-            background: rgba(255, 255, 255, 0.25);
-            color: #fff;
-            border-color: rgba(255, 255, 255, 0.35);
-        }
-
-        .music-players iframe {
-            display: none;
-            width: 100%;
-            border: none;
-            border-radius: 8px;
-            overflow: hidden;
-            background: transparent;
-            height: 90px !important;
-        }
-
-        .music-players iframe.active {
-            display: block;
-        }
-
-        .credits-carousel-nav {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            transform: translateY(-50%);
-            pointer-events: none;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 10px;
-        }
-
-        /* Mobile styles */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 48px;
-                margin-bottom: 40px;
-            }
-
-            .container {
-                padding: 40px 16px;
-            }
-
-            .sections-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .section-block {
-                padding: 24px;
-            }
-
-            .section-block.expanded {
-                grid-column: auto;
-            }
-
-            .section-title {
-                font-size: 32px;
-            }
-
-            /* Samples carousel on mobile - vertical stack */
-            .samples-carousel {
-                padding: 0;
-                max-width: 100%;
-            }
-
-            .samples-viewport {
-                flex-direction: column;
-                gap: 16px;
-                overflow-x: hidden;
-                overflow-y: visible;
-                scroll-snap-type: none;
-                padding: 10px 0;
-            }
-
-            .sample-card {
-                flex: 0 0 auto;
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .sample-card:hover {
-                transform: none;
-            }
-
-            .row {
-                grid-template-columns: 1fr;
-            }
-
-            .carousel-container {
-                height: auto;
-                padding: 10px 0;
-            }
-
-            .carousel-viewport {
-                flex-direction: column;
-                overflow-x: hidden;
-                overflow-y: auto;
-                scroll-snap-type: y mandatory;
-            }
-
-            .track-container {
-                flex: 0 0 auto;
-                width: 100%;
-                scroll-snap-align: start;
-                margin-bottom: 20px;
-            }
-
-            .cover-art {
-                width: 180px;
-                height: 180px;
-            }
-
-            .carousel-nav,
-            .credits-carousel-nav {
-                display: none !important;
-            }
-
-            .samples-carousel,
-            .carousel-container {
-                padding: 0;
-            }
-        }
-
-        /* ========================================
-           FLOATING CART
-           ======================================== */
-        .cart-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 12px;
-        }
-
-        .cart-btn-float {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(12px);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            transition: all 0.3s ease;
-            position: relative;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        }
-        .cart-btn-float:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: scale(1.05);
-        }
-        .cart-btn-float svg {
-            width: 24px;
-            height: 24px;
-        }
-        .cart-badge {
-            position: absolute;
-            top: -4px;
-            right: -4px;
-            background: #FF6B35;
-            color: #fff;
-            font-size: 11px;
-            font-weight: 700;
-            min-width: 20px;
-            height: 20px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.3s ease;
-        }
-        .cart-badge.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .checkout-float-btn {
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #FF6B35, #FF9F5C);
-            border: none;
-            border-radius: 999px;
-            color: #fff;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(20px);
-            pointer-events: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 32px rgba(255, 107, 53, 0.4);
-            font-family: inherit;
-        }
-        .checkout-float-btn.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-        .checkout-float-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.5);
-        }
-
-        /* ========================================
-           SAMPLE CARD ENHANCEMENTS
-           ======================================== */
-        .sample-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 10px;
-        }
-
-        .sample-title {
-            color: #fff;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .sample-meta {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
-
-        .meta-tag {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .sample-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .sample-btn {
-            flex: 1;
-            padding: 12px 16px;
-            border-radius: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            font-family: inherit;
-            text-align: center;
-        }
-
-        .sample-btn-preview {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            color: #fff;
-        }
-        .sample-btn-preview:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .sample-btn-cart {
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.8), rgba(255, 159, 92, 0.8));
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-        }
-        .sample-btn-cart:hover {
-            transform: translateY(-1px);
-        }
-        .sample-btn-cart.in-cart {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        /* ========================================
-           PREVIEW PANEL (MODAL)
-           ======================================== */
-        .preview-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-            z-index: 2000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .preview-overlay.active {
-            display: flex;
-        }
-
-        .preview-panel {
-            width: calc(100% - 40px);
-            max-width: 480px;
-            max-height: 85vh;
-            background: linear-gradient(180deg, 
-                rgba(74, 144, 226, 0.95) 0%,
-                rgba(108, 175, 227, 0.95) 25%,
-                rgba(137, 196, 232, 0.95) 40%,
-                rgba(244, 182, 116, 0.95) 55%,
-                rgba(255, 159, 92, 0.95) 70%,
-                rgba(255, 122, 66, 0.95) 85%,
-                rgba(255, 107, 53, 0.95) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 28px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
-            box-sizing: border-box;
-        }
-
-        .preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 28px 28px 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .preview-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #fff;
-            letter-spacing: -0.5px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .preview-close {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-        .preview-close:hover {
-            background: rgba(255, 255, 255, 0.35);
-            color: #fff;
-            transform: scale(1.05);
-        }
-
-        .preview-track-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px 20px 20px;
-        }
-
-        .preview-track-item {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 16px;
-            margin-bottom: 8px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        .preview-track-item:hover {
-            background: rgba(255, 255, 255, 0.22);
-            border-color: rgba(255, 255, 255, 0.35);
-        }
-        .preview-track-item.expanded {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.35);
-        }
-
-        .preview-track-header {
-            display: flex;
-            align-items: center;
-            padding: 14px 16px;
-            cursor: pointer;
-            gap: 14px;
-        }
-
-        .preview-track-num {
-            width: 32px;
-            height: 32px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, rgba(74, 144, 226, 0.15), rgba(255, 159, 92, 0.15));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .preview-track-name {
-            flex: 1;
-            font-size: 15px;
-            font-weight: 500;
-            color: #fff;
-        }
-
-        .preview-track-duration {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-right: 8px;
-        }
-
-        .preview-track-play-btn {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            color: #fff;
-            font-size: 11px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-        .preview-track-play-btn:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(1.08);
-        }
-
-        .waveform-container {
-            padding: 0 16px 16px;
-            display: none;
-        }
-        .preview-track-item.expanded .waveform-container {
-            display: block;
-        }
-        
-        .terrain-canvas {
-            width: 100%;
-            height: 72px;
-            border-radius: 36px;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            box-shadow: 
-                0 4px 20px rgba(0, 0, 0, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        /* Rounded blob waveform style */
-        .waveform-wrapper {
-            position: relative;
-            height: 52px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 26px;
-            padding: 10px 18px;
-            overflow: hidden;
-        }
-
-        .waveform-bars {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            gap: 4px;
-        }
-
-        .waveform-bar {
-            width: 5px;
-            background: linear-gradient(180deg, rgba(74, 144, 226, 0.5), rgba(255, 159, 92, 0.5));
-            border-radius: 5px;
-            transition: height 0.15s ease, background 0.3s ease;
-        }
-
-        .waveform-bar.played {
-            background: linear-gradient(180deg, #4A90E2, #FF9F5C);
-        }
-
-        .waveform-time {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 6px 0;
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.35);
-        }
-
-        .preview-footer {
-            padding: 24px 28px 28px;
-            background: rgba(0, 0, 0, 0.15);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .preview-price {
-            font-size: 32px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -1px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-add-cart {
-            flex: 1;
-            max-width: 200px;
-            padding: 16px 32px;
-            background: rgba(255, 255, 255, 0.95);
-            border: none;
-            border-radius: 14px;
-            color: #333;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            font-family: inherit;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-        .btn-add-cart:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            background: #fff;
-        }
-        .btn-add-cart.in-cart {
-            background: rgba(255, 255, 255, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: none;
-            color: #fff;
-        }
-
-        @media (max-width: 768px) {
-            .preview-overlay {
-                padding: 10px;
-            }
-            .preview-panel {
-                width: calc(100vw - 20px);
-                max-width: calc(100vw - 20px);
-                border-radius: 20px;
-            }
-            .preview-header {
-                padding: 20px 16px 16px;
-            }
-            .preview-track-list {
-                padding: 12px;
-            }
-            .preview-track-header {
-                padding: 12px;
-                gap: 10px;
-            }
-            .waveform-container {
-                padding: 0 12px 12px;
-            }
-            .preview-footer {
-                padding: 16px;
-                gap: 12px;
-            }
-            .preview-price {
-                font-size: 26px;
-            }
-            .btn-add-cart {
-                padding: 14px 20px;
-                font-size: 14px;
-            }
-            .cart-float {
-                bottom: 20px;
-                right: 20px;
-            }
-            .terms-panel {
-                max-height: 90vh;
-                border-radius: 14px;
-            }
-        }
-
-        /* T&C Button */
-        .btn-terms {
-            display: inline-block;
-            margin-top: 12px;
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.55);
-            font-size: 12px;
-            cursor: pointer;
-            font-family: inherit;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-            transition: color 0.2s ease;
-            padding: 0;
-        }
-        .btn-terms:hover {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* T&C Modal */
-        .terms-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(12px);
-            z-index: 3000;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .terms-overlay.active { display: flex; }
-        .terms-panel {
-            width: 100%;
-            max-width: 520px;
-            max-height: 85vh;
-            background: rgba(30, 30, 40, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .terms-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 22px;
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .terms-header h2 { font-size: 20px; font-weight: 500; color: #fff; }
-        .terms-close {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff; font-size: 18px;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s ease;
-        }
-        .terms-close:hover { background: rgba(255, 255, 255, 0.2); }
-        .terms-body {
-            padding: 22px;
-            overflow-y: auto;
-            color: rgba(255, 255, 255, 0.88);
-            font-size: 13.5px;
-            line-height: 1.7;
-        }
-        .terms-body h3 { font-size: 14px; font-weight: 600; color: #fff; margin: 16px 0 6px; }
-        .terms-body h3:first-child { margin-top: 0; }
-        .terms-body ul { margin: 4px 0 8px 18px; }
-        .terms-body ul li { margin-bottom: 4px; }
-        .terms-body .terms-note {
-            margin-top: 16px;
-            padding: 12px 14px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.6);
-            font-style: italic;
         }
 
         /* Hamburger menu (same as other pages) */
@@ -1321,6 +115,151 @@
         .menu-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
         .menu-content a { display: block; color: #fff; text-decoration: none; font-size: 24px; margin: 20px 0; opacity: 0.8; transition: all 0.3s ease; }
         .menu-content a:hover { opacity: 1; transform: scale(1.1); }
+
+        /* Hero */
+        .hero { padding: 104px 0 24px; text-align: center; }
+        .wordmark { font-size: 22px; letter-spacing: -0.5px; opacity: 0.9; margin-bottom: 34px; }
+        h1 {
+            font-size: clamp(38px, 6.6vw, 68px);
+            font-weight: 400;
+            letter-spacing: -1.5px;
+            line-height: 1.06;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .hero .sub {
+            font-size: clamp(17px, 2.2vw, 21px);
+            color: rgba(255, 255, 255, 0.92);
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.55;
+        }
+        .pricechips { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 30px 0 4px; }
+        .chip {
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 100px;
+            padding: 9px 18px;
+            font-size: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .chip b { font-weight: 600; }
+        .cta {
+            display: inline-block;
+            margin-top: 26px;
+            background: #fff;
+            color: #E0651C;
+            border: none;
+            border-radius: 100px;
+            padding: 16px 40px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            text-transform: lowercase;
+            text-decoration: none;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); }
+        .microcopy { font-size: 13.5px; color: rgba(255, 255, 255, 0.72); margin-top: 12px; }
+        .credline { font-size: 14px; color: rgba(255, 255, 255, 0.72); margin-top: 24px; }
+
+        section { padding: 52px 0; }
+        .sechead { font-size: clamp(26px, 3.6vw, 38px); font-weight: 400; letter-spacing: -0.6px; margin-bottom: 10px; }
+        .secsub { font-size: 16px; color: rgba(255, 255, 255, 0.82); margin-bottom: 28px; line-height: 1.55; }
+        .center { text-align: center; }
+        .center .secsub { margin-left: auto; margin-right: auto; max-width: 620px; }
+
+        .card {
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+        }
+
+        /* Track cards */
+        .trackgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
+        .track-card {
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 18px;
+            backdrop-filter: blur(12px);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .track-card .cover { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; display: block; background: rgba(255,255,255,0.1); }
+        .tmeta { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+        .tname { font-size: 18px; }
+        .tlabel { font-size: 12px; color: rgba(255,255,255,0.95); background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 100px; padding: 3px 10px; white-space: nowrap; }
+        .tcred { font-size: 12.5px; color: rgba(255, 255, 255, 0.7); }
+        .ptabs { display: flex; gap: 6px; margin-bottom: 8px; }
+        .ptab {
+            flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
+            color: rgba(255,255,255,0.8); border-radius: 100px; padding: 6px 10px; font-size: 12.5px;
+            cursor: pointer; font-family: inherit; text-transform: lowercase; transition: all 0.2s ease;
+        }
+        .ptab.active { background: rgba(255,255,255,0.28); color: #fff; border-color: rgba(255,255,255,0.5); }
+        .pframe { display: none; width: 100%; border: 0; border-radius: 12px; }
+        .pframe.active { display: block; }
+        .pframe.sp { height: 80px; }
+        .pframe.ap { height: 175px; }
+
+        /* Pricing */
+        .pricegrid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .plan { padding: 30px 28px; cursor: pointer; transition: all 0.22s ease; text-align: left; }
+        .plan:hover { background: rgba(255, 255, 255, 0.14); transform: translateY(-3px); }
+        .plan.selected { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28); }
+        .plan .pname { font-size: 24px; margin-bottom: 4px; }
+        .plan .pprice { font-size: 44px; font-weight: 500; letter-spacing: -1.5px; margin-bottom: 14px; }
+        .plan .pprice span { font-size: 16px; font-weight: 400; color: rgba(255, 255, 255, 0.75); letter-spacing: 0; }
+        .plan ul { list-style: none; padding: 0; }
+        .plan li { font-size: 15px; color: rgba(255, 255, 255, 0.88); padding: 6px 0 6px 24px; position: relative; line-height: 1.45; }
+        .plan li:before { content: '\2192'; position: absolute; left: 0; color: rgba(255, 255, 255, 0.6); }
+        .plan .pick { margin-top: 18px; font-size: 14px; color: rgba(255, 255, 255, 0.7); }
+        .plan.selected .pick { color: #fff; font-weight: 600; }
+
+        /* Form */
+        .formwrap { padding: 36px 34px; max-width: 660px; margin: 0 auto; }
+        .field { margin-bottom: 18px; }
+        label { display: block; font-size: 14px; color: rgba(255, 255, 255, 0.9); margin-bottom: 7px; }
+        label .req { color: rgba(255, 255, 255, 0.6); font-size: 12.5px; }
+        input, select {
+            width: 100%; background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px;
+            padding: 14px 16px; font-size: 16px; color: #fff; font-family: inherit;
+            text-transform: lowercase; outline: none;
+            transition: border-color 0.18s ease, background 0.18s ease;
+        }
+        input::placeholder { color: rgba(255, 255, 255, 0.55); }
+        input:focus, select:focus { border-color: rgba(255, 255, 255, 0.7); background: rgba(255, 255, 255, 0.2); }
+        select option { background: #4A90E2; color: #fff; }
+        .hint { font-size: 13px; color: rgba(255, 255, 255, 0.68); margin-top: 6px; line-height: 1.45; }
+        .servicepill { display: inline-flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 100px; padding: 9px 16px; font-size: 14.5px; }
+        .servicepill button { background: none; border: none; color: rgba(255, 255, 255, 0.75); cursor: pointer; font-family: inherit; font-size: 13px; text-decoration: underline; text-transform: lowercase; padding: 0; }
+        .submit {
+            width: 100%; background: #fff; color: #E0651C; border: none; border-radius: 100px;
+            padding: 17px; font-size: 17px; font-weight: 600; cursor: pointer; font-family: inherit;
+            text-transform: lowercase; margin-top: 6px; transition: transform 0.18s ease;
+        }
+        .submit:hover:not(:disabled) { transform: translateY(-2px); }
+        .submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        #statusHint { font-size: 13.5px; color: rgba(255, 255, 255, 0.75); text-align: center; margin-top: 14px; min-height: 20px; }
+        #successMessage { text-align: center; padding: 50px 20px; }
+        #successMessage h2 { font-size: 40px; font-weight: 400; margin-bottom: 12px; }
+        #successMessage p { color: rgba(255, 255, 255, 0.88); font-size: 17px; line-height: 1.55; }
+
+        footer { padding: 44px 0 56px; text-align: center; font-size: 14px; color: rgba(255, 255, 255, 0.75); }
+        footer a { color: rgba(255, 255, 255, 0.85); }
+
+        @media (max-width: 760px) {
+            .pricegrid { grid-template-columns: 1fr; }
+            .formwrap { padding: 28px 20px; }
+            section { padding: 40px 0; }
+            .hero { padding: 92px 0 16px; }
+        }
     </style>
 </head>
 <body>
@@ -1341,1465 +280,322 @@
     </div>
     <div class="menu-overlay">
         <nav class="menu-content">
-            <a href="/privacy">privacy policy</a>
             <a href="/">home</a>
+            <a href="#pricing">pricing</a>
+            <a href="#start">start a mix</a>
+            <a href="/privacy">privacy policy</a>
         </nav>
     </div>
 
-    <div class="container">
-        <!-- Section 1: Title -->
-        <h1>journals.</h1>
-
-        <!-- Section 2: Expandable Sections -->
-        <div class="sections-grid">
-            <!-- Samples Section -->
-            <div class="section-block" id="samples-section">
-                <div class="section-header">
-                    <div class="section-title">vocal samples.</div>
-                    <div class="section-subtitle">
-                        human sounds for human music. curated, not generated.
-                    </div>
-                </div>
-                <div class="expand-hint">
-                    <span class="expand-hint-text">tap to explore</span>
-                    <svg class="expand-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </div>
-                <div class="section-content">
-                    <div class="samples-carousel">
-                        <div class="samples-viewport" id="samples-viewport">
-                            <!-- Human Voice Vol. 1 -->
-                            <div class="sample-card" data-pack-id="human-voice-1" data-price="10" data-name="human voice (vol. 1)">
-                                <img src="/human-voice-cover.jpg?v=2" alt="human voice vol 1" class="sample-image">
-                                <div class="sample-info">
-                                    <h3 class="sample-title">human voice (vol. 1)</h3>
-                                    <div class="sample-price">$10</div>
-                                </div>
-                                <p class="sample-text">
-                                    7 emotive vocal samples plus extra bits and phrases (multitracks/stems included). 
-                                    100% human. 0% artificial. midi + melodic samples included.
-                                </p>
-                                <div class="sample-meta">
-                                    <span class="meta-tag">7 samples</span>
-                                    <span class="meta-tag">dry + wet</span>
-                                    <span class="meta-tag">key &amp; BPM labeled</span>
-                                </div>
-                                <div class="sample-actions">
-                                    <button class="sample-btn sample-btn-preview" onclick="openPreview('human-voice-1')">preview tracks</button>
-                                    <button class="sample-btn sample-btn-cart" onclick="toggleSampleCart('human-voice-1', event)">add to cart</button>
-                                </div>
-                                <button class="btn-terms" onclick="event.stopPropagation(); openTerms()">terms & conditions</button>
-                            </div>
-
-                            <!-- Coming Soon Pack -->
-                            <div class="sample-card" style="opacity: 0.5; pointer-events: none;">
-                                <div class="sample-image" style="display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 16px;">
-                                    coming soon
-                                </div>
-                                <div class="sample-info">
-                                    <h3 class="sample-title">??? (vol. 2)</h3>
-                                    <div class="sample-price">???</div>
-                                </div>
-                                <p class="sample-text">
-                                    more packs dropping soon. stay tuned.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="carousel-nav">
-                            <button class="carousel-btn" id="samples-prev" aria-label="previous">‹</button>
-                            <button class="carousel-btn" id="samples-next" aria-label="next">›</button>
-                        </div>
-                    </div>
-                </div>
+    <header class="hero">
+        <div class="container">
+            <div class="wordmark">journals.</div>
+            <h1>mix &amp; master<br />that sounds like you meant it.</h1>
+            <p class="sub">we focus on the emotion, shape everything around it, and keep the parts that feel most like you.</p>
+            <div class="pricechips">
+                <div class="chip"><b>$150</b> — full mix + master</div>
+                <div class="chip"><b>$125</b> — stem master</div>
             </div>
+            <a href="#start" class="cta">start a mix</a>
+            <div class="microcopy">send a link to your track. we'll reply with next steps.</div>
+            <p class="credline">work released via mau5trap &middot; sable valley &middot; hexagon &middot; insomniac</p>
+        </div>
+    </header>
 
-            <!-- Mix & Master Section -->
-            <div class="section-block" id="mixmaster-section">
-                <div class="section-header">
-                    <div class="section-title">mix & master.</div>
-                    <div class="section-subtitle">
-                        we focus on the emotion, shape everything around it, and keep the parts that feel most like you.
-                    </div>
+    <section id="work">
+        <div class="container">
+            <div class="center">
+                <h2 class="sechead">recent work.</h2>
+                <p class="secsub">records we mixed and mastered. put them on, loud.</p>
+            </div>
+            <div class="trackgrid">
+        <div class="track-card featured">
+          <img class="cover" loading="lazy" src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/46/4f/c6/464fc66c-247c-9682-e5e4-8abcad5adfc7/663918167199.jpg/1200x1200bb.jpg" alt="Sweat" />
+          <div class="tmeta">
+            <div class="tname">sweat</div>
+            <div class="tlabel">mau5trap</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2tP7W4KskPeCX38I5S9Jhx?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/sweat/1805695126?i=1805695127&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card featured">
+          <img class="cover" loading="lazy" src="https://i1.sndcdn.com/artworks-bKWIdPq1exsDSgov-6Y5aXA-t500x500.jpg" alt="Watch Me" />
+          <div class="tmeta">
+            <div class="tname">watch me</div>
+            <div class="tlabel">sable valley</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/7JuUz68cHrb8McfIFB4fgM?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/watch-me/1699677157?i=1699677676&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card featured">
+          <img class="cover" loading="lazy" src="https://i1.sndcdn.com/artworks-FV6HZIQ4SpAjzEyf-N0rQyQ-t500x500.png" alt="Body On Mine" />
+          <div class="tmeta">
+            <div class="tname">body on mine</div>
+            <div class="tlabel">hexagon</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2lsHvYMw4lqSjWCwJhuuKE?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/body-on-mine/1840160745?i=1840160746&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="container">
+            <div class="center">
+                <h2 class="sechead">pricing.</h2>
+                <p class="secsub">flat rate per song. no surprise invoices. pick one and it carries into the form.</p>
+            </div>
+            <div class="pricegrid">
+                <div class="card plan" data-service="mix-and-master">
+                    <div class="pname">full mix + master</div>
+                    <div class="pprice">$150 <span>/ song</span></div>
+                    <ul>
+                        <li>full mix from your session or stems</li>
+                        <li>master ready for every platform</li>
+                        <li>revisions until it feels right</li>
+                        <li>you keep every file</li>
+                    </ul>
+                    <div class="pick">tap to select</div>
                 </div>
-                <div class="expand-hint">
-                    <span class="expand-hint-text">tap to explore</span>
-                    <svg class="expand-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </div>
-                <div class="section-content">
-                    <div class="form-card">
-                        <!-- Success Message (hidden by default) -->
-                        <div id="successMessage" style="display: none; text-align: center; padding: 60px 20px;">
-                            <h2 style="font-size: 48px; font-weight: 400; color: #fff; margin-bottom: 16px;">thank you!</h2>
-                            <p style="color: rgba(255,255,255,0.85); font-size: 18px;">we got your submission and will reach out shortly.</p>
-                        </div>
-                        <form id="intakeForm">
-                            <div class="row">
-                                <div class="field">
-                                    <label for="name">Name <span class="required">(required)</span></label>
-                                    <input type="text" id="name" name="name" placeholder="your name" required />
-                                </div>
-                                <div class="field">
-                                    <label for="email">Email <span class="required">(required)</span></label>
-                                    <input type="email" id="email" name="email" placeholder="you@example.com" required />
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="field">
-                                    <label for="phone">Phone</label>
-                                    <input type="tel" id="phone" name="phone" placeholder="optional" />
-                                    <span class="hint">Optional, if you prefer text updates</span>
-                                </div>
-                                <div class="field">
-                                    <label for="service">Service <span class="required">(required)</span></label>
-                                    <select id="service" name="service" required>
-                                        <option value="">select one</option>
-                                        <option value="stem-master">stem master</option>
-                                        <option value="mix-and-master">mix + master</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="field">
-                                <label for="link">Streaming link to your track <span class="required">(required)</span></label>
-                                <input type="text" id="link" name="link" placeholder="spotify, soundcloud, google drive, dropbox, etc." required />
-                                <span class="hint">Success tips: private SoundCloud or unlisted Drive/Dropbox link works great. If sending files later, 24-bit WAV preferred.</span>
-                            </div>
-
-                            <div class="field">
-                                <label for="notes">Anything we should know?</label>
-                                <textarea id="notes" name="notes" placeholder="what's the vision? any references? what's feeling stuck?"></textarea>
-                            </div>
-
-                            <div class="actions">
-                                <button type="submit" class="btn" id="submitBtn">send intake</button>
-                                <button type="button" class="btn" id="pricingBtn" aria-haspopup="dialog" aria-controls="pricingModal">pricing</button>
-                                <div class="hint" id="statusHint">we'll send this straight to journals.sound@gmail.com</div>
-                            </div>
-                        </form>
-                    </div>
+                <div class="card plan" data-service="stem-master">
+                    <div class="pname">stem master</div>
+                    <div class="pprice">$125 <span>/ song</span></div>
+                    <ul>
+                        <li>up to 7 group stems</li>
+                        <li>balance and glue across the mix</li>
+                        <li>master ready for every platform</li>
+                        <li>best if your mix is already close</li>
+                    </ul>
+                    <div class="pick">tap to select</div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Section 3: Credits (Always Visible) -->
-        <div class="credits-section">
-            <div class="credits-header">credits.</div>
-
-            <div class="carousel-container">
-                <div class="carousel-viewport" id="credits-viewport">
-                    <!-- Track 1: Sweat -->
-                    <div class="track-container">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/46/4f/c6/464fc66c-247c-9682-e5e4-8abcad5adfc7/663918167199.jpg/1200x1200bb.jpg" 
-                             class="cover-art" 
-                             alt="Sweat by EMSKI">
-                        <div class="label-row"><span class="label-badge">mau5trap</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn" class="platform-button active">Spotify</button>
-                                <button id="apple-btn" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player" 
-                                    class="active"
-                                    src="https://open.spotify.com/embed/track/2tP7W4KskPeCX38I5S9Jhx?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player"
-                                    src="https://embed.music.apple.com/us/album/sweat/1805695126?i=1805695127&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;"
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 2: Watch Me -->
-                    <div class="track-container">
-                        <img src="https://i1.sndcdn.com/artworks-bKWIdPq1exsDSgov-6Y5aXA-t500x500.jpg" 
-                             class="cover-art" 
-                             alt="Watch Me">
-                        <div class="label-row"><span class="label-badge">Sable Valley</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-2" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-2" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-2" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/7JuUz68cHrb8McfIFB4fgM?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-2" 
-                                    src="https://embed.music.apple.com/us/album/watch-me/1699677157?i=1699677676&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 3: Used to Be -->
-                    <div class="track-container">
-                        <img src="https://cdn-images.dzcdn.net/images/cover/fc7c649593ae2f0abe9bd562c49fdbd0/0x1900-000000-80-0-0.jpg" 
-                             class="cover-art" 
-                             alt="Used to Be">
-                        <div class="label-row"><span class="label-badge">Insomniac</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-3" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-3" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-3" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/4HbAHIdZncpoOxLJninXwO?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-3" 
-                                    src="https://embed.music.apple.com/us/album/used-to-be/1683441299?i=1683441301&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 4: Body On Mine -->
-                    <div class="track-container">
-                        <img src="https://i1.sndcdn.com/artworks-FV6HZIQ4SpAjzEyf-N0rQyQ-t500x500.png" 
-                             class="cover-art" 
-                             alt="Body On Mine">
-                        <div class="label-row"><span class="label-badge">Hexagon</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-4" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-4" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-4" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/2lsHvYMw4lqSjWCwJhuuKE?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-4" 
-                                    src="https://embed.music.apple.com/us/album/body-on-mine/1840160745?i=1840160746&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 5: Younger Me -->
-                    <div class="track-container">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b6/47/c7/b647c7f5-b3df-539e-ca5e-46c486d7bf9a/artwork.jpg/600x600bf-60.jpg" 
-                             class="cover-art" 
-                             alt="Younger Me">
-                        <div class="label-row"><span class="label-badge">independent</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-5" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-5" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-5" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/3pUFitri0MDyx4n58DDBjS?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-5" 
-                                    src="https://embed.music.apple.com/us/album/younger-me/1771838770?i=1771838771&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 6: You Got That -->
-                    <div class="track-container">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/47/29/42/47294259-dd68-d7f0-6fc7-bed7c721d5db/artwork.jpg/600x600bf-60.jpg" 
-                             class="cover-art" 
-                             alt="You Got That">
-                        <div class="label-row"><span class="label-badge">independent</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-6" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-6" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-6" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/2KZNcQzlkmJV6UlH69kGpy?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-6" 
-                                    src="https://embed.music.apple.com/us/album/you-got-that-colson-xl-remix/1590757906?i=1590757907&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 7: Respawn -->
-                    <div class="track-container">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/3a/e7/16/3ae7160a-6139-0eaa-c796-fe9f02d33478/cover.jpg/1200x630bb.jpg" 
-                             class="cover-art" 
-                             alt="Respawn (feat. ERO808, JVSS)">
-                        <div class="label-row"><span class="label-badge">Insomniac</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-7" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-7" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-7" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/3Qrmfu75oZzfQppeaUKOkm?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-7" 
-                                    src="https://embed.music.apple.com/us/album/respawn-feat-ero808-jvss/1617320073?i=1617320075&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 8: Small Talk -->
-                    <div class="track-container">
-                        <img src="https://i1.sndcdn.com/artworks-lyqUr8Oh7rJstk18-5tO7Gg-t240x240.jpg" 
-                             class="cover-art" 
-                             alt="Small Talk (Colson XL Remix)">
-                        <div class="label-row"><span class="label-badge">independent</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-8" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-8" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-8" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/3VUB2APjgQ5kHMgWjtfEGD?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-8" 
-                                    src="https://embed.music.apple.com/us/album/small-talk-colson-xl-remix/1538094657?i=1538094658&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 9: Dreamgirl EP -->
-                    <div class="track-container">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/8a/7c/b2/8a7cb2f0-ec7d-559f-f4cc-9a1af4dc240a/193872799551_cover.jpg/600x600bf-60.jpg" 
-                             class="cover-art" 
-                             alt="Dreamgirl EP">
-                        <div class="label-row"><span class="label-badge">independent</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-9" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-9" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-9" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/album/2YO4jKw7zppJhdjnmwvYwp?utm_source=generator&theme=0&view=list"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-9" 
-                                    src="https://embed.music.apple.com/us/album/dreamgirl-ep/1577870495?app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 10: Huant -->
-                    <div class="track-container">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/89/39/96/893996e3-962b-5352-cf8b-3cf5f6f403f6/197773759201_cover.jpg/600x600bf-60.jpg" 
-                             class="cover-art" 
-                             alt="Huant">
-                        <div class="label-row"><span class="label-badge">independent</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-10" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-10" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-10" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/28vT0vfn4O1QDo2GkEzx9S?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-10" 
-                                    src="https://embed.music.apple.com/us/album/huant/1702909191?i=1702909192&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 11: Too Easy -->
-                    <div class="track-container">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEfpf2_7TDtSYW6KWap7toHyAvntp56BKxGw&s" 
-                             class="cover-art" 
-                             alt="Too Easy">
-                        <div class="label-row"><span class="label-badge">independent</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-11" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-11" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-11" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/2hzlsZHIoKK3g2n7FWBDoG?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-11" 
-                                    src="https://embed.music.apple.com/us/album/too-easy/1694801612?i=1694801613&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
-
-                    <!-- Track 13: Take Me There -->
-                    <div class="track-container">
-                        <img src="https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/67/d6/fd/67d6fdf9-792e-9a80-5ef8-8413e4799540/191079921966_cover.jpg/600x600bf-60.jpg" 
-                             class="cover-art" 
-                             alt="Take Me There">
-                        <div class="label-row"><span class="label-badge">independent</span></div>
-                        <div class="track-credits">credits: mixing engineer, mastering engineer</div>
-                        <div class="music-players">
-                            <div class="platform-buttons">
-                                <button id="spotify-btn-13" class="platform-button active">Spotify</button>
-                                <button id="apple-btn-13" class="platform-button">Apple Music</button>
-                            </div>
-                            <iframe id="spotify-player-13" 
-                                    class="active" 
-                                    src="https://open.spotify.com/embed/track/0WFFymyrHFCs6Sy6rK9RuY?utm_source=generator&theme=0&view=minimal"
-                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                    loading="lazy">
-                            </iframe>
-                            <iframe id="apple-player-13" 
-                                    src="https://embed.music.apple.com/us/album/take-me-there/1549299643?i=1549299644&app=music"
-                                    allow="autoplay *; encrypted-media *; fullscreen *;" 
-                                    sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation">
-                            </iframe>
-                        </div>
-                    </div>
+    <section id="start">
+        <div class="container">
+            <div class="center">
+                <h2 class="sechead">start a mix.</h2>
+                <p class="secsub">four things and you're done. we'll take it from there.</p>
+            </div>
+            <div class="card formwrap">
+                <div id="successMessage" style="display: none;">
+                    <h2>thank you.</h2>
+                    <p>we got your track and will reach out shortly.</p>
                 </div>
-
-                <div class="credits-carousel-nav">
-                    <button class="carousel-btn" id="credits-prev" aria-label="previous">‹</button>
-                    <button class="carousel-btn" id="credits-next" aria-label="next">›</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pricing Modal -->
-    <div class="modal-overlay" id="pricingModal" role="dialog" aria-modal="true" aria-labelledby="pricingTitle">
-        <div class="modal" role="document">
-            <div class="modal-header">
-                <div class="modal-title" id="pricingTitle">pricing</div>
-                <button class="modal-close" id="pricingClose" aria-label="close">×</button>
-            </div>
-            <div class="modal-body">
-                <iframe id="pricingFrame" title="pricing sheet" data-src="pricing_sheet.html"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Section expand/collapse
-            const samplesSection = document.getElementById('samples-section');
-            const mixmasterSection = document.getElementById('mixmaster-section');
-
-            function toggleSection(section) {
-                section.classList.toggle('expanded');
-            }
-
-            // Make whole card clickable when collapsed, only header when expanded
-            samplesSection.addEventListener('click', (e) => {
-                // If collapsed, any click expands
-                if (!samplesSection.classList.contains('expanded')) {
-                    toggleSection(samplesSection);
-                } 
-                // If expanded, only header click collapses
-                else if (e.target.closest('.section-header')) {
-                    toggleSection(samplesSection);
-                }
-            });
-
-            mixmasterSection.addEventListener('click', (e) => {
-                // If collapsed, any click expands
-                if (!mixmasterSection.classList.contains('expanded')) {
-                    toggleSection(mixmasterSection);
-                }
-                // If expanded, only header click collapses
-                else if (e.target.closest('.section-header')) {
-                    toggleSection(mixmasterSection);
-                }
-            });
-
-            // Music player controls
-            function setupPlayerControls(id) {
-                const spotifyBtn = document.getElementById(`spotify-btn${id}`);
-                const appleBtn = document.getElementById(`apple-btn${id}`);
-                const spotifyPlayer = document.getElementById(`spotify-player${id}`);
-                const applePlayer = document.getElementById(`apple-player${id}`);
-
-                if (!spotifyBtn || !appleBtn || !spotifyPlayer || !applePlayer) return;
-
-                spotifyBtn.addEventListener('click', function() {
-                    spotifyBtn.classList.add('active');
-                    appleBtn.classList.remove('active');
-                    spotifyPlayer.classList.add('active');
-                    applePlayer.classList.remove('active');
-                });
-
-                appleBtn.addEventListener('click', function() {
-                    appleBtn.classList.add('active');
-                    spotifyBtn.classList.remove('active');
-                    applePlayer.classList.add('active');
-                    spotifyPlayer.classList.remove('active');
-                });
-            }
-
-            setupPlayerControls('');
-            setupPlayerControls('-2');
-            setupPlayerControls('-3');
-            setupPlayerControls('-4');
-            setupPlayerControls('-5');
-            setupPlayerControls('-6');
-            setupPlayerControls('-7');
-            setupPlayerControls('-8');
-            setupPlayerControls('-9');
-            setupPlayerControls('-10');
-            setupPlayerControls('-11');
-            setupPlayerControls('-12');
-            setupPlayerControls('-13');
-
-            // Samples carousel navigation
-            const samplesViewport = document.getElementById('samples-viewport');
-            const samplesPrev = document.getElementById('samples-prev');
-            const samplesNext = document.getElementById('samples-next');
-
-            function scrollSamples(direction) {
-                const scrollAmount = 384; // card width + gap
-                samplesViewport.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
-            }
-
-            samplesPrev.addEventListener('click', () => scrollSamples(-1));
-            samplesNext.addEventListener('click', () => scrollSamples(1));
-
-            // Credits carousel navigation
-            const creditsViewport = document.getElementById('credits-viewport');
-            const creditsPrev = document.getElementById('credits-prev');
-            const creditsNext = document.getElementById('credits-next');
-
-            function scrollCredits(direction) {
-                const scrollAmount = 380; // card width + gap
-                creditsViewport.scrollBy({ left: scrollAmount * direction, behavior: 'smooth' });
-            }
-
-            creditsPrev.addEventListener('click', () => scrollCredits(-1));
-            creditsNext.addEventListener('click', () => scrollCredits(1));
-
-            // Intake form submission
-            const form = document.getElementById('intakeForm');
-            const submitBtn = document.getElementById('submitBtn');
-            const statusHint = document.getElementById('statusHint');
-            const pricingBtn = document.getElementById('pricingBtn');
-            const pricingModal = document.getElementById('pricingModal');
-            const pricingClose = document.getElementById('pricingClose');
-            const pricingFrame = document.getElementById('pricingFrame');
-
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const name = (document.getElementById('name').value || '').trim();
-                const email = (document.getElementById('email').value || '').trim();
-                const phone = (document.getElementById('phone').value || '').trim();
-                const service = (document.getElementById('service').value || '').trim();
-                let link = (document.getElementById('link').value || '').trim();
-                const notes = (document.getElementById('notes').value || '').trim();
-
-                if (!name || !email || !service || !link) {
-                    statusHint.textContent = 'please fill in all required fields.'; statusHint.style.color = '#ffd9d9';
-                    return;
-                }
-
-                // URL validation - prepend https:// if missing
-                if (!/^https?:\/\//i.test(link)) { link = 'https://' + link; }
-                
-                statusHint.style.color = '';
-                submitBtn.disabled = true;
-                statusHint.textContent = 'sending...';
-
-                try {
-                    // Generate unique event ID for Meta CAPI deduplication
-                    const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                    
-                    const res = await fetch('/api/intake', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ name, email, phone, service, link, notes, eventId })
-                    });
-                    const data = await res.json().catch(() => ({}));
-                    if (!res.ok) { throw new Error(data.error || 'something went wrong.'); }
-                    
-                    // Fire Meta Pixel Lead event on successful form submission
-                    // Uses eventId for deduplication with server-side CAPI
-                    if (typeof fbq === 'function') {
-                        fbq('track', 'Lead', {
-                            content_name: 'Mix & Master Intake',
-                            content_category: service || 'mix-master',
-                            value: 40.00,
-                            currency: 'USD'
-                        }, { eventID: eventId });
-                    }
-                    
-                    form.style.display = 'none';
-                    document.getElementById('successMessage').style.display = 'block';
-                } catch (err) {
-                    console.error(err);
-                    statusHint.textContent = err.message || 'something went wrong. please try again.';
-                    statusHint.style.color = '#ffd9d9';
-                } finally {
-                    submitBtn.disabled = false;
-                }
-            });
-
-            // Pricing modal
-            function openPricing() {
-                pricingModal.classList.add('active');
-                document.body.classList.add('modal-open');
-                if (pricingFrame && !pricingFrame.src) {
-                    const url = pricingFrame.getAttribute('data-src');
-                    if (url) pricingFrame.src = url;
-                }
-                requestAnimationFrame(sizePricingFrame);
-            }
-
-            function closePricing() {
-                pricingModal.classList.remove('active');
-                document.body.classList.remove('modal-open');
-            }
-
-            function sizePricingFrame() {
-                try {
-                    if (!pricingFrame || !pricingFrame.contentWindow) return;
-                    const doc = pricingFrame.contentDocument || pricingFrame.contentWindow.document;
-                    if (!doc || !doc.body) return;
-                    const contentHeight = doc.documentElement.scrollHeight || doc.body.scrollHeight || 0;
-                    if (contentHeight > 0) {
-                        pricingFrame.style.height = contentHeight + 'px';
-                    }
-                } catch (e) { /* cross-origin guard */ }
-            }
-
-            pricingBtn.addEventListener('click', openPricing);
-            pricingClose.addEventListener('click', closePricing);
-            pricingModal.addEventListener('click', (e) => { if (e.target === pricingModal) closePricing(); });
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && pricingModal.classList.contains('active')) closePricing(); });
-            pricingFrame.addEventListener('load', () => {
-                sizePricingFrame();
-                setTimeout(sizePricingFrame, 120);
-            });
-            window.addEventListener('resize', () => { if (pricingModal.classList.contains('active')) sizePricingFrame(); });
-
-            // ========================================
-            // SAMPLES CART & PREVIEW SYSTEM
-            // ========================================
-            const sampleCart = new Map();
-            const samplePacks = {
-                'human-voice-1': {
-                    id: 'human-voice-1',
-                    name: 'human voice (vol. 1)',
-                    price: 10,
-                    priceId: 'price_1SznC60dru4mSFEL0wG8wbYH',
-                    tracks: [
-                        { name: 'come & get me', duration: '0:36' },
-                        { name: 'fade to grey', duration: '0:37' },
-                        { name: 'in my eyes', duration: '0:59' },
-                        { name: 'is it everything?', duration: '0:37' },
-                        { name: 'losing control', duration: '1:14' },
-                        { name: 'rolling stone', duration: '0:31' },
-                        { name: 'so far gone', duration: '1:51' }
-                    ]
-                }
-            };
-
-            // Toggle cart item
-            window.toggleSampleCart = function(packId, event) {
-                if (event) event.stopPropagation();
-                if (sampleCart.has(packId)) {
-                    sampleCart.delete(packId);
-                } else {
-                    sampleCart.set(packId, samplePacks[packId]);
-                }
-                updateCartUI();
-            };
-
-            // Panel button click handler - add to cart first, then checkout on second click
-            document.getElementById("panelCartBtn").addEventListener("click", function() {
-                const panel = document.getElementById("previewPanel");
-                const packId = panel.dataset.packId || "human-voice-1";
-                if (sampleCart.has(packId)) {
-                    // Item already in cart, now go to checkout
-                    checkout();
-                } else {
-                    // First click - add to cart (button will change to "checkout")
-                    toggleSampleCart(packId);
-                }
-            });
-
-            function updateCartUI() {
-                const badge = document.getElementById('cartBadge');
-                const checkoutBtn = document.getElementById('checkoutFloatBtn');
-                const count = sampleCart.size;
-                
-                badge.textContent = count;
-                badge.classList.toggle('visible', count > 0);
-                checkoutBtn.classList.toggle('visible', count > 0);
-                
-                // Update card buttons
-                document.querySelectorAll('.sample-btn-cart').forEach(btn => {
-                    const card = btn.closest('.sample-card');
-                    if (card) {
-                        const packId = card.dataset.packId;
-                        const inCart = sampleCart.has(packId);
-                        btn.classList.toggle('in-cart', inCart);
-                        btn.textContent = inCart ? 'remove' : 'add to cart';
-                    }
-                });
-                
-                // Update panel button
-                const panelBtn = document.getElementById('panelCartBtn');
-                if (panelBtn) {
-                    const panel = document.getElementById('previewPanel');
-                    const currentPackId = panel.dataset.packId || 'human-voice-1';
-                    const inCart = sampleCart.has(currentPackId);
-                    panelBtn.classList.toggle('in-cart', inCart);
-                    panelBtn.textContent = inCart ? 'checkout' : 'add to cart';
-                }
-            }
-
-            window.checkout = async function() {
-                if (sampleCart.size === 0) return;
-                
-                // Fire Meta Pixel InitiateCheckout event
-                const cartTotal = Array.from(sampleCart.values()).reduce((sum, pack) => sum + pack.price, 0);
-                if (typeof fbq !== 'undefined') {
-                    fbq('track', 'InitiateCheckout', {
-                        value: cartTotal,
-                        currency: 'USD',
-                        num_items: sampleCart.size,
-                        content_type: 'product'
-                    });
-                }
-                
-                const checkoutBtn = document.querySelector('.cart-checkout-btn');
-                if (checkoutBtn) {
-                    checkoutBtn.disabled = true;
-                    checkoutBtn.textContent = 'processing...';
-                }
-                
-                try {
-                    // Build line items from cart
-                    const items = [];
-                    // Map.forEach passes (value, key) - we stored the pack as value
-                    sampleCart.forEach((pack, packId) => {
-                        console.log('Cart item:', packId, pack);
-                        if (pack && pack.priceId) {
-                            items.push({
-                                priceId: pack.priceId,
-                                quantity: 1
-                            });
-                        }
-                    });
-                    
-                    console.log('Items:', items);
-                    
-                    if (items.length === 0) {
-                        alert('No valid items in cart');
-                        return;
-                    }
-                    
-                    // Call checkout API
-                    const response = await fetch('/api/checkout', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ items })
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (data.url) {
-                        // Redirect to Stripe Checkout
-                        window.location.href = data.url;
-                    } else {
-                        throw new Error(data.error || 'Failed to create checkout session');
-                    }
-                } catch (error) {
-                    console.error('Checkout error:', error);
-                    alert('Checkout failed: ' + error.message);
-                } finally {
-                    if (checkoutBtn) {
-                        checkoutBtn.disabled = false;
-                        checkoutBtn.textContent = 'checkout';
-                    }
-                }
-            };
-
-            // Preview modal
-            window.openPreview = function(packId) {
-                const overlay = document.getElementById('previewOverlay');
-                const panel = document.getElementById('previewPanel');
-                const title = document.getElementById('previewTitle');
-                const trackList = document.getElementById('previewTrackList');
-                const priceEl = document.getElementById('previewPrice');
-                
-                const pack = samplePacks[packId];
-                panel.dataset.packId = packId;
-                title.textContent = pack.name;
-                priceEl.textContent = '$' + pack.price;
-                
-                // Build track list
-                trackList.innerHTML = pack.tracks.map((track, i) => `
-                    <div class="preview-track-item${i === 0 ? ' expanded' : ''}" data-track="${i + 1}">
-                        <div class="preview-track-header" onclick="togglePreviewTrack(${i + 1})">
-                            <div class="preview-track-num">0${i + 1}</div>
-                            <div class="preview-track-name">${track.name}</div>
-                            <div class="preview-track-duration">${track.duration}</div>
-                            <button class="preview-track-play-btn" onclick="playPreviewTrack(${i + 1}, event)">▶</button>
+                <form id="intakeForm">
+                    <div class="field">
+                        <label>service</label>
+                        <div class="servicepill">
+                            <span id="serviceLabel">full mix + master — $150</span>
+                            <button type="button" id="changeService">change</button>
                         </div>
-                        <div class="waveform-container">
-                            <canvas class="terrain-canvas" id="terrain-${i + 1}"></canvas>
-                            <div class="waveform-time">
-                                <span class="time-current" id="time-current-${i + 1}">0:00</span>
-                                <span>${track.duration}</span>
-                            </div>
-                        </div>
+                        <input type="hidden" id="service" name="service" value="mix-and-master" />
                     </div>
-                `).join('');
-                
-                overlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                
-                // Initialize terrain visualizers for visible tracks
-                setTimeout(() => {
-                    pack.tracks.forEach((_, i) => {
-                        const trackNum = i + 1;
-                        const canvas = document.getElementById('terrain-' + trackNum);
-                        if (canvas && !terrainVisualizers.has(trackNum)) {
-                            const terrain = new TerrainVisualizer(canvas);
-                            terrainVisualizers.set(trackNum, terrain);
-                            
-                            // Add click-to-seek handler
-                            canvas.addEventListener('click', function(e) {
-                                const rect = canvas.getBoundingClientRect();
-                                const x = e.clientX - rect.left;
-                                const percent = Math.max(0, Math.min(1, x / rect.width));
-                                
-                                // Seek audio if loaded
-                                const player = audioPlayers.get(trackNum);
-                                if (player && player.audio && player.audio.duration) {
-                                    player.audio.currentTime = percent * player.audio.duration;
-                                    if (terrain.seekTo) terrain.seekTo(percent);
-                                }
-                            });
-                        }
-                    });
-                }, 50);
-                
-                updateCartUI();
-            };
 
-            window.closePreview = function() {
-                const overlay = document.getElementById('previewOverlay');
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
-                
-                // Stop all audio and visualizers
-                audioPlayers.forEach((player, trackNum) => {
-                    player.audio.pause();
-                    player.audio.currentTime = 0;
-                    if (player.terrain) player.terrain.stop();
-                    updatePlayButton(trackNum, false);
-                });
-                
-                // Destroy terrain visualizers to stop animation loops
-                terrainVisualizers.forEach(terrain => terrain.destroy());
-                terrainVisualizers.clear();
-                
-                currentlyPlayingTrack = null;
-            };
+                    <div class="field">
+                        <label for="name">name <span class="req">(required)</span></label>
+                        <input type="text" id="name" name="name" placeholder="your name" required />
+                    </div>
 
-            function generateWaveform(trackNum) {
-                const container = document.getElementById('waveform-' + trackNum);
-                if (!container) return;
-                container.innerHTML = '';
-                
-                const barCount = 50;
-                for (let i = 0; i < barCount; i++) {
-                    const bar = document.createElement('div');
-                    bar.className = 'waveform-bar';
-                    // Create natural-looking waveform shape
-                    const position = i / barCount;
-                    const wave = Math.sin(position * Math.PI) * 0.6 + 0.4;
-                    const noise = (Math.random() * 0.4) + 0.3;
-                    const height = Math.max(8, (wave * noise) * 40);
-                    bar.style.height = height + 'px';
-                    container.appendChild(bar);
-                }
-            }
+                    <div class="field">
+                        <label for="email">email <span class="req">(required)</span></label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" required />
+                    </div>
 
-            window.togglePreviewTrack = function(trackNum) {
-                const allTracks = document.querySelectorAll('.preview-track-item');
-                const targetTrack = document.querySelector('.preview-track-item[data-track="' + trackNum + '"]');
-                
-                allTracks.forEach(track => {
-                    if (track !== targetTrack) track.classList.remove('expanded');
-                });
-                targetTrack.classList.toggle('expanded');
-                
-                // Generate waveform if opening
-                if (targetTrack.classList.contains('expanded')) {
-                    setTimeout(() => generateWaveform(trackNum), 50);
-                }
-            };
+                    <div class="field">
+                        <label for="link">link to your track <span class="req">(required)</span></label>
+                        <input type="text" id="link" name="link" placeholder="soundcloud, drive, dropbox, spotify" required />
+                        <div class="hint">private soundcloud or unlisted drive/dropbox works great. sending files later is fine &mdash; 24-bit wav preferred.</div>
+                    </div>
 
-            window.playPreviewTrack = function(trackNum, event) {
-                event.stopPropagation();
-                
-                const canvas = document.getElementById('terrain-' + trackNum);
-                if (!canvas) return;
-                
-                // Get or create terrain visualizer
-                let terrain = terrainVisualizers.get(trackNum);
-                if (!terrain) {
-                    terrain = new TerrainVisualizer(canvas);
-                    terrainVisualizers.set(trackNum, terrain);
-                }
-                
-                // Get or create audio player
-                let player = audioPlayers.get(trackNum);
-                if (!player) {
-                    const audio = new Audio();
-                    audio.crossOrigin = 'anonymous';
-                    audio.src = sampleAudioUrls[(trackNum - 1) % sampleAudioUrls.length];
-                    
-                    audio.addEventListener('ended', () => {
-                        terrain.stop();
-                        updatePlayButton(trackNum, false);
-                        currentlyPlayingTrack = null;
-                    });
-                    
-                    player = { audio, terrain };
-                    audioPlayers.set(trackNum, player);
-                    
-                    // Setup audio analysis
-                    audio.addEventListener('canplay', () => {
-                        terrain.resize();
-                        terrain.setupAudio(audio);
-                    }, { once: true });
-                }
-                
-                // Pause other tracks
-                if (currentlyPlayingTrack && currentlyPlayingTrack !== trackNum) {
-                    const otherPlayer = audioPlayers.get(currentlyPlayingTrack);
-                    if (otherPlayer) {
-                        otherPlayer.audio.pause();
-                        otherPlayer.terrain.stop();
-                        updatePlayButton(currentlyPlayingTrack, false);
-                    }
-                }
-                
-                // Toggle play/pause
-                if (player.audio.paused) {
-                    player.audio.play();
-                    terrain.start();
-                    updatePlayButton(trackNum, true);
-                    currentlyPlayingTrack = trackNum;
-                } else {
-                    player.audio.pause();
-                    terrain.stop();
-                    updatePlayButton(trackNum, false);
-                    currentlyPlayingTrack = null;
-                }
-            };
-            
-            function updatePlayButton(trackNum, isPlaying) {
-                const btn = document.querySelector('.preview-track-item[data-track="' + trackNum + '"] .preview-track-play-btn');
-                if (btn) btn.textContent = isPlaying ? '⏸' : '▶';
-                
-                // Update time display
-                const player = audioPlayers.get(trackNum);
-                if (player && player.audio) {
-                    const timeEl = document.getElementById('time-current-' + trackNum);
-                    if (timeEl) {
-                        player.audio.addEventListener('timeupdate', () => {
-                            const mins = Math.floor(player.audio.currentTime / 60);
-                            const secs = Math.floor(player.audio.currentTime % 60).toString().padStart(2, '0');
-                            timeEl.textContent = mins + ':' + secs;
-                        });
-                    }
-                }
-            }
-            
-            // Audio players and terrain visualizers
-            const audioPlayers = new Map();
-            const terrainVisualizers = new Map();
-            let currentlyPlayingTrack = null;
-            
-            // Sample audio URLs for preview
-            const sampleAudioUrls = [
-                '/Human%20Voice%20Previews/Come%20%26%20Get%20Me%20.wav',
-                '/Human%20Voice%20Previews/Fade%20to%20Grey.wav',
-                '/Human%20Voice%20Previews/In%20My%20Eyes.wav',
-                '/Human%20Voice%20Previews/Is%20It%20Everything%3F%20.wav',
-                '/Human%20Voice%20Previews/Losing%20Control%20.wav',
-                '/Human%20Voice%20Previews/Rolling%20Stone.wav',
-                '/Human%20Voice%20Previews/So%20Far%20Gone.wav'
-            ];
-            
-            // TerrainVisualizer class - Scrolling 3D terrain
-            class TerrainVisualizer {
-                constructor(canvas) {
-                    this.canvas = canvas;
-                    this.ctx = canvas.getContext('2d');
-                    this.audioContext = null;
-                    this.analyser = null;
-                    this.frequencyData = null;
-                    this.animationId = null;
-                    this.isPlaying = false;
-                    this.progress = 0;
-                    this.displayProgress = 0;
-                    this.audioElement = null;
-                    this.playheadOpacity = 0;
-                    this.targetPlayheadOpacity = 0;
-                    this.audioSetup = false;
-                    
-                    // Terrain settings
-                    this.terrainHistory = [];
-                    this.maxRows = 12;
-                    this.cols = 60;
-                    this.width = 0;
-                    this.height = 0;
-                    
-                    // Start the animation loop immediately
-                    this.startLoop();
-                }
-                
-                startLoop() {
-                    const loop = () => {
-                        this.resize();
-                        if (this.width > 0 && this.height > 0) {
-                            if (this.isPlaying) {
-                                this.drawPlaying();
-                            } else {
-                                this.drawIdle();
-                            }
-                        }
-                        this.animationId = requestAnimationFrame(loop);
-                    };
-                    loop();
-                }
-                
-                resize() {
-                    const rect = this.canvas.getBoundingClientRect();
-                    if (rect.width === 0 || rect.height === 0) return;
-                    
-                    const dpr = window.devicePixelRatio || 1;
-                    if (this.canvas.width !== rect.width * dpr || this.canvas.height !== rect.height * dpr) {
-                        this.canvas.width = rect.width * dpr;
-                        this.canvas.height = rect.height * dpr;
-                        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-                        this.ctx.scale(dpr, dpr);
-                    }
-                    this.width = rect.width;
-                    this.height = rect.height;
-                }
-                
-                setupAudio(audioElement) {
-                    if (this.audioSetup) return;
-                    this.audioSetup = true;
-                    this.audioElement = audioElement;
-                    
-                    if (!this.audioContext) {
-                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    }
-                    
-                    if (this.audioContext.state === 'suspended') {
-                        this.audioContext.resume();
-                    }
-                    
-                    const source = this.audioContext.createMediaElementSource(audioElement);
-                    this.analyser = this.audioContext.createAnalyser();
-                    this.analyser.fftSize = 256;
-                    this.analyser.smoothingTimeConstant = 0.7;
-                    
-                    source.connect(this.analyser);
-                    this.analyser.connect(this.audioContext.destination);
-                    
-                    this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount);
-                }
-                
-                start() {
-                    this.isPlaying = true;
-                    this.terrainHistory = [];
-                }
-                
-                stop() {
-                    this.isPlaying = false;
-                    this.targetPlayheadOpacity = 0;
-                }
-                
-                // Allow seeking by setting progress and displayProgress
-                seekTo(percent) {
-                    this.progress = percent;
-                    this.displayProgress = percent;
-                }
-                
-                destroy() {
-                    if (this.animationId) {
-                        cancelAnimationFrame(this.animationId);
-                        this.animationId = null;
-                    }
-                }
-                
-                drawIdle() {
-                    const w = this.width;
-                    const h = this.height;
-                    const time = Date.now() / 1000;
-                    
-                    this.ctx.clearRect(0, 0, w, h);
-                    
-                    // Fade out playhead
-                    this.playheadOpacity += (0 - this.playheadOpacity) * 0.1;
-                    
-                    // Draw gentle idle wave terrain
-                    const rows = 8;
-                    const rowHeight = h / rows;
-                    
-                    for (let row = rows - 1; row >= 0; row--) {
-                        const rowProgress = row / rows;
-                        const baseY = row * rowHeight + rowHeight / 2;
-                        const peakHeight = rowHeight * 1.8;
-                        
-                        this.ctx.beginPath();
-                        
-                        for (let col = 0; col <= this.cols; col++) {
-                            const x = (col / this.cols) * w;
-                            const wave = Math.sin(time * 0.5 + col * 0.12) * 0.12 + 
-                                        Math.sin(time * 0.3 + col * 0.08) * 0.08 + 0.2;
-                            const peakY = baseY - wave * peakHeight;
-                            
-                            if (col === 0) {
-                                this.ctx.moveTo(x, peakY);
-                            } else {
-                                this.ctx.lineTo(x, peakY);
-                            }
-                        }
-                        
-                        for (let col = this.cols; col >= 0; col--) {
-                            const x = (col / this.cols) * w;
-                            this.ctx.lineTo(x, baseY + rowHeight / 2);
-                        }
-                        this.ctx.closePath();
-                        
-                        const alpha = 0.25 + (1 - rowProgress) * 0.35;
-                        const r = Math.round(80 + (1 - rowProgress) * 175);
-                        const g = Math.round(140 + (1 - rowProgress) * 20);
-                        const b = Math.round(220 - (1 - rowProgress) * 140);
-                        
-                        const gradient = this.ctx.createLinearGradient(0, baseY - peakHeight, 0, baseY + rowHeight);
-                        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha})`);
-                        gradient.addColorStop(1, `rgba(${Math.round(r * 0.7)}, ${Math.round(g * 0.6)}, ${Math.round(b * 0.75)}, ${alpha * 0.5})`);
-                        
-                        this.ctx.fillStyle = gradient;
-                        this.ctx.fill();
-                        
-                        this.ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 + (1 - rowProgress) * 0.2})`;
-                        this.ctx.lineWidth = 1 + (1 - rowProgress) * 0.8;
-                        
-                        this.ctx.beginPath();
-                        for (let col = 0; col <= this.cols; col++) {
-                            const x = (col / this.cols) * w;
-                            const wave = Math.sin(time * 0.5 + col * 0.12) * 0.12 + 
-                                        Math.sin(time * 0.3 + col * 0.08) * 0.08 + 0.2;
-                            const peakY = baseY - wave * peakHeight;
-                            if (col === 0) this.ctx.moveTo(x, peakY);
-                            else this.ctx.lineTo(x, peakY);
-                        }
-                        this.ctx.stroke();
-                    }
-                }
-                
-                drawPlaying() {
-                    const w = this.width;
-                    const h = this.height;
-                    const time = Date.now() / 1000;
-                    
-                    this.ctx.clearRect(0, 0, w, h);
-                    
-                    // Smooth progress interpolation
-                    if (this.audioElement && this.audioElement.duration) {
-                        this.progress = this.audioElement.currentTime / this.audioElement.duration;
-                    }
-                    this.displayProgress += (this.progress - this.displayProgress) * 0.12;
-                    
-                    // Smooth playhead opacity
-                    if (this.displayProgress > 0.005 && this.displayProgress < 0.995) {
-                        this.targetPlayheadOpacity = 1;
-                    } else {
-                        this.targetPlayheadOpacity = 0;
-                    }
-                    this.playheadOpacity += (this.targetPlayheadOpacity - this.playheadOpacity) * 0.1;
-                    
-                    // Get frequency data
-                    if (this.analyser && this.frequencyData) {
-                        this.analyser.getByteFrequencyData(this.frequencyData);
-                    }
-                    
-                    // Build current row from frequency data
-                    const currentRow = [];
-                    for (let i = 0; i < this.cols; i++) {
-                        let value = 0.15;
-                        if (this.frequencyData) {
-                            const freqIndex = Math.floor(i * (this.frequencyData.length * 0.65) / this.cols);
-                            value = this.frequencyData[freqIndex] / 255;
-                            if (i > this.cols * 0.08 && i < this.cols * 0.45) {
-                                value *= 1.25;
-                            }
-                            value = Math.max(0.08, Math.min(value, 1));
-                        }
-                        currentRow.push(value);
-                    }
-                    
-                    // Add to history (scrolling effect)
-                    this.terrainHistory.unshift(currentRow);
-                    if (this.terrainHistory.length > this.maxRows) {
-                        this.terrainHistory.pop();
-                    }
-                    
-                    // Draw playhead glow underneath
-                    if (this.playheadOpacity > 0.01) {
-                        const playheadX = this.displayProgress * w;
-                        const pulse = 0.5 + Math.sin(time * 3) * 0.3;
-                        const glowOpacity = this.playheadOpacity;
-                        
-                        const beamWidth = 45;
-                        const beam = this.ctx.createLinearGradient(playheadX - beamWidth, 0, playheadX + beamWidth, 0);
-                        beam.addColorStop(0, 'rgba(255, 150, 100, 0)');
-                        beam.addColorStop(0.35, `rgba(255, 180, 130, ${0.1 * pulse * glowOpacity})`);
-                        beam.addColorStop(0.5, `rgba(255, 200, 150, ${0.18 * pulse * glowOpacity})`);
-                        beam.addColorStop(0.65, `rgba(255, 180, 130, ${0.1 * pulse * glowOpacity})`);
-                        beam.addColorStop(1, 'rgba(255, 150, 100, 0)');
-                        
-                        this.ctx.fillStyle = beam;
-                        this.ctx.fillRect(playheadX - beamWidth, 0, beamWidth * 2, h);
-                        
-                        const glowR = 35 + pulse * 18;
-                        const radial = this.ctx.createRadialGradient(playheadX, h, 0, playheadX, h, glowR);
-                        radial.addColorStop(0, `rgba(255, 180, 120, ${0.25 * pulse * glowOpacity})`);
-                        radial.addColorStop(0.5, `rgba(255, 150, 100, ${0.1 * pulse * glowOpacity})`);
-                        radial.addColorStop(1, 'rgba(255, 100, 60, 0)');
-                        
-                        this.ctx.fillStyle = radial;
-                        this.ctx.beginPath();
-                        this.ctx.arc(playheadX, h, glowR, 0, Math.PI * 2);
-                        this.ctx.fill();
-                    }
-                    
-                    // Draw terrain rows
-                    const rows = this.terrainHistory.length;
-                    const rowHeight = h / this.maxRows;
-                    
-                    for (let row = rows - 1; row >= 0; row--) {
-                        const rowData = this.terrainHistory[row];
-                        const rowProgress = row / this.maxRows;
-                        const baseY = row * rowHeight + rowHeight / 2;
-                        const peakHeight = rowHeight * 2.2;
-                        
-                        this.ctx.beginPath();
-                        
-                        for (let col = 0; col <= this.cols; col++) {
-                            const x = (col / this.cols) * w;
-                            const value = rowData[Math.min(col, this.cols - 1)] || 0;
-                            const peakY = baseY - value * peakHeight;
-                            
-                            if (col === 0) this.ctx.moveTo(x, peakY);
-                            else this.ctx.lineTo(x, peakY);
-                        }
-                        
-                        for (let col = this.cols; col >= 0; col--) {
-                            const x = (col / this.cols) * w;
-                            this.ctx.lineTo(x, baseY + rowHeight / 2);
-                        }
-                        this.ctx.closePath();
-                        
-                        const alpha = 0.35 + (1 - rowProgress) * 0.5;
-                        const r = Math.round(80 + (1 - rowProgress) * 175);
-                        const g = Math.round(140 + (1 - rowProgress) * 20);
-                        const b = Math.round(220 - (1 - rowProgress) * 140);
-                        
-                        const gradient = this.ctx.createLinearGradient(0, baseY - peakHeight, 0, baseY + rowHeight);
-                        gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha})`);
-                        gradient.addColorStop(1, `rgba(${Math.round(r * 0.7)}, ${Math.round(g * 0.6)}, ${Math.round(b * 0.75)}, ${alpha * 0.55})`);
-                        
-                        this.ctx.fillStyle = gradient;
-                        this.ctx.fill();
-                        
-                        this.ctx.strokeStyle = `rgba(255, 255, 255, ${0.18 + (1 - rowProgress) * 0.35})`;
-                        this.ctx.lineWidth = 1.2 + (1 - rowProgress) * 1.3;
-                        
-                        this.ctx.beginPath();
-                        for (let col = 0; col <= this.cols; col++) {
-                            const x = (col / this.cols) * w;
-                            const value = rowData[Math.min(col, this.cols - 1)] || 0;
-                            const peakY = baseY - value * peakHeight;
-                            if (col === 0) this.ctx.moveTo(x, peakY);
-                            else this.ctx.lineTo(x, peakY);
-                        }
-                        this.ctx.stroke();
-                    }
-                    
-                    // Draw playhead line on top
-                    if (this.playheadOpacity > 0.01) {
-                        const playheadX = this.displayProgress * w;
-                        const pulse = 0.6 + Math.sin(time * 3) * 0.4;
-                        
-                        this.ctx.strokeStyle = `rgba(255, 255, 255, ${(0.35 + pulse * 0.15) * this.playheadOpacity})`;
-                        this.ctx.lineWidth = 2;
-                        this.ctx.beginPath();
-                        this.ctx.moveTo(playheadX, 3);
-                        this.ctx.lineTo(playheadX, h - 3);
-                        this.ctx.stroke();
-                    }
-                }
-            }
+                    <div class="field">
+                        <label for="source">how did you hear about us? <span class="req">(required)</span></label>
+                        <select id="source" name="source" required>
+                            <option value="">select one</option>
+                            <option value="instagram-ad">instagram or facebook ad</option>
+                            <option value="instagram-organic">instagram (not an ad)</option>
+                            <option value="referral">a friend or another artist</option>
+                            <option value="worked-before">we've worked together before</option>
+                            <option value="search">google / search</option>
+                            <option value="other">somewhere else</option>
+                        </select>
+                    </div>
 
-            // Close preview on overlay click or ESC
-            document.getElementById('previewOverlay').addEventListener('click', (e) => {
-                if (e.target.id === 'previewOverlay') closePreview();
-            });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    if (document.getElementById('termsOverlay').classList.contains('active')) {
-                        closeTerms();
-                    } else if (document.getElementById('previewOverlay').classList.contains('active')) {
-                        closePreview();
-                    }
-                }
-            });
-
-            // Terms & Conditions modal
-            document.getElementById('termsOverlay').addEventListener('click', (e) => {
-                if (e.target.id === 'termsOverlay') closeTerms();
-            });
-
-            function openTerms() {
-                document.getElementById('termsOverlay').classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-            function closeTerms() {
-                document.getElementById('termsOverlay').classList.remove('active');
-                if (!document.getElementById('previewOverlay').classList.contains('active')) {
-                    document.body.style.overflow = '';
-                }
-            }
-            // expose globally for onclick
-            window.openTerms = openTerms;
-            window.closeTerms = closeTerms;
-
-            updateCartUI();
-        });
-    </script>
-
-    <!-- Floating Cart -->
-    <div class="cart-float">
-        <button class="checkout-float-btn" id="checkoutFloatBtn" onclick="checkout()">checkout</button>
-        <button class="cart-btn-float" id="cartBtn">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM7.2 14.6l-.1.4c0 .6.4 1 1 1h11c.5 0 1-.4 1-1s-.4-1-1-1H8.1l-.9-2h10.4c.4 0 .8-.3.9-.7l1.9-7c.1-.5-.3-1-.9-1H5.2l-.3-1.3C4.8 1.4 4.4 1 4 1H2c-.6 0-1 .4-1 1s.4 1 1 1h1.2l2.7 11.6c.1.5.5.9 1 1h.3z"/>
-            </svg>
-            <span class="cart-badge" id="cartBadge">0</span>
-        </button>
-    </div>
-
-    <!-- Terms & Conditions Modal -->
-    <div class="terms-overlay" id="termsOverlay">
-        <div class="terms-panel">
-            <div class="terms-header">
-                <h2>terms & conditions</h2>
-                <button class="terms-close" onclick="closeTerms()">×</button>
-            </div>
-            <div class="terms-body">
-                <h3>you can</h3>
-                <ul>
-                    <li>use samples royalty-free in songs, beats, films, podcasts, games — release anywhere</li>
-                    <li>sell beats with these samples (your buyer follows the same rules)</li>
-                </ul>
-
-                <h3>you can't</h3>
-                <ul>
-                    <li>redistribute, resell, or repackage the raw samples</li>
-                    <li>use a sample alone (without other sounds) commercially</li>
-                    <li>claim ownership of the original recordings</li>
-                </ul>
-
-                <h3>major label releases</h3>
-                <ul>
-                    <li>a major release is anything distributed through sony, universal, warner (or their subsidiaries/distributors like the orchard, AWAL, caroline, etc.)</li>
-                    <li>if your track qualifies, contact journals <strong>before</strong> release for clearance — we'll connect you with the original creator to work out a deal</li>
-                    <li>otherwise, it's royalty-free — no clearance needed</li>
-                </ul>
-
-                <h3>fine print</h3>
-                <ul>
-                    <li>all sales final — no refunds</li>
-                    <li>breach = license revoked</li>
-                </ul>
-
-                <div class="terms-note">
-                    by purchasing you agree to the full EULA. questions? journals.sound@gmail.com
-                </div>
+                    <button type="submit" class="submit" id="submitBtn">send it over</button>
+                    <div id="statusHint">goes straight to journals.sound@gmail.com</div>
+                </form>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Preview Panel Overlay -->
-    <div class="preview-overlay" id="previewOverlay">
-        <div class="preview-panel" id="previewPanel">
-            <div class="preview-header">
-                <div class="preview-title" id="previewTitle">human voice (vol. 1)</div>
-                <button class="preview-close" onclick="closePreview()">×</button>
+    <section id="credits">
+        <div class="container">
+            <div class="center">
+                <h2 class="sechead">more credits.</h2>
+                <p class="secsub">the rest of the catalogue.</p>
             </div>
-            <div class="preview-track-list" id="previewTrackList"></div>
-            <div class="preview-footer">
-                <div class="preview-price" id="previewPrice">$10</div>
-                <button class="btn-add-cart" id="panelCartBtn" >add to cart</button>
+            <div class="trackgrid">
+        <div class="track-card">
+          <img class="cover" loading="lazy" src="https://cdn-images.dzcdn.net/images/cover/fc7c649593ae2f0abe9bd562c49fdbd0/0x1900-000000-80-0-0.jpg" alt="Used to Be" />
+          <div class="tmeta">
+            <div class="tname">used to be</div>
+            <div class="tlabel">insomniac</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/4HbAHIdZncpoOxLJninXwO?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/used-to-be/1683441299?i=1683441301&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card">
+          <img class="cover" loading="lazy" src="https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/3a/e7/16/3ae7160a-6139-0eaa-c796-fe9f02d33478/cover.jpg/1200x630bb.jpg" alt="Respawn" />
+          <div class="tmeta">
+            <div class="tname">respawn</div>
+            <div class="tlabel">insomniac</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/3Qrmfu75oZzfQppeaUKOkm?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/respawn-feat-ero808-jvss/1617320073?i=1617320075&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card">
+          <img class="cover" loading="lazy" src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b6/47/c7/b647c7f5-b3df-539e-ca5e-46c486d7bf9a/artwork.jpg/600x600bf-60.jpg" alt="Younger Me" />
+          <div class="tmeta">
+            <div class="tname">younger me</div>
+            <div class="tlabel">independent</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/3pUFitri0MDyx4n58DDBjS?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/younger-me/1771838770?i=1771838771&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card">
+          <img class="cover" loading="lazy" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/47/29/42/47294259-dd68-d7f0-6fc7-bed7c721d5db/artwork.jpg/600x600bf-60.jpg" alt="You Got That" />
+          <div class="tmeta">
+            <div class="tname">you got that</div>
+            <div class="tlabel">independent</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2KZNcQzlkmJV6UlH69kGpy?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/you-got-that-colson-xl-remix/1590757906?i=1590757907&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card">
+          <img class="cover" loading="lazy" src="https://i1.sndcdn.com/artworks-lyqUr8Oh7rJstk18-5tO7Gg-t240x240.jpg" alt="Small Talk" />
+          <div class="tmeta">
+            <div class="tname">small talk</div>
+            <div class="tlabel">independent</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/3VUB2APjgQ5kHMgWjtfEGD?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/small-talk-colson-xl-remix/1538094657?i=1538094658&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card">
+          <img class="cover" loading="lazy" src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/89/39/96/893996e3-962b-5352-cf8b-3cf5f6f403f6/197773759201_cover.jpg/600x600bf-60.jpg" alt="Huant" />
+          <div class="tmeta">
+            <div class="tname">huant</div>
+            <div class="tlabel">independent</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/28vT0vfn4O1QDo2GkEzx9S?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/huant/1702909191?i=1702909192&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card">
+          <img class="cover" loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEfpf2_7TDtSYW6KWap7toHyAvntp56BKxGw&amp;s" alt="Too Easy" />
+          <div class="tmeta">
+            <div class="tname">too easy</div>
+            <div class="tlabel">independent</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2hzlsZHIoKK3g2n7FWBDoG?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/too-easy/1694801612?i=1694801613&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card">
+          <img class="cover" loading="lazy" src="https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/8a/7c/b2/8a7cb2f0-ec7d-559f-f4cc-9a1af4dc240a/193872799551_cover.jpg/600x600bf-60.jpg" alt="Dreamgirl EP" />
+          <div class="tmeta">
+            <div class="tname">dreamgirl ep</div>
+            <div class="tlabel">independent</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/album/2YO4jKw7zppJhdjnmwvYwp?utm_source=generator&amp;theme=0&amp;view=list" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/dreamgirl-ep/1577870495?app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            journals. &middot; <a href="/privacy">privacy</a>
+        </div>
+    </footer>
+
 <script>
     // Hamburger menu overlay
     document.addEventListener('DOMContentLoaded', function() {
@@ -2818,7 +614,112 @@
                 menuIcon.classList.remove('active');
             }
         });
+
+        // Close menu when an in-page anchor is chosen
+        document.querySelectorAll('.menu-content a[href^="#"]').forEach(function(a) {
+            a.addEventListener('click', function() {
+                menuOverlay.classList.remove('active');
+                menuIcon.classList.remove('active');
+            });
+        });
     });
+
+    // Spotify / Apple Music toggle. Apple iframe is lazy-mounted from data-src
+    // so 11 Apple embeds do not all load on first paint.
+    document.addEventListener('click', function(e) {
+        var tab = e.target.closest('.ptab');
+        if (!tab) return;
+        var cardEl = tab.closest('.track-card');
+        var want = tab.getAttribute('data-p');
+        cardEl.querySelectorAll('.ptab').forEach(function(t) { t.classList.toggle('active', t === tab); });
+        cardEl.querySelectorAll('.pframe').forEach(function(f) {
+            var on = f.classList.contains(want);
+            f.classList.toggle('active', on);
+            if (on && !f.src && f.dataset.src) { f.src = f.dataset.src; }
+        });
+    });
+
+    // Pricing cards double as the service selector
+    (function() {
+        var plans = document.querySelectorAll('.plan');
+        var serviceInput = document.getElementById('service');
+        var serviceLabel = document.getElementById('serviceLabel');
+        var PRICES = { 'mix-and-master': 'full mix + master — $150', 'stem-master': 'stem master — $125' };
+
+        function select(el, scroll) {
+            plans.forEach(function(p) {
+                p.classList.remove('selected');
+                p.querySelector('.pick').textContent = 'tap to select';
+            });
+            el.classList.add('selected');
+            el.querySelector('.pick').textContent = 'selected \u2713';
+            var svc = el.getAttribute('data-service');
+            serviceInput.value = svc;
+            serviceLabel.textContent = PRICES[svc];
+            if (scroll) { document.getElementById('start').scrollIntoView({ behavior: 'smooth' }); }
+        }
+        plans.forEach(function(p) { p.addEventListener('click', function() { select(p, true); }); });
+        select(plans[0], false);
+
+        document.getElementById('changeService').addEventListener('click', function() {
+            document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+        });
+    })();
+
+    // Intake form
+    (function() {
+        var form = document.getElementById('intakeForm');
+        var btn = document.getElementById('submitBtn');
+        var hint = document.getElementById('statusHint');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var name = document.getElementById('name').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var link = document.getElementById('link').value.trim();
+            var service = document.getElementById('service').value;
+            var source = document.getElementById('source').value;
+
+            if (!name || !email || !link || !service || !source) {
+                hint.textContent = 'please fill in all required fields.';
+                return;
+            }
+            if (!/^https?:\/\//i.test(link)) { link = 'https://' + link; }
+
+            btn.disabled = true;
+            hint.textContent = 'sending...';
+
+            // Unique event ID so the browser pixel and server-side CAPI dedupe.
+            var eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+            try {
+                var res = await fetch('/api/intake', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, email: email, service: service, link: link, source: source, eventId: eventId })
+                });
+                var data = await res.json().catch(function() { return {}; });
+                if (!res.ok) { throw new Error(data.error || 'something went wrong.'); }
+
+                // Fire Meta Pixel Lead ONLY on a successful submission.
+                if (typeof fbq === 'function') {
+                    fbq('track', 'Lead', {
+                        content_name: 'Mix & Master Intake',
+                        content_category: service || 'mix-master',
+                        value: 40.00,
+                        currency: 'USD'
+                    }, { eventID: eventId });
+                }
+
+                form.style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            } catch (err) {
+                console.error(err);
+                hint.textContent = err.message || 'something went wrong. please try again.';
+                btn.disabled = false;
+            }
+        });
+    })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"c32b86bb49ea48c1a853b20556c6e44e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script>

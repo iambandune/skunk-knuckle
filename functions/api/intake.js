@@ -33,7 +33,7 @@ export async function onRequestPost(context) {
 
   try {
     const body = await request.json();
-    const { name, email, phone, service, link, notes, eventId } = body;
+    const { name, email, phone, service, link, notes, source, eventId } = body;
 
     // ─────────────────────────────────────────────────────────────
     // VALIDATION
@@ -55,6 +55,7 @@ export async function onRequestPost(context) {
       service: String(service).trim().slice(0, 50),
       link: String(link).trim().slice(0, 2000),
       notes: String(notes || '').trim().slice(0, 5000),
+      source: String(source || '').trim().slice(0, 60),
     };
 
     // Email validation (RFC 5322 simplified)
@@ -148,6 +149,17 @@ export async function onRequestPost(context) {
     };
     const serviceDisplay = serviceLabels[sanitized.service] || sanitized.service;
 
+    // Human-readable label for the "how did you hear about us" answer
+    const sourceLabels = {
+      'instagram-ad': 'Instagram/Facebook ad',
+      'instagram-organic': 'Instagram (organic)',
+      'referral': 'Referral - friend or artist',
+      'worked-before': 'Returning client',
+      'search': 'Google / search',
+      'other': 'Other',
+    };
+    const sourceDisplay = sourceLabels[sanitized.source] || sanitized.source || '(not provided)';
+
     // Format the email body
     const emailBody = `
 New Intake Form Submission
@@ -157,6 +169,7 @@ Name: ${sanitized.name}
 Email: ${sanitized.email}
 Phone: ${sanitized.phone || '(not provided)'}
 Service: ${serviceDisplay}
+Heard about us via: ${sourceDisplay}
 Streaming Link: ${parsedUrl.href}
 
 Notes:
@@ -223,6 +236,7 @@ Submitted: ${new Date().toISOString()}
               content_category: sanitized.service || 'mix-master',
               value: 40.00,
               currency: 'USD',
+              lead_source: sanitized.source || 'unknown',
             },
           }],
         };
