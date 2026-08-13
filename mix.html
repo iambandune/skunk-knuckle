@@ -919,11 +919,20 @@
             // Unique event ID so the browser pixel and server-side CAPI dedupe.
             var eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 
+            function cookie(n) {
+                var m = document.cookie.match('(^|; )' + n + '=([^;]*)');
+                return m ? decodeURIComponent(m[2]) : '';
+            }
+
             try {
                 var res = await fetch('/api/intake', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name: name, email: email, service: service, link: link, source: source, eventId: eventId })
+                    body: JSON.stringify({
+                        name: name, email: email, service: service, link: link,
+                        source: source, eventId: eventId,
+                        fbp: cookie('_fbp'), fbc: cookie('_fbc')
+                    })
                 });
                 var data = await res.json().catch(function() { return {}; });
                 if (!res.ok) { throw new Error(data.error || 'something went wrong.'); }

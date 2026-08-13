@@ -408,8 +408,8 @@
                 </p>
 
                 <div class="actions">
-                    <a href="/samples" class="btn-secondary">← try again</a>
-                    <a href="mailto:journals.mp3@gmail.com" class="download-btn">contact support</a>
+                    <a href="/store" class="btn-secondary">← try again</a>
+                    <a href="mailto:journals.sound@gmail.com" class="download-btn">contact support</a>
                 </div>
             </div>
         </div>
@@ -419,6 +419,14 @@
         // Get session ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const sessionId = urlParams.get('session_id');
+
+        // Values below come from upstream API text, so escape before they
+        // touch innerHTML.
+        function esc(v) {
+            return String(v == null ? '' : v)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
 
         async function verifyPurchase() {
             const loadingState = document.getElementById('loadingState');
@@ -448,9 +456,10 @@
                 document.getElementById('totalAmount').textContent = data.total ? `$${(data.total / 100).toFixed(0)}` : '$49';
 
                 // Fire Meta Pixel Purchase event with real value
-                if (typeof fbq !== 'undefined') {
+                if (typeof fbq !== 'undefined' && !sessionStorage.getItem('purchase_fired_' + sessionId)) {
+                    sessionStorage.setItem('purchase_fired_' + sessionId, '1');
                     fbq('track', 'Purchase', {
-                        value: data.total ? (data.total / 100) : 49,
+                        value: data.total ? (data.total / 100) : 10,
                         currency: data.currency || 'USD'
                     });
                 }
@@ -465,10 +474,10 @@
                             <div class="download-item">
                                 <div class="download-icon">📦</div>
                                 <div class="download-info">
-                                    <div class="download-name">${item.name}</div>
-                                    <div class="download-meta">${item.size || 'wav + mp3 formats'}</div>
+                                    <div class="download-name">${esc(item.name)}</div>
+                                    <div class="download-meta">${esc(item.size || 'wav + mp3 formats')}</div>
                                 </div>
-                                <a href="${item.url}" class="download-btn" download>download</a>
+                                <a href="${esc(item.url)}" class="download-btn" download>download</a>
                             </div>
                         `;
                     });
@@ -506,8 +515,8 @@
             document.getElementById('errorState').style.display = 'block';
             
             if (message) {
-                document.getElementById('errorMessage').innerHTML = 
-                    `${message}<br>please contact support if you were charged.`;
+                document.getElementById('errorMessage').innerHTML =
+                    `${esc(message)}<br>please contact support if you were charged.`;
             }
         }
 

@@ -264,11 +264,6 @@
             var original = btn.textContent;
             btn.textContent = 'taking you to checkout...';
 
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'InitiateCheckout', {
-                    value: value, currency: 'USD', num_items: 1, content_type: 'product'
-                });
-            }
             try {
                 var res = await fetch('/api/checkout', {
                     method: 'POST',
@@ -276,7 +271,15 @@
                     body: JSON.stringify({ items: [{ priceId: priceId, quantity: 1 }] })
                 });
                 var data = await res.json();
-                if (data.url) { window.location.href = data.url; return; }
+                if (data.url) {
+                    if (typeof fbq !== 'undefined') {
+                        fbq('track', 'InitiateCheckout', {
+                            value: value, currency: 'USD', num_items: 1, content_type: 'product'
+                        });
+                    }
+                    window.location.href = data.url;
+                    return;
+                }
                 throw new Error(data.error || 'checkout unavailable');
             } catch (err) {
                 console.error(err);
@@ -307,7 +310,10 @@
                 if (!res.ok) { throw new Error(data.error || 'something went wrong.'); }
                 form.innerHTML = '<div style="text-align:center;padding:8px 0;font-size:17px;">you\'re on the list.</div>';
                 if (typeof fbq !== 'undefined') {
-                    fbq('track', 'Lead', { content_name: 'Store Waitlist', content_category: 'waitlist', value: 0, currency: 'USD' });
+                    // Deliberately NOT 'Lead'. The mix campaigns optimise on Lead;
+                    // mixing a free email signup into that bucket teaches delivery
+                    // to chase the cheaper action and makes CPL unreadable.
+                    fbq('track', 'Subscribe', { content_name: 'Store Waitlist', content_category: 'waitlist' });
                 }
             } catch (err) {
                 hint.textContent = err.message || 'something went wrong. please try again.';
@@ -347,6 +353,10 @@
     var icon = document.querySelector('.menu-icon');
     if (overlay) overlay.classList.remove('active');
     if (icon) icon.classList.remove('active');
+    // Returning from Stripe restores the DOM from bfcache with the buy
+    // button still disabled and mid-flight text.
+    var buy = document.getElementById('buyHumanVoice');
+    if (buy) { buy.disabled = false; buy.textContent = 'buy — $10'; }
   });
 </script>
 </body>

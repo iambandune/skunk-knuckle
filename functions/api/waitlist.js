@@ -40,14 +40,16 @@ export async function onRequestPost(context) {
       product: String(product || 'store').trim().slice(0, 60),
     };
 
-    // Email validation (RFC 5322 simplified) — same rule as the intake form
+    // Email validation (RFC 5322 simplified)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     if (!emailRegex.test(sanitized.email)) {
       return json({ error: 'Please provide a valid email address.' }, 400);
     }
 
     // Light abuse guard: reject obvious throwaway/injection attempts
-    const suspicious = [/<script/i, /javascript:/i, /\.(ru|tk|ml|ga|cf)$/i];
+    // Note: no TLD blocklist. mail.ru and yandex.ru are mainstream consumer
+    // providers and CIS is a large electronic-production audience.
+    const suspicious = [/<script/i, /javascript:/i];
     if (suspicious.some((p) => p.test(sanitized.email))) {
       return json({ error: 'Please provide a valid email address.' }, 400);
     }
@@ -82,7 +84,7 @@ Submitted: ${new Date().toISOString()}
         from: 'journals. <onboarding@resend.dev>',
         to: ['journals.sound@gmail.com'],
         reply_to: sanitized.email,
-        subject: `📬 Waitlist: ${sanitized.email}`,
+        subject: `📬 Waitlist: ${sanitized.email.replace(/[\r\n]+/g, ' ')}`,
         text: emailBody,
       }),
     });

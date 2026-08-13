@@ -33,7 +33,7 @@ export async function onRequestPost(context) {
 
   try {
     const body = await request.json();
-    const { name, email, phone, service, link, notes, source, eventId } = body;
+    const { name, email, phone, service, link, notes, source, eventId, fbp, fbc } = body;
 
     // ─────────────────────────────────────────────────────────────
     // VALIDATION
@@ -42,9 +42,13 @@ export async function onRequestPost(context) {
     // Required fields check. Coproduction can start from nothing but a
     // conversation, so a link is optional for that service only.
     const linkOptional = String(service || '').trim() === 'coproduction';
-    if (!name || !email || !service || (!link && !linkOptional)) {
+    if (!name || !email || !service || !source || (!link && !linkOptional)) {
       return new Response(
-        JSON.stringify({ error: 'Missing required fields: name, email, service, and link are required.' }),
+        JSON.stringify({
+          error: linkOptional
+            ? 'Missing required fields: name, email, service and source are required.'
+            : 'Missing required fields: name, email, service, source and link are required.',
+        }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
@@ -55,7 +59,7 @@ export async function onRequestPost(context) {
       email: String(email).trim().toLowerCase().slice(0, 254),
       phone: String(phone || '').trim().slice(0, 30),
       service: String(service).trim().slice(0, 50),
-      link: String(link).trim().slice(0, 2000),
+      link: String(link || '').trim().slice(0, 2000),
       notes: String(notes || '').trim().slice(0, 5000),
       source: String(source || '').trim().slice(0, 60),
     };
@@ -195,7 +199,7 @@ Submitted: ${new Date().toISOString()}
         from: 'journals. intake <onboarding@resend.dev>', // Use your verified domain later
         to: ['journals.sound@gmail.com'],
         reply_to: sanitized.email,
-        subject: `🎧 New Intake: ${sanitized.name} — ${serviceDisplay}`,
+        subject: `🎧 New Intake: ${sanitized.name.replace(/[\r\n]+/g, ' ')} — ${serviceDisplay}`,
         text: emailBody,
       }),
     });
@@ -227,7 +231,7 @@ Submitted: ${new Date().toISOString()}
             event_name: 'Lead',
             event_time: Math.floor(Date.now() / 1000),
             event_id: eventId || `lead_${Date.now()}`, // For deduplication with browser pixel
-            event_source_url: 'https://journals-studio.com/',
+            event_source_url: request.headers.get('referer') || 'https://journals-studio.com/mix',
             action_source: 'website',
             user_data: {
               em: hashedEmail ? [hashedEmail] : undefined,
@@ -235,6 +239,10 @@ Submitted: ${new Date().toISOString()}
               fn: hashedName ? [hashedName] : undefined,
               client_user_agent: request.headers.get('user-agent') || undefined,
               client_ip_address: request.headers.get('cf-connecting-ip') || undefined,
+              // _fbp / _fbc are what actually tie a server event back to an
+              // ad click; without them match quality reads low in Events Manager
+              fbp: fbp || undefined,
+              fbc: fbc || undefined,
             },
             custom_data: {
               content_name: 'Mix & Master Intake',
