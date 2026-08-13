@@ -163,22 +163,18 @@
             transition: transform 0.18s ease, box-shadow 0.18s ease;
         }
         .cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); }
-        .microcopy { font-size: 13.5px; color: rgba(255, 255, 255, 0.9); margin-top: 12px; }
-        .credline { font-size: 14px; color: rgba(255, 255, 255, 0.9); margin-top: 24px; }
+        .microcopy { font-size: 13.5px; color: rgba(255, 255, 255, 0.72); margin-top: 12px; }
+        .credline { font-size: 14px; color: rgba(255, 255, 255, 0.72); margin-top: 24px; }
 
         section { padding: 52px 0; }
         .sechead { font-size: clamp(26px, 3.6vw, 38px); font-weight: 400; letter-spacing: -0.6px; margin-bottom: 10px; }
         .secsub { font-size: 16px; color: rgba(255, 255, 255, 0.82); margin-bottom: 28px; line-height: 1.55; }
         .center { text-align: center; }
-        /* Text sitting directly on the gradient (not on a card) cannot reach
-           WCAG AA over the pale band without changing the palette. A shadow
-           lifts legibility; the palette decision is deliberately left alone. */
-        .sechead, .secsub, .hubsub, .credline, .microcopy, h1 { text-shadow: 0 1px 3px rgba(0,0,0,0.32); }
         .center .secsub { margin-left: auto; margin-right: auto; max-width: 620px; }
 
         .card {
-            background: rgba(0, 0, 0, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.22);
             border-radius: 20px;
             backdrop-filter: blur(12px);
         }
@@ -222,7 +218,7 @@
         .tmeta { display: flex; align-items: baseline; justify-content: space-between; gap: 6px 10px; flex-wrap: wrap; }
         .tname { font-size: 17px; flex: 1 1 auto; min-width: 0; line-height: 1.25; }
         .tlabel { font-size: 11.5px; color: rgba(255,255,255,0.95); background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 100px; padding: 2px 9px; white-space: nowrap; }
-        .tcred { font-size: 12.5px; color: rgba(255,255,255,0.9); margin-top: -4px; }
+        .tcred { font-size: 12.5px; color: rgba(255,255,255,0.7); margin-top: -4px; }
         .trackgrid.dense .tname { font-size: 15.5px; }
         .trackgrid.dense .tcred { font-size: 11.5px; }
 
@@ -230,7 +226,7 @@
         .player { margin-top: 2px; }
         .ptabs { display: flex; gap: 6px; margin-bottom: 8px; }
         .ptab {
-            flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+            flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
             color: rgba(255,255,255,0.8); border-radius: 100px; padding: 5px 10px; font-size: 12px;
             cursor: pointer; font-family: inherit; text-transform: lowercase; transition: all 0.2s ease;
         }
@@ -244,8 +240,8 @@
         /* Pricing */
         .pricegrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; align-items: start; }
         .plan { padding: 30px 28px; cursor: pointer; transition: all 0.22s ease; text-align: left; }
-        .plan:hover { background: rgba(0, 0, 0, 0.55); transform: translateY(-3px); }
-        .plan.selected { background: rgba(0, 0, 0, 0.62); border-color: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28); }
+        .plan:hover { background: rgba(255, 255, 255, 0.14); transform: translateY(-3px); }
+        .plan.selected { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28); }
         .plan .pname { font-size: 24px; margin-bottom: 4px; }
         .plan .pprice { font-size: 44px; font-weight: 500; letter-spacing: -1.5px; margin-bottom: 14px; }
         .plan .pprice.quote { font-size: 30px; }
@@ -253,7 +249,7 @@
         .plan ul { list-style: none; padding: 0; }
         .plan li { font-size: 15px; color: rgba(255, 255, 255, 0.88); padding: 6px 0 6px 24px; position: relative; line-height: 1.45; }
         .plan li:before { content: '\2192'; position: absolute; left: 0; color: rgba(255, 255, 255, 0.6); }
-        .plan .pick { margin-top: 18px; font-size: 14px; color: rgba(255, 255, 255, 0.9); }
+        .plan .pick { margin-top: 18px; font-size: 14px; color: rgba(255, 255, 255, 0.7); }
         .plan.selected .pick { color: #fff; font-weight: 600; }
         .plan:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
@@ -270,12 +266,12 @@
             transition: border-color 0.18s ease, background 0.18s ease;
         }
         input::placeholder { color: rgba(255, 255, 255, 0.55); }
-        input:focus, select:focus { border-color: rgba(255, 255, 255, 0.9); background: rgba(255, 255, 255, 0.2); }
+        input:focus, select:focus { border-color: rgba(255, 255, 255, 0.7); background: rgba(255, 255, 255, 0.2); }
         input:focus-visible, select:focus-visible, button:focus-visible, .submit:focus-visible, .cta:focus-visible {
             outline: 2px solid #fff; outline-offset: 2px;
         }
         select option { background: #4A90E2; color: #fff; }
-        .hint { font-size: 13px; color: rgba(255, 255, 255, 0.9); margin-top: 6px; line-height: 1.45; }
+        .hint { font-size: 13px; color: rgba(255, 255, 255, 0.68); margin-top: 6px; line-height: 1.45; }
         .servicepill { display: inline-flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 100px; padding: 9px 16px; font-size: 14.5px; }
         .servicepill button { background: none; border: none; color: rgba(255, 255, 255, 0.75); cursor: pointer; font-family: inherit; font-size: 13px; text-decoration: underline; text-transform: lowercase; padding: 0; }
         .submit {

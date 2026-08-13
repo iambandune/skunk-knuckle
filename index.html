@@ -71,14 +71,10 @@
         .menu-content a { display: block; color: #fff; text-decoration: none; font-size: 24px; margin: 20px 0; opacity: 0.8; transition: all 0.3s ease; }
         .menu-content a:hover { opacity: 1; transform: scale(1.1); }
 
-        .card { background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; backdrop-filter: blur(12px); }
+        .card { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.22); border-radius: 20px; backdrop-filter: blur(12px); }
         .sechead { font-size: clamp(26px, 3.6vw, 38px); font-weight: 400; letter-spacing: -0.6px; margin-bottom: 10px; }
         .secsub { font-size: 16px; color: rgba(255,255,255,0.82); margin-bottom: 28px; line-height: 1.55; }
         .center { text-align: center; }
-        /* Text sitting directly on the gradient (not on a card) cannot reach
-           WCAG AA over the pale band without changing the palette. A shadow
-           lifts legibility; the palette decision is deliberately left alone. */
-        .sechead, .secsub, .hubsub, .credline, .microcopy, h1 { text-shadow: 0 1px 3px rgba(0,0,0,0.32); }
         .center .secsub { margin-left: auto; margin-right: auto; max-width: 620px; }
         footer { padding: 44px 0 56px; text-align: center; font-size: 14px; color: rgba(255,255,255,0.75); }
         footer a { color: rgba(255,255,255,0.85); }
@@ -92,7 +88,7 @@
             transition: transform 0.25s ease, background 0.25s ease; min-height: 260px;
             display: flex; flex-direction: column; justify-content: space-between;
         }
-        .door:hover { background: rgba(0, 0, 0, 0.58); transform: translateY(-4px); }
+        .door:hover { background: rgba(255,255,255,0.16); transform: translateY(-4px); }
         .door .dtitle { font-size: clamp(30px, 4vw, 42px); font-weight: 400; letter-spacing: -0.8px; margin-bottom: 12px; }
         .door .dsub { font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.55; max-width: 34ch; }
         .door .dmeta { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 26px; display: flex; align-items: center; gap: 8px; }
