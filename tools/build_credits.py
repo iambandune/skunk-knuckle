@@ -135,7 +135,7 @@ def card(c):
             <div class="tname">{esc(c['name'])}</div>
             <div class="tlabel">{esc(c['label'])}</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">{esc(c.get("credits", "mixing & mastering"))}</div>
           <div class="players">
             <div class="ptabs">{tabs}
             </div>
@@ -165,6 +165,7 @@ def main():
             changed = True
 
         c.setdefault("label", "independent")
+        c.setdefault("credits", "mixing & mastering")
 
         cover = os.path.join(COVERS, f"{c['slug']}.jpg")
         if not os.path.exists(cover):

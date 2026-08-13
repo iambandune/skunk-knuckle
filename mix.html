@@ -179,7 +179,10 @@
         }
 
         /* Track cards */
-        .trackgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
+        .trackgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; align-items: stretch; }
+        /* Cap at 3 up so a 6-card highlights row never breaks into an
+           orphan. Below that auto-fit handles 2-up and 1-up. */
+        @media (min-width: 1000px) { .trackgrid { grid-template-columns: repeat(3, 1fr); } }
         .track-card {
             background: rgba(255, 255, 255, 0.09);
             border: 1px solid rgba(255, 255, 255, 0.22);
@@ -195,6 +198,9 @@
         .tname { font-size: 18px; }
         .tlabel { font-size: 12px; color: rgba(255,255,255,0.95); background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 100px; padding: 3px 10px; white-space: nowrap; }
         .tcred { font-size: 12.5px; color: rgba(255, 255, 255, 0.7); }
+        .track-card .players { margin-top: auto; }
+        .tmeta { flex-wrap: wrap; }
+        .tname { flex: 1 1 auto; min-width: 0; }
         .ptabs { display: flex; gap: 6px; margin-bottom: 8px; }
         .ptab {
             flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
@@ -314,12 +320,58 @@
             <div class="trackgrid">
 <!-- CREDITS:FEATURED -->
         <div class="track-card featured">
+          <img class="cover" loading="lazy" src="/covers/itchtopay.jpg" alt="itchtopay" width="600" height="600" />
+          <div class="tmeta">
+            <div class="tname">itchtopay</div>
+            <div class="tlabel">dim mak</div>
+          </div>
+          <div class="tcred">mixing &amp; mastering</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/102v6pIT5fGhbbgbFylGlI?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+          </div>
+        </div>
+        <div class="track-card featured">
+          <img class="cover" loading="lazy" src="/covers/out-in-the-sun.jpg" alt="out in the sun" width="600" height="600" />
+          <div class="tmeta">
+            <div class="tname">out in the sun</div>
+            <div class="tlabel">putyouon</div>
+          </div>
+          <div class="tcred">coproduction, mixing &amp; mastering</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2IBM95krbfoEU4pKtHJJtL?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/out-in-the-sun-single/1607609431?i=1607609435&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card featured">
+          <img class="cover" loading="lazy" src="/covers/calm-down.jpg" alt="calm down" width="600" height="600" />
+          <div class="tmeta">
+            <div class="tname">calm down</div>
+            <div class="tlabel">independent</div>
+          </div>
+          <div class="tcred">coproduction, mixing &amp; mastering</div>
+          <div class="players">
+            <div class="ptabs">
+              <button type="button" class="ptab active" data-p="sp">spotify</button>
+              <button type="button" class="ptab" data-p="ap">apple music</button>
+            </div>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/15P5svfgx7wZ3ADxHDW379?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/calm-down-single/1640501237?i=1640501238&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+          </div>
+        </div>
+        <div class="track-card featured">
           <img class="cover" loading="lazy" src="/covers/sweat.jpg" alt="sweat" width="600" height="600" />
           <div class="tmeta">
             <div class="tname">sweat</div>
             <div class="tlabel">mau5trap</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
@@ -335,7 +387,7 @@
             <div class="tname">watch me</div>
             <div class="tlabel">sable valley</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
@@ -346,19 +398,19 @@
           </div>
         </div>
         <div class="track-card featured">
-          <img class="cover" loading="lazy" src="/covers/body-on-mine.jpg" alt="body on mine" width="600" height="600" />
+          <img class="cover" loading="lazy" src="/covers/used-to-be.jpg" alt="used to be" width="600" height="600" />
           <div class="tmeta">
-            <div class="tname">body on mine</div>
-            <div class="tlabel">hexagon</div>
+            <div class="tname">used to be</div>
+            <div class="tlabel">insomniac</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
               <button type="button" class="ptab" data-p="ap">apple music</button>
             </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2lsHvYMw4lqSjWCwJhuuKE?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/body-on-mine/1840160745?i=1840160746&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/4HbAHIdZncpoOxLJninXwO?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/used-to-be/1683441299?i=1683441301&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
           </div>
         </div>
 <!-- /CREDITS:FEATURED -->
@@ -474,19 +526,19 @@
             <div class="trackgrid">
 <!-- CREDITS:REST -->
         <div class="track-card">
-          <img class="cover" loading="lazy" src="/covers/used-to-be.jpg" alt="used to be" width="600" height="600" />
+          <img class="cover" loading="lazy" src="/covers/body-on-mine.jpg" alt="body on mine" width="600" height="600" />
           <div class="tmeta">
-            <div class="tname">used to be</div>
-            <div class="tlabel">insomniac</div>
+            <div class="tname">body on mine</div>
+            <div class="tlabel">hexagon</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
               <button type="button" class="ptab" data-p="ap">apple music</button>
             </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/4HbAHIdZncpoOxLJninXwO?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/used-to-be/1683441299?i=1683441301&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
+            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2lsHvYMw4lqSjWCwJhuuKE?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/body-on-mine/1840160745?i=1840160746&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
           </div>
         </div>
         <div class="track-card">
@@ -495,7 +547,7 @@
             <div class="tname">respawn</div>
             <div class="tlabel">insomniac</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
@@ -511,7 +563,7 @@
             <div class="tname">younger me</div>
             <div class="tlabel">independent</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
@@ -527,7 +579,7 @@
             <div class="tname">you got that</div>
             <div class="tlabel">independent</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
@@ -543,7 +595,7 @@
             <div class="tname">small talk</div>
             <div class="tlabel">independent</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
@@ -559,7 +611,7 @@
             <div class="tname">huant</div>
             <div class="tlabel">independent</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
@@ -575,7 +627,7 @@
             <div class="tname">too easy</div>
             <div class="tlabel">independent</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
@@ -591,7 +643,7 @@
             <div class="tname">dreamgirl ep</div>
             <div class="tlabel">independent</div>
           </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
+          <div class="tcred">mixing &amp; mastering</div>
           <div class="players">
             <div class="ptabs">
               <button type="button" class="ptab active" data-p="sp">spotify</button>
