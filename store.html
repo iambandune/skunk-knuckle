@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>journals. - Store</title>
+    <meta name="description" content="sample packs and plugins from journals. human voice vol. 1 out now." />
+    <meta property="og:title" content="journals. — store" />
+    <meta property="og:description" content="sample packs and plugins from journals. human voice vol. 1 out now." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://journals-studio.com/store" />
+    <meta property="og:image" content="https://journals-studio.com/og-card.png?v=12" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="journals. — store" />
+    <meta name="twitter:description" content="sample packs and plugins from journals. human voice vol. 1 out now." />
+    <meta name="twitter:image" content="https://journals-studio.com/og-card.png?v=12" />
+    <meta name="theme-color" content="#4A90E2" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2076925979518264');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2076925979518264&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { text-transform: lowercase; }
+        html { height: 100%; background: #4A90E2; overflow-x: hidden; scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
+            min-height: 100%; min-height: 100dvh;
+            background: linear-gradient(180deg, #4A90E2 0%, #6CAFE3 22%, #89C4E8 38%, #FF9F5C 74%, #FF7A42 90%, #E67E22 100%);
+            background-attachment: fixed; position: relative; overflow-x: hidden;
+            width: 100%; max-width: 100vw; color: #fff; -webkit-font-smoothing: antialiased;
+        }
+        .cloud { position: absolute; background: rgba(255,255,255,0.3); border-radius: 100px; opacity: 0.4; filter: contrast(150%) brightness(120%); pointer-events: none; z-index: 1; }
+        .cloud::before { content: ''; position: absolute; background: rgba(255,255,255,0.3); border-radius: 100px; }
+        .cloud1 { width: 120px; height: 40px; top: 14%; animation: drift 45s infinite; }
+        .cloud1::before { width: 60px; height: 50px; top: -25px; left: 20px; }
+        .cloud2 { width: 80px; height: 35px; top: 34%; animation: drift 60s infinite; animation-delay: -20s; }
+        .cloud2::before { width: 50px; height: 40px; top: -20px; right: 15px; }
+        .cloud3 { width: 100px; height: 30px; top: 56%; animation: drift 50s infinite; animation-delay: -35s; }
+        .cloud3::before { width: 45px; height: 35px; top: -15px; left: 30px; }
+        .cloud4 { width: 140px; height: 45px; top: 78%; animation: drift 55s infinite; animation-delay: -10s; }
+        .cloud4::before { width: 70px; height: 55px; top: -28px; right: 25px; }
+        @keyframes drift { 0% { left: -220px; } 100% { left: 100%; } }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; width: 100%; }
+
+        .top-left-controls { position: fixed; top: 18px; left: 18px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
+        .menu-button { cursor: pointer; padding: 14px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 28px; transition: all 0.3s ease; }
+        .menu-icon { display: flex; flex-direction: column; gap: 4px; width: 20px; }
+        .menu-icon span { display: block; width: 100%; height: 2px; background-color: #fff; transition: all 0.3s ease; }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .menu-overlay.active { display: flex; opacity: 1; }
+        .menu-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+        .menu-content a { display: block; color: #fff; text-decoration: none; font-size: 24px; margin: 20px 0; opacity: 0.8; transition: all 0.3s ease; }
+        .menu-content a:hover { opacity: 1; transform: scale(1.1); }
+
+        .card { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.22); border-radius: 20px; backdrop-filter: blur(12px); }
+        .sechead { font-size: clamp(26px, 3.6vw, 38px); font-weight: 400; letter-spacing: -0.6px; margin-bottom: 10px; }
+        .secsub { font-size: 16px; color: rgba(255,255,255,0.82); margin-bottom: 28px; line-height: 1.55; }
+        .center { text-align: center; }
+        .center .secsub { margin-left: auto; margin-right: auto; max-width: 620px; }
+        footer { padding: 44px 0 56px; text-align: center; font-size: 14px; color: rgba(255,255,255,0.75); }
+        footer a { color: rgba(255,255,255,0.85); }
+
+        .storehead { padding: 108px 0 8px; text-align: center; }
+        .storehead h1 { font-size: clamp(38px, 6vw, 60px); font-weight: 400; letter-spacing: -1.4px; margin-bottom: 12px; }
+        .storehead p { font-size: 17px; color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 auto; line-height: 1.55; }
+        section { padding: 44px 0; }
+
+        .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; align-items: start; }
+        .product { padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+        .product .art { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 14px; display: block; background: rgba(255,255,255,0.1); }
+        .prow { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+        .pttl { font-size: 22px; letter-spacing: -0.3px; }
+        .pprice { font-size: 22px; font-weight: 500; }
+        .pdesc { font-size: 15px; color: rgba(255,255,255,0.85); line-height: 1.5; }
+        .btn {
+            width: 100%; background: #fff; color: #E0651C; border: none; border-radius: 100px;
+            padding: 15px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit;
+            text-transform: lowercase; transition: transform 0.18s ease; text-align: center; text-decoration: none; display: block;
+        }
+        .btn:hover:not(:disabled) { transform: translateY(-2px); }
+        .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+        .btn.ghost { background: rgba(255,255,255,0.16); color: #fff; border: 1px solid rgba(255,255,255,0.32); font-weight: 500; }
+
+        .previews { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 12px; }
+        .prevtoggle { background: none; border: none; color: rgba(255,255,255,0.85); font-family: inherit; font-size: 14px; text-transform: lowercase; cursor: pointer; padding: 4px 0; text-decoration: underline; }
+        .prevlist { display: none; margin-top: 10px; }
+        .prevlist.open { display: block; }
+        .prev { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+        .pvname { font-size: 13.5px; color: rgba(255,255,255,0.82); }
+        .prev audio { width: 100%; height: 34px; }
+
+        .soon { opacity: 0.94; }
+        .soon .art { display: flex; align-items: center; justify-content: center; font-size: 15px; color: rgba(255,255,255,0.72); border: 1px dashed rgba(255,255,255,0.32); background: rgba(255,255,255,0.06); }
+        .badge { display: inline-block; font-size: 11.5px; letter-spacing: 0.06em; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.34); border-radius: 100px; padding: 3px 10px; }
+
+        .waitlist { max-width: 560px; margin: 0 auto; padding: 32px 30px; }
+        .waitlist .row { display: flex; gap: 10px; }
+        .waitlist input {
+            flex: 1; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 100px; padding: 14px 20px; font-size: 16px; color: #fff; font-family: inherit;
+            text-transform: lowercase; outline: none;
+        }
+        .waitlist input::placeholder { color: rgba(255,255,255,0.55); }
+        .waitlist input:focus { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.2); }
+        .waitlist .btn { width: auto; padding: 14px 28px; }
+        #wlHint { font-size: 13.5px; color: rgba(255,255,255,0.75); text-align: center; margin-top: 13px; min-height: 20px; }
+        @media (max-width: 560px) { .waitlist .row { flex-direction: column; } .waitlist .btn { width: 100%; } }
+    </style>
+</head>
+<body>
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="cloud cloud4"></div>
+
+    <div class="top-left-controls">
+        <div class="menu-button">
+            <div class="menu-icon"><span></span><span></span><span></span></div>
+        </div>
+    </div>
+    <div class="menu-overlay">
+        <nav class="menu-content">
+            <a href="/">home</a>
+            <a href="/mix">mix &amp; master</a>
+            <a href="/store">store</a>
+            <a href="/privacy">privacy policy</a>
+        </nav>
+    </div>
+
+    <header class="storehead">
+        <div class="container">
+            <h1>store.</h1>
+            <p>things we built for our own sessions and figured you'd want too.</p>
+        </div>
+    </header>
+
+    <section id="products">
+        <div class="container">
+            <div class="products">
+
+                <div class="card product">
+                    <img class="art" src="/human-voice-cover.jpg" alt="human voice vol. 1" width="600" height="600" />
+                    <div class="prow">
+                        <div class="pttl">human voice (vol. 1)</div>
+                        <div class="pprice">$10</div>
+                    </div>
+                    <div class="pdesc">human sounds for human music. curated, not generated. seven vocal takes, dry and ready to chop.</div>
+                    <button class="btn" id="buyHumanVoice" data-price-id="price_1SznC60dru4mSFEL0wG8wbYH" data-value="10">buy — $10</button>
+                    <div class="previews">
+                        <button class="prevtoggle" id="prevToggle" aria-expanded="false">hear the previews</button>
+                        <div class="prevlist" id="prevList">
+              <div class="prev">
+                <span class="pvname">come & get me</span>
+                <audio controls preload="none" src="/Human%20Voice%20Previews/Come%20%26%20Get%20Me.wav"></audio>
+              </div>
+              <div class="prev">
+                <span class="pvname">fade to grey</span>
+                <audio controls preload="none" src="/Human%20Voice%20Previews/Fade%20to%20Grey.wav"></audio>
+              </div>
+              <div class="prev">
+                <span class="pvname">in my eyes</span>
+                <audio controls preload="none" src="/Human%20Voice%20Previews/In%20My%20Eyes.wav"></audio>
+              </div>
+              <div class="prev">
+                <span class="pvname">is it everything?</span>
+                <audio controls preload="none" src="/Human%20Voice%20Previews/Is%20It%20Everything%3F.wav"></audio>
+              </div>
+              <div class="prev">
+                <span class="pvname">losing control</span>
+                <audio controls preload="none" src="/Human%20Voice%20Previews/Losing%20Control.wav"></audio>
+              </div>
+              <div class="prev">
+                <span class="pvname">rolling stone</span>
+                <audio controls preload="none" src="/Human%20Voice%20Previews/Rolling%20Stone.wav"></audio>
+              </div>
+              <div class="prev">
+                <span class="pvname">so far gone</span>
+                <audio controls preload="none" src="/Human%20Voice%20Previews/So%20Far%20Gone.wav"></audio>
+              </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card product soon">
+                    <div class="art">artwork coming</div>
+                    <div class="prow">
+                        <div class="pttl">plugins</div>
+                        <div class="badge">in development</div>
+                    </div>
+                    <div class="pdesc">the tools we kept wishing existed while mixing. first one is close.</div>
+                    <a class="btn ghost" href="#waitlist">join the waitlist</a>
+                </div>
+
+                <div class="card product soon">
+                    <div class="art">artwork coming</div>
+                    <div class="prow">
+                        <div class="pttl">human voice (vol. 2)</div>
+                        <div class="badge">in development</div>
+                    </div>
+                    <div class="pdesc">more packs dropping. stay tuned.</div>
+                    <a class="btn ghost" href="#waitlist">join the waitlist</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="waitlist">
+        <div class="container">
+            <div class="center">
+                <h2 class="sechead">get told first.</h2>
+                <p class="secsub">one email when something drops. nothing else.</p>
+            </div>
+            <div class="card waitlist">
+                <form id="wlForm">
+                    <div class="row">
+                        <input type="email" id="wlEmail" placeholder="you@example.com" required />
+                        <button type="submit" class="btn" id="wlBtn">notify me</button>
+                    </div>
+                    <div id="wlHint"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+<script>
+    // Preview list toggle
+    (function() {
+        var t = document.getElementById('prevToggle');
+        var l = document.getElementById('prevList');
+        t.addEventListener('click', function() {
+            var open = l.classList.toggle('open');
+            t.setAttribute('aria-expanded', String(open));
+            t.textContent = open ? 'hide previews' : 'hear the previews';
+        });
+    })();
+
+    // Buy - reuses the existing Stripe checkout function
+    (function() {
+        var btn = document.getElementById('buyHumanVoice');
+        btn.addEventListener('click', async function() {
+            var priceId = btn.dataset.priceId;
+            var value = parseFloat(btn.dataset.value);
+            btn.disabled = true;
+            var original = btn.textContent;
+            btn.textContent = 'taking you to checkout...';
+
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'InitiateCheckout', {
+                    value: value, currency: 'USD', num_items: 1, content_type: 'product'
+                });
+            }
+            try {
+                var res = await fetch('/api/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ items: [{ priceId: priceId, quantity: 1 }] })
+                });
+                var data = await res.json();
+                if (data.url) { window.location.href = data.url; return; }
+                throw new Error(data.error || 'checkout unavailable');
+            } catch (err) {
+                console.error(err);
+                btn.textContent = original;
+                btn.disabled = false;
+                alert('something went wrong. please try again or email journals.sound@gmail.com');
+            }
+        });
+    })();
+
+    // Waitlist
+    (function() {
+        var form = document.getElementById('wlForm');
+        var btn = document.getElementById('wlBtn');
+        var hint = document.getElementById('wlHint');
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var email = document.getElementById('wlEmail').value.trim();
+            if (!email) { hint.textContent = 'enter an email first.'; return; }
+            btn.disabled = true; hint.textContent = 'adding you...';
+            try {
+                var res = await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, product: 'store' })
+                });
+                var data = await res.json().catch(function() { return {}; });
+                if (!res.ok) { throw new Error(data.error || 'something went wrong.'); }
+                form.innerHTML = '<div style="text-align:center;padding:8px 0;font-size:17px;">you\'re on the list.</div>';
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'Lead', { content_name: 'Store Waitlist', content_category: 'waitlist', value: 0, currency: 'USD' });
+                }
+            } catch (err) {
+                hint.textContent = err.message || 'something went wrong. please try again.';
+                btn.disabled = false;
+            }
+        });
+    })();
+</script>
+
+    <footer>
+        <div class="container">
+            journals. &middot; <a href="/mix">mix &amp; master</a> &middot; <a href="/store">store</a> &middot; <a href="/privacy">privacy</a>
+        </div>
+    </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuButton = document.querySelector('.menu-button');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        const menuIcon = document.querySelector('.menu-icon');
+        menuButton.addEventListener('click', function() {
+            menuOverlay.classList.toggle('active');
+            menuIcon.classList.toggle('active');
+        });
+        menuOverlay.addEventListener('click', function(e) {
+            if (e.target === menuOverlay) {
+                menuOverlay.classList.remove('active');
+                menuIcon.classList.remove('active');
+            }
+        });
+    });
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"c32b86bb49ea48c1a853b20556c6e44e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script>
+  window.addEventListener('pageshow', function() {
+    var overlay = document.querySelector('.menu-overlay');
+    var icon = document.querySelector('.menu-icon');
+    if (overlay) overlay.classList.remove('active');
+    if (icon) icon.classList.remove('active');
+  });
+</script>
+</body>
+</html>

@@ -42,7 +42,7 @@ export async function onRequestPost(context) {
       secretKey: env.STRIPE_SECRET_KEY,
       line_items,
       success_url: `${siteUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/samples`,
+      cancel_url: `${siteUrl}/store`,
       mode: 'payment',
       // Allow promotion codes for discounts
       allow_promotion_codes: true,
@@ -50,7 +50,7 @@ export async function onRequestPost(context) {
       customer_creation: 'always',
       // Metadata for fulfillment
       metadata: {
-        source: 'journals-samples',
+        source: 'journals-store',
         items: JSON.stringify(items.map(i => i.priceId)),
       },
     });

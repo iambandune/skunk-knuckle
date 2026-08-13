@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>journals. - Mixing &amp; Mastering</title>
-    <meta name="description" content="mixing and mastering for artists who care how it feels. $150 full mix + master, $125 stem master. credits on mau5trap, sable valley, hexagon, insomniac." />
-    <!-- Open Graph for rich link previews -->
-    <meta property="og:title" content="journals. — mixing &amp; mastering" />
-    <meta property="og:description" content="mixing and mastering. $150 full mix + master, $125 stem master." />
+    <title>journals.</title>
+    <meta name="description" content="mixing, mastering and coproduction. plus sample packs and plugins." />
+    <meta property="og:title" content="journals." />
+    <meta property="og:description" content="mixing, mastering and coproduction. plus sample packs and plugins." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://journals-studio.com" />
     <meta property="og:image" content="https://journals-studio.com/og-card.png?v=12" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="1200" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="journals. — mixing &amp; mastering" />
-    <meta name="twitter:description" content="mixing and mastering. $150 full mix + master, $125 stem master." />
+    <meta name="twitter:title" content="journals." />
+    <meta name="twitter:description" content="mixing, mastering and coproduction. plus sample packs and plugins." />
     <meta name="twitter:image" content="https://journals-studio.com/og-card.png?v=12" />
-    <!-- Mobile browser theme color - matches gradient top -->
     <meta name="theme-color" content="#4A90E2" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <!-- Meta Pixel Code -->
@@ -39,53 +37,17 @@
     <!-- End Meta Pixel Code -->
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        /* Render all UI text in lowercase */
         html, body { text-transform: lowercase; }
-
-        html {
-            height: 100%;
-            background: #4A90E2;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
+        html { height: 100%; background: #4A90E2; overflow-x: hidden; scroll-behavior: smooth; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
-            min-height: 100%;
-            min-height: 100dvh;
-            background: linear-gradient(180deg,
-                #4A90E2 0%,
-                #6CAFE3 22%,
-                #89C4E8 38%,
-                #FF9F5C 74%,
-                #FF7A42 90%,
-                #E67E22 100%);
-            background-attachment: fixed;
-            position: relative;
-            overflow-x: hidden;
-            width: 100%;
-            max-width: 100vw;
-            color: #fff;
-            -webkit-font-smoothing: antialiased;
+            min-height: 100%; min-height: 100dvh;
+            background: linear-gradient(180deg, #4A90E2 0%, #6CAFE3 22%, #89C4E8 38%, #FF9F5C 74%, #FF7A42 90%, #E67E22 100%);
+            background-attachment: fixed; position: relative; overflow-x: hidden;
+            width: 100%; max-width: 100vw; color: #fff; -webkit-font-smoothing: antialiased;
         }
-
-        /* Pixelated clouds */
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 100px;
-            opacity: 0.4;
-            filter: contrast(150%) brightness(120%);
-            pointer-events: none;
-            z-index: 1;
-        }
-        .cloud::before {
-            content: '';
-            position: absolute;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 100px;
-        }
+        .cloud { position: absolute; background: rgba(255,255,255,0.3); border-radius: 100px; opacity: 0.4; filter: contrast(150%) brightness(120%); pointer-events: none; z-index: 1; }
+        .cloud::before { content: ''; position: absolute; background: rgba(255,255,255,0.3); border-radius: 100px; }
         .cloud1 { width: 120px; height: 40px; top: 14%; animation: drift 45s infinite; }
         .cloud1::before { width: 60px; height: 50px; top: -25px; left: 20px; }
         .cloud2 { width: 80px; height: 35px; top: 34%; animation: drift 60s infinite; animation-delay: -20s; }
@@ -96,16 +58,8 @@
         .cloud4::before { width: 70px; height: 55px; top: -28px; right: 25px; }
         @keyframes drift { 0% { left: -220px; } 100% { left: 100%; } }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-            width: 100%;
-        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; width: 100%; }
 
-        /* Hamburger menu (same as other pages) */
         .top-left-controls { position: fixed; top: 18px; left: 18px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
         .menu-button { cursor: pointer; padding: 14px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 28px; transition: all 0.3s ease; }
         .menu-icon { display: flex; flex-direction: column; gap: 4px; width: 20px; }
@@ -116,155 +70,33 @@
         .menu-content a { display: block; color: #fff; text-decoration: none; font-size: 24px; margin: 20px 0; opacity: 0.8; transition: all 0.3s ease; }
         .menu-content a:hover { opacity: 1; transform: scale(1.1); }
 
-        /* Hero */
-        .hero { padding: 104px 0 24px; text-align: center; }
-        .wordmark { font-size: 22px; letter-spacing: -0.5px; opacity: 0.9; margin-bottom: 34px; }
-        h1 {
-            font-size: clamp(38px, 6.6vw, 68px);
-            font-weight: 400;
-            letter-spacing: -1.5px;
-            line-height: 1.06;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .hero .sub {
-            font-size: clamp(17px, 2.2vw, 21px);
-            color: rgba(255, 255, 255, 0.92);
-            max-width: 620px;
-            margin: 0 auto;
-            line-height: 1.55;
-        }
-        .pricechips { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 30px 0 4px; }
-        .chip {
-            background: rgba(255, 255, 255, 0.14);
-            border: 1px solid rgba(255, 255, 255, 0.28);
-            border-radius: 100px;
-            padding: 9px 18px;
-            font-size: 15px;
-            backdrop-filter: blur(10px);
-        }
-        .chip b { font-weight: 600; }
-        .cta {
-            display: inline-block;
-            margin-top: 26px;
-            background: #fff;
-            color: #E0651C;
-            border: none;
-            border-radius: 100px;
-            padding: 16px 40px;
-            font-size: 17px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            text-transform: lowercase;
-            text-decoration: none;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
-        }
-        .cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18); }
-        .microcopy { font-size: 13.5px; color: rgba(255, 255, 255, 0.72); margin-top: 12px; }
-        .credline { font-size: 14px; color: rgba(255, 255, 255, 0.72); margin-top: 24px; }
-
-        section { padding: 52px 0; }
+        .card { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.22); border-radius: 20px; backdrop-filter: blur(12px); }
         .sechead { font-size: clamp(26px, 3.6vw, 38px); font-weight: 400; letter-spacing: -0.6px; margin-bottom: 10px; }
-        .secsub { font-size: 16px; color: rgba(255, 255, 255, 0.82); margin-bottom: 28px; line-height: 1.55; }
+        .secsub { font-size: 16px; color: rgba(255,255,255,0.82); margin-bottom: 28px; line-height: 1.55; }
         .center { text-align: center; }
         .center .secsub { margin-left: auto; margin-right: auto; max-width: 620px; }
+        footer { padding: 44px 0 56px; text-align: center; font-size: 14px; color: rgba(255,255,255,0.75); }
+        footer a { color: rgba(255,255,255,0.85); }
 
-        .card {
-            background: rgba(255, 255, 255, 0.09);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
+        .hub { padding: 120px 0 40px; }
+        .wordmark { font-size: clamp(46px, 8vw, 76px); font-weight: 400; letter-spacing: -1.5px; text-align: center; text-shadow: 0 2px 20px rgba(0,0,0,0.1); margin-bottom: 14px; }
+        .hubsub { text-align: center; font-size: 17px; color: rgba(255,255,255,0.85); margin-bottom: 54px; }
+        .doors { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+        .door {
+            display: block; text-decoration: none; color: #fff; padding: 44px 40px 38px;
+            transition: transform 0.25s ease, background 0.25s ease; min-height: 260px;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
-
-        /* Track cards */
-        .trackgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 18px; }
-        .track-card {
-            background: rgba(255, 255, 255, 0.09);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: 18px;
-            backdrop-filter: blur(12px);
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .track-card .cover { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; display: block; background: rgba(255,255,255,0.1); }
-        .tmeta { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-        .tname { font-size: 18px; }
-        .tlabel { font-size: 12px; color: rgba(255,255,255,0.95); background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 100px; padding: 3px 10px; white-space: nowrap; }
-        .tcred { font-size: 12.5px; color: rgba(255, 255, 255, 0.7); }
-        .ptabs { display: flex; gap: 6px; margin-bottom: 8px; }
-        .ptab {
-            flex: 1; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22);
-            color: rgba(255,255,255,0.8); border-radius: 100px; padding: 6px 10px; font-size: 12.5px;
-            cursor: pointer; font-family: inherit; text-transform: lowercase; transition: all 0.2s ease;
-        }
-        .ptab.active { background: rgba(255,255,255,0.28); color: #fff; border-color: rgba(255,255,255,0.5); }
-        .pframe { display: none; width: 100%; border: 0; border-radius: 12px; }
-        .pframe.active { display: block; }
-        .pframe.sp { height: 80px; }
-        .pframe.ap { height: 175px; }
-
-        /* Pricing */
-        .pricegrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; align-items: start; }
-        .plan { padding: 30px 28px; cursor: pointer; transition: all 0.22s ease; text-align: left; }
-        .plan:hover { background: rgba(255, 255, 255, 0.14); transform: translateY(-3px); }
-        .plan.selected { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.55); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.28); }
-        .plan .pname { font-size: 24px; margin-bottom: 4px; }
-        .plan .pprice { font-size: 44px; font-weight: 500; letter-spacing: -1.5px; margin-bottom: 14px; }
-        .plan .pprice.quote { font-size: 30px; }
-        .plan .pprice span { font-size: 16px; font-weight: 400; color: rgba(255, 255, 255, 0.75); letter-spacing: 0; }
-        .plan ul { list-style: none; padding: 0; }
-        .plan li { font-size: 15px; color: rgba(255, 255, 255, 0.88); padding: 6px 0 6px 24px; position: relative; line-height: 1.45; }
-        .plan li:before { content: '\2192'; position: absolute; left: 0; color: rgba(255, 255, 255, 0.6); }
-        .plan .pick { margin-top: 18px; font-size: 14px; color: rgba(255, 255, 255, 0.7); }
-        .plan.selected .pick { color: #fff; font-weight: 600; }
-
-        /* Form */
-        .formwrap { padding: 36px 34px; max-width: 660px; margin: 0 auto; }
-        .field { margin-bottom: 18px; }
-        label { display: block; font-size: 14px; color: rgba(255, 255, 255, 0.9); margin-bottom: 7px; }
-        label .req { color: rgba(255, 255, 255, 0.6); font-size: 12.5px; }
-        input, select {
-            width: 100%; background: rgba(255, 255, 255, 0.14);
-            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px;
-            padding: 14px 16px; font-size: 16px; color: #fff; font-family: inherit;
-            text-transform: lowercase; outline: none;
-            transition: border-color 0.18s ease, background 0.18s ease;
-        }
-        input::placeholder { color: rgba(255, 255, 255, 0.55); }
-        input:focus, select:focus { border-color: rgba(255, 255, 255, 0.7); background: rgba(255, 255, 255, 0.2); }
-        select option { background: #4A90E2; color: #fff; }
-        .hint { font-size: 13px; color: rgba(255, 255, 255, 0.68); margin-top: 6px; line-height: 1.45; }
-        .servicepill { display: inline-flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.18); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 100px; padding: 9px 16px; font-size: 14.5px; }
-        .servicepill button { background: none; border: none; color: rgba(255, 255, 255, 0.75); cursor: pointer; font-family: inherit; font-size: 13px; text-decoration: underline; text-transform: lowercase; padding: 0; }
-        .submit {
-            width: 100%; background: #fff; color: #E0651C; border: none; border-radius: 100px;
-            padding: 17px; font-size: 17px; font-weight: 600; cursor: pointer; font-family: inherit;
-            text-transform: lowercase; margin-top: 6px; transition: transform 0.18s ease;
-        }
-        .submit:hover:not(:disabled) { transform: translateY(-2px); }
-        .submit:disabled { opacity: 0.6; cursor: not-allowed; }
-        #statusHint { font-size: 13.5px; color: rgba(255, 255, 255, 0.75); text-align: center; margin-top: 14px; min-height: 20px; }
-        #successMessage { text-align: center; padding: 50px 20px; }
-        #successMessage h2 { font-size: 40px; font-weight: 400; margin-bottom: 12px; }
-        #successMessage p { color: rgba(255, 255, 255, 0.88); font-size: 17px; line-height: 1.55; }
-
-        footer { padding: 44px 0 56px; text-align: center; font-size: 14px; color: rgba(255, 255, 255, 0.75); }
-        footer a { color: rgba(255, 255, 255, 0.85); }
-
-        @media (max-width: 760px) {
-            .pricegrid { grid-template-columns: 1fr; }
-            .formwrap { padding: 28px 20px; }
-            section { padding: 40px 0; }
-            .hero { padding: 92px 0 16px; }
-        }
+        .door:hover { background: rgba(255,255,255,0.16); transform: translateY(-4px); }
+        .door .dtitle { font-size: clamp(30px, 4vw, 42px); font-weight: 400; letter-spacing: -0.8px; margin-bottom: 12px; }
+        .door .dsub { font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.55; max-width: 34ch; }
+        .door .dmeta { font-size: 14px; color: rgba(255,255,255,0.7); margin-top: 26px; display: flex; align-items: center; gap: 8px; }
+        .door .arrow { transition: transform 0.25s ease; display: inline-block; }
+        .door:hover .arrow { transform: translateX(5px); }
+        @media (max-width: 760px) { .doors { grid-template-columns: 1fr; } .hub { padding: 96px 0 20px; } }
     </style>
 </head>
 <body>
-    <!-- Animated clouds -->
     <div class="cloud cloud1"></div>
     <div class="cloud cloud2"></div>
     <div class="cloud cloud3"></div>
@@ -272,501 +104,66 @@
 
     <div class="top-left-controls">
         <div class="menu-button">
-            <div class="menu-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="menu-icon"><span></span><span></span><span></span></div>
         </div>
     </div>
     <div class="menu-overlay">
         <nav class="menu-content">
             <a href="/">home</a>
-            <a href="#pricing">pricing</a>
-            <a href="#start">start a mix</a>
+            <a href="/mix">mix &amp; master</a>
+            <a href="/store">store</a>
             <a href="/privacy">privacy policy</a>
         </nav>
     </div>
 
-    <header class="hero">
+    <main class="hub">
         <div class="container">
-            <div class="wordmark">journals.</div>
-            <h1>mix &amp; master.</h1>
-            <p class="sub">we focus on the emotion, shape everything around it, and keep the parts that feel most like you.</p>
-            <div class="pricechips">
-                <div class="chip"><b>$150</b> — full mix + master</div>
-                <div class="chip"><b>$125</b> — stem master</div>
-                <div class="chip"><b>coproduction</b> — per project</div>
-            </div>
-            <a href="#start" class="cta">start a mix</a>
-            <div class="microcopy">send a link to your track. we'll reply with next steps.</div>
-            <p class="credline">work released via mau5trap &middot; sable valley &middot; hexagon &middot; insomniac</p>
-        </div>
-    </header>
-
-    <section id="work">
-        <div class="container">
-            <div class="center">
-                <h2 class="sechead">credits.</h2>
-                <p class="secsub">selected.</p>
-            </div>
-            <div class="trackgrid">
-        <div class="track-card featured">
-          <img class="cover" loading="lazy" src="/covers/sweat.jpg" alt="Sweat" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">sweat</div>
-            <div class="tlabel">mau5trap</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2tP7W4KskPeCX38I5S9Jhx?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/sweat/1805695126?i=1805695127&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-        <div class="track-card featured">
-          <img class="cover" loading="lazy" src="/covers/watch-me.jpg" alt="Watch Me" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">watch me</div>
-            <div class="tlabel">sable valley</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/7JuUz68cHrb8McfIFB4fgM?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/watch-me/1699677157?i=1699677676&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-        <div class="track-card featured">
-          <img class="cover" loading="lazy" src="/covers/body-on-mine.jpg" alt="Body On Mine" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">body on mine</div>
-            <div class="tlabel">hexagon</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2lsHvYMw4lqSjWCwJhuuKE?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/body-on-mine/1840160745?i=1840160746&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="pricing">
-        <div class="container">
-            <div class="center">
-                <h2 class="sechead">pricing.</h2>
-                <p class="secsub">pick one and it carries into the form.</p>
-            </div>
-            <div class="pricegrid">
-                <div class="card plan" data-service="mix-and-master">
-                    <div class="pname">full mix + master</div>
-                    <div class="pprice">$150 <span>/ song</span></div>
-                    <ul>
-                        <li>full mix from your session or stems</li>
-                        <li>master ready for every platform</li>
-                        <li>revisions until it feels right</li>
-                        <li>you keep every file</li>
-                    </ul>
-                    <div class="pick">tap to select</div>
-                </div>
-                <div class="card plan" data-service="stem-master">
-                    <div class="pname">stem master</div>
-                    <div class="pprice">$125 <span>/ song</span></div>
-                    <ul>
-                        <li>up to 7 group stems</li>
-                        <li>balance and glue across the mix</li>
-                        <li>master ready for every platform</li>
-                        <li>best if your mix is already close</li>
-                    </ul>
-                    <div class="pick">tap to select</div>
-                </div>
-                <div class="card plan" data-service="coproduction">
-                    <div class="pname">coproduction</div>
-                    <div class="pprice quote">per project</div>
-                    <ul>
-                        <li>start from a loop, a demo, or just a reference</li>
-                        <li>production, arrangement, sound design</li>
-                        <li>we do whatever it takes to finish the record</li>
-                        <li>mixed and mastered when it's done</li>
-                    </ul>
-                    <div class="pick">tap to select</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="start">
-        <div class="container">
-            <div class="center">
-                <h2 class="sechead">get started.</h2>
-                </div>
-            <div class="card formwrap">
-                <div id="successMessage" style="display: none;">
-                    <h2>thank you.</h2>
-                    <p>we got your track and will reach out shortly.</p>
-                </div>
-                <form id="intakeForm">
-                    <div class="field">
-                        <label>service</label>
-                        <div class="servicepill">
-                            <span id="serviceLabel">full mix + master — $150</span>
-                            <button type="button" id="changeService">change</button>
-                        </div>
-                        <input type="hidden" id="service" name="service" value="mix-and-master" />
+            <h1 class="wordmark">journals.</h1>
+            <p class="hubsub">a studio and a small shelf of tools.</p>
+            <div class="doors">
+                <a class="card door" href="/mix">
+                    <div>
+                        <div class="dtitle">mix &amp; master.</div>
+                        <div class="dsub">we focus on the emotion, shape everything around it, and keep the parts that feel most like you.</div>
                     </div>
-
-                    <div class="field">
-                        <label for="name">name <span class="req">(required)</span></label>
-                        <input type="text" id="name" name="name" placeholder="your name" required />
+                    <div class="dmeta">mixing, mastering, coproduction <span class="arrow">&rarr;</span></div>
+                </a>
+                <a class="card door" href="/store">
+                    <div>
+                        <div class="dtitle">store.</div>
+                        <div class="dsub">sample packs and plugins. things we built for our own sessions and figured you'd want too.</div>
                     </div>
-
-                    <div class="field">
-                        <label for="email">email <span class="req">(required)</span></label>
-                        <input type="email" id="email" name="email" placeholder="you@example.com" required />
-                    </div>
-
-                    <div class="field">
-                        <label for="link">link to your track <span class="req">(required)</span></label>
-                        <input type="text" id="link" name="link" placeholder="soundcloud, drive, dropbox, spotify" required />
-                        <div class="hint" id="linkHint">private soundcloud or unlisted drive/dropbox works great. sending files later is fine &mdash; 24-bit wav preferred.</div>
-                    </div>
-
-                    <div class="field">
-                        <label for="source">how did you hear about us? <span class="req">(required)</span></label>
-                        <select id="source" name="source" required>
-                            <option value="">select one</option>
-                            <option value="instagram-ad">instagram or facebook ad</option>
-                            <option value="instagram-organic">instagram (not an ad)</option>
-                            <option value="referral">a friend or another artist</option>
-                            <option value="worked-before">we've worked together before</option>
-                            <option value="search">google / search</option>
-                            <option value="other">somewhere else</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="submit" id="submitBtn">send it over</button>
-                    <div id="statusHint">goes straight to journals.sound@gmail.com</div>
-                </form>
+                    <div class="dmeta">packs, plugins <span class="arrow">&rarr;</span></div>
+                </a>
             </div>
         </div>
-    </section>
-
-    <section id="credits">
-        <div class="container">
-            <div class="center">
-                <h2 class="sechead">more credits.</h2>
-            </div>
-            <div class="trackgrid">
-        <div class="track-card">
-          <img class="cover" loading="lazy" src="/covers/used-to-be.jpg" alt="Used to Be" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">used to be</div>
-            <div class="tlabel">insomniac</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/4HbAHIdZncpoOxLJninXwO?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/used-to-be/1683441299?i=1683441301&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-        <div class="track-card">
-          <img class="cover" loading="lazy" src="/covers/respawn.jpg" alt="Respawn" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">respawn</div>
-            <div class="tlabel">insomniac</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/3Qrmfu75oZzfQppeaUKOkm?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/respawn-feat-ero808-jvss/1617320073?i=1617320075&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-        <div class="track-card">
-          <img class="cover" loading="lazy" src="/covers/younger-me.jpg" alt="Younger Me" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">younger me</div>
-            <div class="tlabel">independent</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/3pUFitri0MDyx4n58DDBjS?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/younger-me/1771838770?i=1771838771&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-        <div class="track-card">
-          <img class="cover" loading="lazy" src="/covers/you-got-that.jpg" alt="You Got That" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">you got that</div>
-            <div class="tlabel">independent</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2KZNcQzlkmJV6UlH69kGpy?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/you-got-that-colson-xl-remix/1590757906?i=1590757907&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-        <div class="track-card">
-          <img class="cover" loading="lazy" src="/covers/small-talk.jpg" alt="Small Talk" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">small talk</div>
-            <div class="tlabel">independent</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/3VUB2APjgQ5kHMgWjtfEGD?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/small-talk-colson-xl-remix/1538094657?i=1538094658&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-        <div class="track-card">
-          <img class="cover" loading="lazy" src="/covers/huant.jpg" alt="Huant" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">huant</div>
-            <div class="tlabel">independent</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/28vT0vfn4O1QDo2GkEzx9S?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/huant/1702909191?i=1702909192&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-        <div class="track-card">
-          <img class="cover" loading="lazy" src="/covers/too-easy.jpg" alt="Too Easy" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">too easy</div>
-            <div class="tlabel">independent</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/track/2hzlsZHIoKK3g2n7FWBDoG?utm_source=generator&amp;theme=0&amp;view=minimal" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/too-easy/1694801612?i=1694801613&amp;app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-        <div class="track-card">
-          <img class="cover" loading="lazy" src="/covers/dreamgirl-ep.jpg" alt="Dreamgirl EP" width="600" height="600" />
-          <div class="tmeta">
-            <div class="tname">dreamgirl ep</div>
-            <div class="tlabel">independent</div>
-          </div>
-          <div class="tcred">mixing &amp; mastering engineer</div>
-          <div class="players">
-            <div class="ptabs">
-              <button type="button" class="ptab active" data-p="sp">spotify</button>
-              <button type="button" class="ptab" data-p="ap">apple music</button>
-            </div>
-            <iframe class="pframe sp active" loading="lazy" src="https://open.spotify.com/embed/album/2YO4jKw7zppJhdjnmwvYwp?utm_source=generator&amp;theme=0&amp;view=list" allow="clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-            <iframe class="pframe ap" loading="lazy" data-src="https://embed.music.apple.com/us/album/dreamgirl-ep/1577870495?app=music" allow="encrypted-media *; fullscreen *;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"></iframe>
-          </div>
-        </div>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <footer>
         <div class="container">
-            journals. &middot; <a href="/privacy">privacy</a>
+            journals. &middot; <a href="/mix">mix &amp; master</a> &middot; <a href="/store">store</a> &middot; <a href="/privacy">privacy</a>
         </div>
     </footer>
 
 <script>
-    // Hamburger menu overlay
     document.addEventListener('DOMContentLoaded', function() {
         const menuButton = document.querySelector('.menu-button');
         const menuOverlay = document.querySelector('.menu-overlay');
         const menuIcon = document.querySelector('.menu-icon');
-
         menuButton.addEventListener('click', function() {
             menuOverlay.classList.toggle('active');
             menuIcon.classList.toggle('active');
         });
-
         menuOverlay.addEventListener('click', function(e) {
             if (e.target === menuOverlay) {
                 menuOverlay.classList.remove('active');
                 menuIcon.classList.remove('active');
             }
         });
-
-        // Close menu when an in-page anchor is chosen
-        document.querySelectorAll('.menu-content a[href^="#"]').forEach(function(a) {
-            a.addEventListener('click', function() {
-                menuOverlay.classList.remove('active');
-                menuIcon.classList.remove('active');
-            });
-        });
     });
-
-    // Spotify / Apple Music toggle. Apple iframe is lazy-mounted from data-src
-    // so 11 Apple embeds do not all load on first paint.
-    document.addEventListener('click', function(e) {
-        var tab = e.target.closest('.ptab');
-        if (!tab) return;
-        var cardEl = tab.closest('.track-card');
-        var want = tab.getAttribute('data-p');
-        cardEl.querySelectorAll('.ptab').forEach(function(t) { t.classList.toggle('active', t === tab); });
-        cardEl.querySelectorAll('.pframe').forEach(function(f) {
-            var on = f.classList.contains(want);
-            f.classList.toggle('active', on);
-            if (on && !f.src && f.dataset.src) { f.src = f.dataset.src; }
-        });
-    });
-
-    // Pricing cards double as the service selector
-    (function() {
-        var plans = document.querySelectorAll('.plan');
-        var serviceInput = document.getElementById('service');
-        var serviceLabel = document.getElementById('serviceLabel');
-        var PRICES = {
-            'mix-and-master': 'full mix + master — $150',
-            'stem-master': 'stem master — $125',
-            'coproduction': 'coproduction — quoted per project'
-        };
-        // Coproduction can start from nothing but a reference, so the link
-        // is optional and relabelled for that service.
-        var LINK_COPY = {
-            'default': {
-                label: 'link to your track',
-                req: ' <span class="req">(required)</span>',
-                ph: 'soundcloud, drive, dropbox, spotify',
-                hint: 'private soundcloud or unlisted drive/dropbox works great. sending files later is fine — 24-bit wav preferred.',
-                required: true
-            },
-            'coproduction': {
-                label: 'link to a loop, demo, or reference',
-                req: ' <span class="req">(optional)</span>',
-                ph: 'a loop, a rough idea, or a track you want it to feel like',
-                hint: 'nothing yet? leave it blank and tell us the vision when we reply.',
-                required: false
-            }
-        };
-        function applyLinkCopy(svc) {
-            var c = LINK_COPY[svc] || LINK_COPY['default'];
-            var input = document.getElementById('link');
-            document.querySelector('label[for="link"]').innerHTML = c.label + c.req;
-            document.getElementById('linkHint').textContent = c.hint;
-            input.placeholder = c.ph;
-            input.required = c.required;
-        }
-
-        function select(el, scroll) {
-            plans.forEach(function(p) {
-                p.classList.remove('selected');
-                p.querySelector('.pick').textContent = 'tap to select';
-            });
-            el.classList.add('selected');
-            el.querySelector('.pick').textContent = 'selected \u2713';
-            var svc = el.getAttribute('data-service');
-            serviceInput.value = svc;
-            serviceLabel.textContent = PRICES[svc];
-            applyLinkCopy(svc);
-            if (scroll) { document.getElementById('start').scrollIntoView({ behavior: 'smooth' }); }
-        }
-        plans.forEach(function(p) { p.addEventListener('click', function() { select(p, true); }); });
-        select(plans[0], false);
-
-        document.getElementById('changeService').addEventListener('click', function() {
-            document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
-        });
-    })();
-
-    // Intake form
-    (function() {
-        var form = document.getElementById('intakeForm');
-        var btn = document.getElementById('submitBtn');
-        var hint = document.getElementById('statusHint');
-
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            var name = document.getElementById('name').value.trim();
-            var email = document.getElementById('email').value.trim();
-            var link = document.getElementById('link').value.trim();
-            var service = document.getElementById('service').value;
-            var source = document.getElementById('source').value;
-
-            var linkRequired = document.getElementById('link').required;
-            if (!name || !email || (!link && linkRequired) || !service || !source) {
-                hint.textContent = 'please fill in all required fields.';
-                return;
-            }
-            if (link && !/^https?:\/\//i.test(link)) { link = 'https://' + link; }
-
-            btn.disabled = true;
-            hint.textContent = 'sending...';
-
-            // Unique event ID so the browser pixel and server-side CAPI dedupe.
-            var eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-
-            try {
-                var res = await fetch('/api/intake', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name: name, email: email, service: service, link: link, source: source, eventId: eventId })
-                });
-                var data = await res.json().catch(function() { return {}; });
-                if (!res.ok) { throw new Error(data.error || 'something went wrong.'); }
-
-                // Fire Meta Pixel Lead ONLY on a successful submission.
-                if (typeof fbq === 'function') {
-                    fbq('track', 'Lead', {
-                        content_name: 'Mix & Master Intake',
-                        content_category: service || 'mix-master',
-                        value: 40.00,
-                        currency: 'USD'
-                    }, { eventID: eventId });
-                }
-
-                form.style.display = 'none';
-                document.getElementById('successMessage').style.display = 'block';
-            } catch (err) {
-                console.error(err);
-                hint.textContent = err.message || 'something went wrong. please try again.';
-                btn.disabled = false;
-            }
-        });
-    })();
 </script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"c32b86bb49ea48c1a853b20556c6e44e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 <script>
-  // close the hamburger menu when returning via back/forward navigation (bfcache restore)
   window.addEventListener('pageshow', function() {
     var overlay = document.querySelector('.menu-overlay');
     var icon = document.querySelector('.menu-icon');
