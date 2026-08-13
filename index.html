@@ -1969,7 +1969,9 @@
                     if (typeof fbq === 'function') {
                         fbq('track', 'Lead', {
                             content_name: 'Mix & Master Intake',
-                            content_category: service || 'mix-master'
+                            content_category: service || 'mix-master',
+                            value: 40.00,
+                            currency: 'USD'
                         }, { eventID: eventId });
                     }
                     

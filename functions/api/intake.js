@@ -221,6 +221,8 @@ Submitted: ${new Date().toISOString()}
             custom_data: {
               content_name: 'Mix & Master Intake',
               content_category: sanitized.service || 'mix-master',
+              value: 40.00,
+              currency: 'USD',
             },
           }],
         };
