@@ -39,8 +39,10 @@ export async function onRequestPost(context) {
     // VALIDATION
     // ─────────────────────────────────────────────────────────────
 
-    // Required fields check
-    if (!name || !email || !service || !link) {
+    // Required fields check. Coproduction can start from nothing but a
+    // conversation, so a link is optional for that service only.
+    const linkOptional = String(service || '').trim() === 'coproduction';
+    if (!name || !email || !service || (!link && !linkOptional)) {
       return new Response(
         JSON.stringify({ error: 'Missing required fields: name, email, service, and link are required.' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
@@ -84,9 +86,9 @@ export async function onRequestPost(context) {
       );
     }
 
-    // URL validation for streaming link
-    let parsedUrl;
-    try {
+    // URL validation for streaming link (skipped when omitted for coproduction)
+    let parsedUrl = null;
+    if (sanitized.link) try {
       // Prepend https:// if no protocol specified
       let urlToValidate = sanitized.link;
       if (!/^https?:\/\//i.test(urlToValidate)) {
@@ -106,6 +108,7 @@ export async function onRequestPost(context) {
     }
 
     // Basic URL security checks
+    if (parsedUrl) {
     const blockedPatterns = [
       /^(localhost|127\.|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[01])\.)/i,  // Local/private IPs
       /\.(exe|bat|cmd|sh|ps1|msi|dll|scr)$/i,  // Executable file extensions
@@ -119,9 +122,10 @@ export async function onRequestPost(context) {
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
+    }
 
     // Service must be one of the allowed values
-    const allowedServices = ['stem-master', 'mix-and-master'];
+    const allowedServices = ['stem-master', 'mix-and-master', 'coproduction'];
     if (!allowedServices.includes(sanitized.service)) {
       return new Response(
         JSON.stringify({ error: 'Invalid service selection.' }),
@@ -146,6 +150,7 @@ export async function onRequestPost(context) {
     const serviceLabels = {
       'stem-master': 'Stem Master',
       'mix-and-master': 'Mix + Master',
+      'coproduction': 'Coproduction (quote)',
     };
     const serviceDisplay = serviceLabels[sanitized.service] || sanitized.service;
 
@@ -170,7 +175,7 @@ Email: ${sanitized.email}
 Phone: ${sanitized.phone || '(not provided)'}
 Service: ${serviceDisplay}
 Heard about us via: ${sourceDisplay}
-Streaming Link: ${parsedUrl.href}
+Streaming Link: ${parsedUrl ? parsedUrl.href : '(none provided)'}
 
 Notes:
 ${sanitized.notes || '(none)'}
