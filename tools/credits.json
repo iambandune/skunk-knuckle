@@ -1,13 +1,15 @@
 [
   {
-    "spotify": "https://open.spotify.com/track/102v6pIT5fGhbbgbFylGlI",
-    "label": "dim mak",
-    "credits": "mixing & mastering",
+    "slug": "sweat",
+    "name": "sweat",
+    "label": "mau5trap",
+    "spotify_embed": "https://open.spotify.com/embed/track/2tP7W4KskPeCX38I5S9Jhx?utm_source=generator&theme=0&view=minimal",
+    "apple_embed": "https://embed.music.apple.com/us/album/sweat/1805695126?i=1805695127&app=music",
     "featured": true,
-    "name": "itchtopay",
-    "slug": "itchtopay",
-    "spotify_embed": "https://open.spotify.com/embed/track/102v6pIT5fGhbbgbFylGlI?utm_source=generator&theme=0&view=minimal",
-    "apple_embed": null
+    "credits": "mixing & mastering",
+    "artists": [
+      "EMSKI"
+    ]
   },
   {
     "spotify": "https://open.spotify.com/track/2IBM95krbfoEU4pKtHJJtL",
@@ -17,26 +19,11 @@
     "name": "out in the sun",
     "slug": "out-in-the-sun",
     "spotify_embed": "https://open.spotify.com/embed/track/2IBM95krbfoEU4pKtHJJtL?utm_source=generator&theme=0&view=minimal",
-    "apple_embed": "https://embed.music.apple.com/us/album/out-in-the-sun-single/1607609431?i=1607609435&app=music"
-  },
-  {
-    "spotify": "https://open.spotify.com/track/15P5svfgx7wZ3ADxHDW379",
-    "label": "independent",
-    "credits": "coproduction, mixing & mastering",
-    "featured": true,
-    "name": "calm down",
-    "slug": "calm-down",
-    "spotify_embed": "https://open.spotify.com/embed/track/15P5svfgx7wZ3ADxHDW379?utm_source=generator&theme=0&view=minimal",
-    "apple_embed": "https://embed.music.apple.com/us/album/calm-down-single/1640501237?i=1640501238&app=music"
-  },
-  {
-    "slug": "sweat",
-    "name": "sweat",
-    "label": "mau5trap",
-    "spotify_embed": "https://open.spotify.com/embed/track/2tP7W4KskPeCX38I5S9Jhx?utm_source=generator&theme=0&view=minimal",
-    "apple_embed": "https://embed.music.apple.com/us/album/sweat/1805695126?i=1805695127&app=music",
-    "featured": true,
-    "credits": "mixing & mastering"
+    "artists": [
+      "ceej",
+      "Little Bird"
+    ],
+    "apple_embed": "https://embed.music.apple.com/us/album/out-in-the-sun-feat-little-bird-single/6793653746?i=6793653748&app=music"
   },
   {
     "slug": "watch-me",
@@ -45,7 +32,37 @@
     "spotify_embed": "https://open.spotify.com/embed/track/7JuUz68cHrb8McfIFB4fgM?utm_source=generator&theme=0&view=minimal",
     "apple_embed": "https://embed.music.apple.com/us/album/watch-me/1699677157?i=1699677676&app=music",
     "featured": true,
-    "credits": "mixing & mastering"
+    "credits": "mixing & mastering",
+    "artists": [
+      "capshun",
+      "COLSON XL"
+    ]
+  },
+  {
+    "spotify": "https://open.spotify.com/track/0xRemHa2IgKtR30qlmRaM9",
+    "label": "independent",
+    "credits": "coproduction, mixing & mastering",
+    "featured": true,
+    "name": "calm down",
+    "slug": "calm-down",
+    "spotify_embed": "https://open.spotify.com/embed/track/0xRemHa2IgKtR30qlmRaM9?utm_source=generator&theme=0&view=minimal",
+    "artists": [
+      "EMSKI"
+    ],
+    "apple_embed": "https://embed.music.apple.com/us/album/calm-down-single/6771174480?i=6771174484&app=music"
+  },
+  {
+    "spotify": "https://open.spotify.com/track/102v6pIT5fGhbbgbFylGlI",
+    "label": "dim mak",
+    "credits": "mixing & mastering",
+    "featured": true,
+    "name": "itchtopay",
+    "slug": "itchtopay",
+    "spotify_embed": "https://open.spotify.com/embed/track/102v6pIT5fGhbbgbFylGlI?utm_source=generator&theme=0&view=minimal",
+    "artists": [
+      "Buns"
+    ],
+    "apple_embed": null
   },
   {
     "slug": "used-to-be",
@@ -54,7 +71,10 @@
     "spotify_embed": "https://open.spotify.com/embed/track/4HbAHIdZncpoOxLJninXwO?utm_source=generator&theme=0&view=minimal",
     "apple_embed": "https://embed.music.apple.com/us/album/used-to-be/1683441299?i=1683441301&app=music",
     "featured": true,
-    "credits": "mixing & mastering"
+    "credits": "mixing & mastering",
+    "artists": [
+      "SunShy"
+    ]
   },
   {
     "slug": "body-on-mine",
@@ -63,7 +83,10 @@
     "spotify_embed": "https://open.spotify.com/embed/track/2lsHvYMw4lqSjWCwJhuuKE?utm_source=generator&theme=0&view=minimal",
     "apple_embed": "https://embed.music.apple.com/us/album/body-on-mine/1840160745?i=1840160746&app=music",
     "featured": false,
-    "credits": "mixing & mastering"
+    "credits": "mixing & mastering",
+    "artists": [
+      "EMSKI"
+    ]
   },
   {
     "slug": "respawn",
@@ -72,7 +95,12 @@
     "spotify_embed": "https://open.spotify.com/embed/track/3Qrmfu75oZzfQppeaUKOkm?utm_source=generator&theme=0&view=minimal",
     "apple_embed": "https://embed.music.apple.com/us/album/respawn-feat-ero808-jvss/1617320073?i=1617320075&app=music",
     "featured": false,
-    "credits": "mixing & mastering"
+    "credits": "mixing & mastering",
+    "artists": [
+      "COLSON XL",
+      "ero808",
+      "JVSS"
+    ]
   },
   {
     "slug": "younger-me",
@@ -81,7 +109,11 @@
     "spotify_embed": "https://open.spotify.com/embed/track/3pUFitri0MDyx4n58DDBjS?utm_source=generator&theme=0&view=minimal",
     "apple_embed": "https://embed.music.apple.com/us/album/younger-me/1771838770?i=1771838771&app=music",
     "featured": false,
-    "credits": "mixing & mastering"
+    "credits": "mixing & mastering",
+    "artists": [
+      "ceej",
+      "matt weix"
+    ]
   },
   {
     "slug": "you-got-that",
@@ -90,7 +122,12 @@
     "spotify_embed": "https://open.spotify.com/embed/track/2KZNcQzlkmJV6UlH69kGpy?utm_source=generator&theme=0&view=minimal",
     "apple_embed": "https://embed.music.apple.com/us/album/you-got-that-colson-xl-remix/1590757906?i=1590757907&app=music",
     "featured": false,
-    "credits": "mixing & mastering"
+    "credits": "mixing & mastering",
+    "artists": [
+      "Eazyly",
+      "RVCHL",
+      "COLSON XL"
+    ]
   },
   {
     "slug": "small-talk",
@@ -99,7 +136,11 @@
     "spotify_embed": "https://open.spotify.com/embed/track/3VUB2APjgQ5kHMgWjtfEGD?utm_source=generator&theme=0&view=minimal",
     "apple_embed": "https://embed.music.apple.com/us/album/small-talk-colson-xl-remix/1538094657?i=1538094658&app=music",
     "featured": false,
-    "credits": "mixing & mastering"
+    "credits": "mixing & mastering",
+    "artists": [
+      "Electric Tongues",
+      "COLSON XL"
+    ]
   },
   {
     "slug": "huant",
@@ -108,7 +149,10 @@
     "spotify_embed": "https://open.spotify.com/embed/track/28vT0vfn4O1QDo2GkEzx9S?utm_source=generator&theme=0&view=minimal",
     "apple_embed": "https://embed.music.apple.com/us/album/huant/1702909191?i=1702909192&app=music",
     "featured": false,
-    "credits": "mixing & mastering"
+    "credits": "mixing & mastering",
+    "artists": [
+      "SunShy"
+    ]
   },
   {
     "slug": "too-easy",
@@ -117,7 +161,10 @@
     "spotify_embed": "https://open.spotify.com/embed/track/2hzlsZHIoKK3g2n7FWBDoG?utm_source=generator&theme=0&view=minimal",
     "apple_embed": "https://embed.music.apple.com/us/album/too-easy/1694801612?i=1694801613&app=music",
     "featured": false,
-    "credits": "mixing & mastering"
+    "credits": "mixing & mastering",
+    "artists": [
+      "SunShy"
+    ]
   },
   {
     "slug": "dreamgirl-ep",
@@ -126,6 +173,7 @@
     "spotify_embed": "https://open.spotify.com/embed/album/2YO4jKw7zppJhdjnmwvYwp?utm_source=generator&theme=0&view=list",
     "apple_embed": "https://embed.music.apple.com/us/album/dreamgirl-ep/1577870495?app=music",
     "featured": false,
-    "credits": "mixing & mastering"
+    "credits": "mixing & mastering",
+    "artists": []
   }
 ]
