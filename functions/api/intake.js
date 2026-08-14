@@ -33,7 +33,7 @@ export async function onRequestPost(context) {
 
   try {
     const body = await request.json();
-    const { name, email, phone, service, link, notes, source, eventId, fbp, fbc } = body;
+    const { name, email, phone, service, link, notes, source, eventId, fbp, fbc, attribution } = body;
 
     // ─────────────────────────────────────────────────────────────
     // VALIDATION
@@ -63,6 +63,19 @@ export async function onRequestPost(context) {
       notes: String(notes || '').trim().slice(0, 5000),
       source: String(source || '').trim().slice(0, 60),
     };
+
+    // Campaign attribution from the ad link. Allowlisted keys only - this
+    // arrives from the browser and is echoed into an email.
+    const ATTR_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content',
+                       'utm_term', 'fbclid', 'referrer', 'landed_at'];
+    const attr = {};
+    if (attribution && typeof attribution === 'object') {
+      for (const k of ATTR_KEYS) {
+        if (attribution[k]) {
+          attr[k] = String(attribution[k]).replace(/[\r\n]+/g, ' ').trim().slice(0, 300);
+        }
+      }
+    }
 
     // Email validation (RFC 5322 simplified)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -179,10 +192,17 @@ Email: ${sanitized.email}
 Phone: ${sanitized.phone || '(not provided)'}
 Service: ${serviceDisplay}
 Heard about us via: ${sourceDisplay}
+Ad that sent them: ${attr.utm_content || (attr.utm_source ? '(' + attr.utm_source + ', ad not identified)' : 'not from a tracked ad link')}
 Streaming Link: ${parsedUrl ? parsedUrl.href : '(none provided)'}
 
 Notes:
 ${sanitized.notes || '(none)'}
+
+───────────────────────────────────────
+Attribution
+${Object.keys(attr).length
+  ? Object.entries(attr).map(([k, v]) => `  ${k}: ${v}`).join('\n')
+  : '  (none - direct visit, or arrived without campaign parameters)'}
 
 ═══════════════════════════════════════
 Submitted: ${new Date().toISOString()}
@@ -250,6 +270,8 @@ Submitted: ${new Date().toISOString()}
               value: 40.00,
               currency: 'USD',
               lead_source: sanitized.source || 'unknown',
+              ad_content: attr.utm_content || undefined,
+              ad_campaign: attr.utm_campaign || undefined,
             },
           }],
         };

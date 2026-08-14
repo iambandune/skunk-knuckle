@@ -963,6 +963,34 @@
         });
     })();
 
+    // Campaign attribution.
+    //
+    // Meta's own per-ad attribution is statistically thin at this lead volume,
+    // so the ad link carries UTM params and we hand them back with the intake.
+    // Stored for the session so someone who reads the credits, plays a track
+    // and then submits is still credited to the ad that sent them.
+    (function() {
+        var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'];
+        try {
+            var q = new URLSearchParams(window.location.search);
+            var found = {};
+            KEYS.forEach(function(k) {
+                var v = q.get(k);
+                if (v) { found[k] = v.slice(0, 200); }
+            });
+            if (Object.keys(found).length) {
+                found.landed_at = new Date().toISOString();
+                if (document.referrer) { found.referrer = document.referrer.slice(0, 300); }
+                sessionStorage.setItem('journals_attr', JSON.stringify(found));
+            }
+        } catch (e) { /* private mode / storage disabled - attribution is optional */ }
+    })();
+
+    function journalsAttribution() {
+        try { return JSON.parse(sessionStorage.getItem('journals_attr') || '{}'); }
+        catch (e) { return {}; }
+    }
+
     // Intake form
     (function() {
         var form = document.getElementById('intakeForm');
@@ -1002,7 +1030,8 @@
                     body: JSON.stringify({
                         name: name, email: email, service: service, link: link,
                         source: source, eventId: eventId,
-                        fbp: cookie('_fbp'), fbc: cookie('_fbc')
+                        fbp: cookie('_fbp'), fbc: cookie('_fbc'),
+                        attribution: journalsAttribution()
                     })
                 });
                 var data = await res.json().catch(function() { return {}; });
