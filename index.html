@@ -147,6 +147,30 @@
     </footer>
 
 <script>
+    // Campaign attribution.
+    //
+    // Same capture as /mix, deliberately duplicated - there is no build step
+    // to share it. The hub is a plausible ad destination and any link landing
+    // here would otherwise lose its UTMs before the visitor reaches the intake
+    // form. Writes only when params are present, so arriving here later in the
+    // session cannot blank an earlier capture.
+    (function() {
+        var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'];
+        try {
+            var q = new URLSearchParams(window.location.search);
+            var found = {};
+            KEYS.forEach(function(k) {
+                var v = q.get(k);
+                if (v) { found[k] = v.slice(0, 200); }
+            });
+            if (Object.keys(found).length) {
+                found.landed_at = new Date().toISOString();
+                if (document.referrer) { found.referrer = document.referrer.slice(0, 300); }
+                sessionStorage.setItem('journals_attr', JSON.stringify(found));
+            }
+        } catch (e) { /* private mode / storage disabled - attribution is optional */ }
+    })();
+
     document.addEventListener('DOMContentLoaded', function() {
         const menuButton = document.querySelector('.menu-button');
         const menuOverlay = document.querySelector('.menu-overlay');
