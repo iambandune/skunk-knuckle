@@ -7,7 +7,7 @@
     <meta name="description" content="mixing and mastering for artists who care how it feels. $150 full mix + master, $125 stem master. credits on mau5trap, sable valley, hexagon, insomniac." />
     <!-- Open Graph for rich link previews -->
     <meta property="og:title" content="journals. — mixing &amp; mastering" />
-    <meta property="og:description" content="mixing and mastering. $150 full mix + master, $125 stem master." />
+    <meta property="og:description" content="mixing and mastering. first mix + master $150, $125 stem master." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://journals-studio.com/mix" />
     <meta property="og:image" content="https://journals-studio.com/og-card.png?v=12" />
@@ -15,7 +15,7 @@
     <meta property="og:image:height" content="1200" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="journals. — mixing &amp; mastering" />
-    <meta name="twitter:description" content="mixing and mastering. $150 full mix + master, $125 stem master." />
+    <meta name="twitter:description" content="mixing and mastering. first mix + master $150, $125 stem master." />
     <meta name="twitter:image" content="https://journals-studio.com/og-card.png?v=12" />
     <!-- Mobile browser theme color - matches gradient top -->
     <meta name="theme-color" content="#4A90E2" />
@@ -245,6 +245,7 @@
         .plan .pname { font-size: 24px; margin-bottom: 4px; }
         .plan .pprice { font-size: 44px; font-weight: 500; letter-spacing: -1.5px; margin-bottom: 14px; }
         .plan .pprice.quote { font-size: 30px; }
+        .plan .pafter { font-size: 13.5px; color: rgba(255,255,255,0.72); margin: -8px 0 14px; }
         .plan .pprice span { font-size: 16px; font-weight: 400; color: rgba(255, 255, 255, 0.75); letter-spacing: 0; }
         .plan ul { list-style: none; padding: 0; }
         .plan li { font-size: 15px; color: rgba(255, 255, 255, 0.88); padding: 6px 0 6px 24px; position: relative; line-height: 1.45; }
@@ -329,7 +330,7 @@
             <h1>mix &amp; master.</h1>
             <p class="sub">we focus on the emotion, shape everything around it, and keep the parts that feel most like you.</p>
             <div class="pricechips">
-                <div class="chip"><b>$150</b> — full mix + master</div>
+                <div class="chip"><b>$150</b> — your first mix + master</div>
                 <div class="chip"><b>$125</b> — stem master</div>
                 <div class="chip"><b>coproduction</b> — per project</div>
             </div>
@@ -451,7 +452,8 @@
             <div class="pricegrid" role="radiogroup" aria-label="choose a service">
                 <div class="card plan" data-service="mix-and-master" role="radio" aria-checked="true" tabindex="0">
                     <div class="pname">full mix + master</div>
-                    <div class="pprice">$150 <span>/ song</span></div>
+                    <div class="pprice">$150 <span>/ first song</span></div>
+                    <div class="pafter">$300 per song after that</div>
                     <ul>
                         <li>full mix from your session or stems</li>
                         <li>master ready for every platform</li>
@@ -500,7 +502,7 @@
                     <div class="field">
                         <label>service</label>
                         <div class="servicepill">
-                            <span id="serviceLabel">full mix + master — $150</span>
+                            <span id="serviceLabel">full mix + master — $150 first song</span>
                             <button type="button" id="changeService">change</button>
                         </div>
                         <input type="hidden" id="service" name="service" value="mix-and-master" />
@@ -893,7 +895,7 @@
         var serviceInput = document.getElementById('service');
         var serviceLabel = document.getElementById('serviceLabel');
         var PRICES = {
-            'mix-and-master': 'full mix + master — $150',
+            'mix-and-master': 'full mix + master — $150 first song',
             'stem-master': 'stem master — $125',
             'coproduction': 'coproduction — quoted per project'
         };
