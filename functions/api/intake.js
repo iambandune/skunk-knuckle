@@ -41,13 +41,15 @@ export async function onRequestPost(context) {
 
     // Required fields check. Coproduction can start from nothing but a
     // conversation, so a link is optional for that service only.
-    const linkOptional = String(service || '').trim() === 'coproduction';
-    if (!name || !email || !service || !source || (!link && !linkOptional)) {
+    // Only name, email and service are required. The track link and the
+    // "how did you hear about us" answer were both required until 27 Aug 2026
+    // and both cost conversions: the link forces an app switch mid-form, and
+    // the source question is answered for ad traffic by the UTM parameters
+    // that already arrive in `attribution`.
+    if (!name || !email || !service) {
       return new Response(
         JSON.stringify({
-          error: linkOptional
-            ? 'Missing required fields: name, email, service and source are required.'
-            : 'Missing required fields: name, email, service, source and link are required.',
+          error: 'Missing required fields: name, email and service are required.',
         }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
@@ -103,7 +105,7 @@ export async function onRequestPost(context) {
       );
     }
 
-    // URL validation for streaming link (skipped when omitted for coproduction)
+    // URL validation for the track link, which is optional for every service.
     let parsedUrl = null;
     if (sanitized.link) try {
       // Prepend https:// if no protocol specified

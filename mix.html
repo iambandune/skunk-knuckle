@@ -182,7 +182,8 @@
         /* Track cards */
         /* Artwork wall. Covers are the content; players mount on click so
            no third-party iframe loads on page view. */
-        .trackgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px 18px; align-items: start; }
+        .trackgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 22px 18px; align-items: start; }
+        @media (max-width: 619px) { .trackgrid { grid-template-columns: repeat(2, 1fr); gap: 16px 12px; } }
         @media (min-width: 1000px) { .trackgrid { grid-template-columns: repeat(3, 1fr); } }
         @media (min-width: 1000px) { .trackgrid.dense { grid-template-columns: repeat(4, 1fr); } }
         @media (min-width: 620px) and (max-width: 999px) { .trackgrid { grid-template-columns: repeat(2, 1fr); } }
@@ -259,6 +260,29 @@
         .field { margin-bottom: 18px; }
         label { display: block; font-size: 14px; color: rgba(255, 255, 255, 0.9); margin-bottom: 7px; }
         label .req { color: rgba(255, 255, 255, 0.6); font-size: 12.5px; }
+        label .opt { color: rgba(255, 255, 255, 0.42); font-size: 12.5px; }
+
+        /* Sticky call to action. Almost all paid traffic is Instagram on a
+           phone, and the intake form sits well below the fold - without this
+           the only way back to it is scrolling. Hidden once the form is in
+           view, and never shown on desktop where the page is short enough. */
+        .stickycta {
+            position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+            display: none; padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+            background: rgba(20, 20, 24, 0.86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+            transform: translateY(110%); transition: transform 220ms ease;
+        }
+        .stickycta.show { transform: none; }
+        .stickycta button {
+            display: block; width: 100%; border: 0; border-radius: 999px; cursor: pointer;
+            padding: 13px 18px; background: #fff; color: #17161c;
+            font: inherit; font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+        }
+        .stickycta small { display: block; margin-top: 7px; text-align: center;
+            color: rgba(255, 255, 255, 0.55); font-size: 11.5px; }
+        @media (max-width: 860px) { .stickycta { display: block; } }
+        @media (prefers-reduced-motion: reduce) { .stickycta { transition: none; } }
         input, select {
             width: 100%; background: rgba(255, 255, 255, 0.14);
             border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px;
@@ -488,6 +512,11 @@
         </div>
     </section>
 
+    <div class="stickycta" id="stickyCta" hidden>
+        <button type="button" id="stickyCtaBtn">start a mix &mdash; $150 first song</button>
+        <small>tell us what you're working on. we'll reply with next steps.</small>
+    </div>
+
     <section id="start">
         <div class="container">
             <div class="center">
@@ -519,15 +548,15 @@
                     </div>
 
                     <div class="field">
-                        <label for="link">link to your track <span class="req">(required)</span></label>
-                        <input type="url" id="link" name="link" placeholder="soundcloud, drive, dropbox, spotify" autocomplete="url" inputmode="url" required />
-                        <div class="hint" id="linkHint">private soundcloud or unlisted drive/dropbox works great. sending files later is fine &mdash; 24-bit wav preferred.</div>
+                        <label for="link">link to your track <span class="opt">(optional)</span></label>
+                        <input type="url" id="link" name="link" placeholder="soundcloud, drive, dropbox, spotify" autocomplete="url" inputmode="url" />
+                        <div class="hint" id="linkHint">no link handy? leave it blank &mdash; we'll email you somewhere to send files. private soundcloud or unlisted drive works great.</div>
                     </div>
 
                     <div class="field">
-                        <label for="source">how did you hear about us? <span class="req">(required)</span></label>
-                        <select id="source" name="source" required>
-                            <option value="">select one</option>
+                        <label for="source">how did you hear about us? <span class="opt">(optional)</span></label>
+                        <select id="source" name="source">
+                            <option value="">&mdash;</option>
                             <option value="instagram-ad">instagram or facebook ad</option>
                             <option value="instagram-organic">instagram (not an ad)</option>
                             <option value="referral">a friend or another artist</option>
@@ -889,6 +918,42 @@
         });
     })();
 
+    // Sticky call to action for phones. The intake form sits below the
+    // credits and pricing sections, so a visitor who scrolls past the hero
+    // button has no way back to it. Hide the bar while the form is on screen
+    // so it never covers the fields it points at.
+    (function() {
+        var bar = document.getElementById('stickyCta');
+        var btn = document.getElementById('stickyCtaBtn');
+        var start = document.getElementById('start');
+        if (!bar || !btn || !start) { return; }
+
+        btn.addEventListener('click', function() {
+            start.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            var first = document.getElementById('name');
+            if (first) { setTimeout(function() { first.focus({ preventScroll: true }); }, 520); }
+        });
+
+        function show(on) {
+            if (on) { bar.hidden = false; requestAnimationFrame(function() { bar.classList.add('show'); }); }
+            else { bar.classList.remove('show'); }
+        }
+
+        if (!('IntersectionObserver' in window)) { show(true); return; }
+
+        // Reveal once the hero is behind us; hide again over the form itself.
+        var formVisible = false, pastHero = false;
+        new IntersectionObserver(function(es) {
+            formVisible = es[0].isIntersecting;
+            show(pastHero && !formVisible);
+        }, { threshold: 0 }).observe(start);
+
+        new IntersectionObserver(function(es) {
+            pastHero = !es[0].isIntersecting;
+            show(pastHero && !formVisible);
+        }, { threshold: 0 }).observe(document.querySelector('header') || start);
+    })();
+
     // Pricing cards double as the service selector
     (function() {
         var plans = document.querySelectorAll('.plan');
@@ -899,15 +964,16 @@
             'stem-master': 'stem master — $125',
             'coproduction': 'coproduction — quoted per project'
         };
-        // Coproduction can start from nothing but a reference, so the link
-        // is optional and relabelled for that service.
+        // The link is optional for every service. Requiring it meant a cold
+        // visitor had to leave the page, find a shareable URL and come back -
+        // an app switch mid-form that a lot of people never return from.
         var LINK_COPY = {
             'default': {
                 label: 'link to your track',
-                req: ' <span class="req">(required)</span>',
+                req: ' <span class="opt">(optional)</span>',
                 ph: 'soundcloud, drive, dropbox, spotify',
-                hint: 'private soundcloud or unlisted drive/dropbox works great. sending files later is fine — 24-bit wav preferred.',
-                required: true
+                hint: "no link handy? leave it blank — we'll email you somewhere to send files. private soundcloud or unlisted drive works great.",
+                required: false
             },
             'coproduction': {
                 label: 'link to a loop, demo, or reference',
@@ -1005,8 +1071,11 @@
             var service = document.getElementById('service').value;
             var source = document.getElementById('source').value;
 
+            // `source` is optional now - the UTM parameters already identify
+            // which ad and placement sent an ad click, so requiring it only
+            // cost conversions.
             var linkRequired = document.getElementById('link').required;
-            if (!name || !email || (!link && linkRequired) || !service || !source) {
+            if (!name || !email || (!link && linkRequired) || !service) {
                 hint.textContent = 'please fill in all required fields.';
                 return;
             }
