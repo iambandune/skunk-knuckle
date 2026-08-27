@@ -271,9 +271,10 @@
             display: none; padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
             background: rgba(20, 20, 24, 0.86); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
             border-top: 1px solid rgba(255, 255, 255, 0.14);
-            transform: translateY(110%); transition: transform 220ms ease;
+            transform: translateY(110%); visibility: hidden;
+            transition: transform 220ms ease, visibility 0s linear 220ms;
         }
-        .stickycta.show { transform: none; }
+        .stickycta.show { transform: none; visibility: visible; transition: transform 220ms ease, visibility 0s; }
         .stickycta button {
             display: block; width: 100%; border: 0; border-radius: 999px; cursor: pointer;
             padding: 13px 18px; background: #fff; color: #17161c;
