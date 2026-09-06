@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>journals. - intake</title>
+    <meta name="description" content="send a link to your track. we finish records - mixing, mastering and coproduction with credits on mau5trap, sable valley, hexagon and insomniac." />
+    <!-- Open Graph for rich link previews -->
+    <meta property="og:title" content="journals. — send us your track" />
+    <meta property="og:description" content="we finish records. send a link to your track and we'll take it from there." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://journals-studio.com/intake" />
+    <meta property="og:image" content="https://journals-studio.com/og-card.png?v=12" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="journals. — send us your track" />
+    <meta name="twitter:description" content="we finish records. send a link to your track and we'll take it from there." />
+    <meta name="twitter:image" content="https://journals-studio.com/og-card.png?v=12" />
+    <!-- Mobile browser theme color - matches gradient top -->
+    <meta name="theme-color" content="#4A90E2" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2076925979518264');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2076925979518264&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Render all UI text in lowercase */
+        html, body { text-transform: lowercase; }
+
+        html {
+            height: 100%;
+            background: #4A90E2;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue', sans-serif;
+            min-height: 100%;
+            min-height: 100dvh;
+            background: linear-gradient(180deg,
+                #4A90E2 0%,
+                #6CAFE3 22%,
+                #89C4E8 38%,
+                #FF9F5C 74%,
+                #FF7A42 90%,
+                #E67E22 100%);
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+            color: #fff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Pixelated clouds */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+            opacity: 0.4;
+            filter: contrast(150%) brightness(120%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .cloud::before {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+        }
+        .cloud1 { width: 120px; height: 40px; top: 14%; animation: drift 45s infinite; }
+        .cloud1::before { width: 60px; height: 50px; top: -25px; left: 20px; }
+        .cloud2 { width: 80px; height: 35px; top: 34%; animation: drift 60s infinite; animation-delay: -20s; }
+        .cloud2::before { width: 50px; height: 40px; top: -20px; right: 15px; }
+        .cloud3 { width: 100px; height: 30px; top: 56%; animation: drift 50s infinite; animation-delay: -35s; }
+        .cloud3::before { width: 45px; height: 35px; top: -15px; left: 30px; }
+        .cloud4 { width: 140px; height: 45px; top: 78%; animation: drift 55s infinite; animation-delay: -10s; }
+        .cloud4::before { width: 70px; height: 55px; top: -28px; right: 25px; }
+        @keyframes drift { 0% { left: -220px; } 100% { left: 100%; } }
+        @media (prefers-reduced-motion: reduce) { .cloud { animation: none; } }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        /* Hamburger menu (same as other pages) */
+        .top-left-controls { position: fixed; top: 18px; left: 18px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; }
+        .menu-button { cursor: pointer; border: 0; -webkit-appearance: none; display: block; padding: 14px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 28px; transition: all 0.3s ease; }
+        .menu-icon { display: flex; flex-direction: column; gap: 4px; width: 20px; }
+        .menu-icon span { display: block; width: 100%; height: 2px; background-color: #fff; transition: all 0.3s ease; }
+        .menu-button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .menu-overlay.active { display: flex; opacity: 1; overflow-y: auto; }
+        .menu-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; }
+        .menu-content a { display: block; color: #fff; text-decoration: none; font-size: 24px; margin: 20px 0; opacity: 0.8; transition: all 0.3s ease; }
+        .menu-content a:hover { opacity: 1; transform: scale(1.1); }
+
+        /* Hero - short, because the form is the page */
+        .hero { padding: 104px 0 8px; text-align: center; }
+        .wordmark { font-size: 22px; letter-spacing: -0.5px; opacity: 0.9; margin-bottom: 34px; }
+        h1 {
+            font-size: clamp(38px, 6.6vw, 68px);
+            font-weight: 400;
+            letter-spacing: -1.5px;
+            line-height: 1.06;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .hero .sub {
+            font-size: clamp(17px, 2.2vw, 21px);
+            color: rgba(255, 255, 255, 0.92);
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.55;
+        }
+
+        section { padding: 36px 0 24px; }
+        .card {
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+        }
+
+        /* Form */
+        .formwrap { padding: 36px 34px; max-width: 660px; margin: 0 auto; }
+        .field { margin-bottom: 18px; }
+        label { display: block; font-size: 14px; color: rgba(255, 255, 255, 0.9); margin-bottom: 7px; }
+        label .req { color: rgba(255, 255, 255, 0.6); font-size: 12.5px; }
+        label .opt { color: rgba(255, 255, 255, 0.42); font-size: 12.5px; }
+        input, select, textarea {
+            width: 100%; background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 12px;
+            padding: 14px 16px; font-size: 16px; color: #fff; font-family: inherit;
+            text-transform: lowercase; outline: none;
+            transition: border-color 0.18s ease, background 0.18s ease;
+        }
+        textarea { min-height: 96px; resize: vertical; line-height: 1.45; }
+        input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.55); }
+        input:focus, select:focus, textarea:focus { border-color: rgba(255, 255, 255, 0.7); background: rgba(255, 255, 255, 0.2); }
+        input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible, .submit:focus-visible {
+            outline: 2px solid #fff; outline-offset: 2px;
+        }
+        select option { background: #4A90E2; color: #fff; }
+        .hint { font-size: 13px; color: rgba(255, 255, 255, 0.68); margin-top: 6px; line-height: 1.45; }
+        .submit {
+            width: 100%; background: #fff; color: #E0651C; border: none; border-radius: 100px;
+            padding: 17px; font-size: 17px; font-weight: 600; cursor: pointer; font-family: inherit;
+            text-transform: lowercase; margin-top: 6px; transition: transform 0.18s ease;
+        }
+        .submit:hover:not(:disabled) { transform: translateY(-2px); }
+        .submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        #statusHint { font-size: 13.5px; color: rgba(255, 255, 255, 0.75); text-align: center; margin-top: 14px; min-height: 20px; }
+        #successMessage { text-align: center; padding: 50px 20px; }
+        #successMessage h2 { font-size: 40px; font-weight: 400; margin-bottom: 12px; }
+        #successMessage p { color: rgba(255, 255, 255, 0.88); font-size: 17px; line-height: 1.55; }
+
+        /* Pricing lives on /mix. This page never states a number. */
+        .pricelink { text-align: center; margin-top: 18px; font-size: 14px; }
+        .pricelink a { color: rgba(255, 255, 255, 0.85); }
+
+        .credline { text-align: center; font-size: 14px; color: rgba(255, 255, 255, 0.72); margin-top: 8px; }
+
+        footer { padding: 36px 0 56px; text-align: center; font-size: 14px; color: rgba(255, 255, 255, 0.75); }
+        footer a { color: rgba(255, 255, 255, 0.85); }
+
+        @media (max-width: 760px) {
+            .formwrap { padding: 28px 20px; }
+            section { padding: 28px 0 20px; }
+            .hero { padding: 92px 0 4px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated clouds -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
+    <div class="cloud cloud4"></div>
+
+    <div class="top-left-controls">
+        <button type="button" class="menu-button" aria-label="menu" aria-expanded="false" aria-controls="menuOverlay">
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+    </div>
+    <div class="menu-overlay" id="menuOverlay">
+        <nav class="menu-content">
+            <a href="/">home</a>
+            <a href="/mix#pricing">pricing</a>
+            <a href="/mix#work">credits</a>
+            <a href="/store">store</a>
+            <a href="/privacy">privacy policy</a>
+        </nav>
+    </div>
+
+    <header class="hero">
+        <div class="container">
+            <div class="wordmark">journals.</div>
+            <h1>we finish records.</h1>
+            <p class="sub">we focus on the emotion, shape everything around it, and keep the parts that feel most like you.</p>
+        </div>
+    </header>
+
+    <section id="start">
+        <div class="container">
+            <div class="card formwrap">
+                <div id="successMessage" role="status" aria-live="polite" style="display: none;">
+                    <h2>thank you.</h2>
+                    <p>we got your submission and will reach out shortly.</p>
+                </div>
+                <form id="intakeForm">
+                    <div class="field">
+                        <label for="name">name <span class="req">(required)</span></label>
+                        <input type="text" id="name" name="name" placeholder="your name" autocomplete="name" required />
+                    </div>
+
+                    <div class="field">
+                        <label for="email">email <span class="req">(required)</span></label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" inputmode="email" required />
+                    </div>
+
+                    <div class="field">
+                        <label for="phone">phone <span class="opt">(optional, if you prefer text updates)</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="optional" autocomplete="tel" inputmode="tel" />
+                    </div>
+
+                    <div class="field">
+                        <label for="service">service <span class="req">(required)</span></label>
+                        <select id="service" name="service" required>
+                            <option value="mix-and-master">mix + master</option>
+                            <option value="stem-master">stem master</option>
+                            <option value="coproduction">coproduction</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="link">link to your track <span class="opt">(optional)</span></label>
+                        <input type="text" id="link" name="link" placeholder="spotify, soundcloud, google drive, dropbox" autocomplete="url" inputmode="url" />
+                        <div class="hint">private soundcloud or unlisted drive/dropbox link works great. no link handy? leave it blank &mdash; we'll email you somewhere to send files.</div>
+                    </div>
+
+                    <div class="field">
+                        <label for="notes">anything we should know? <span class="opt">(optional)</span></label>
+                        <textarea id="notes" name="notes" placeholder="what&rsquo;s the vision? any references? what&rsquo;s feeling stuck?"></textarea>
+                    </div>
+
+                    <button type="submit" class="submit" id="submitBtn">send intake</button>
+                    <div id="statusHint" role="status" aria-live="polite">goes straight to journals.sound@gmail.com</div>
+                </form>
+            </div>
+            <p class="pricelink"><a href="/mix#pricing">pricing</a></p>
+            <p class="credline">work released via mau5trap &middot; sable valley &middot; hexagon &middot; insomniac</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <a href="/privacy">privacy policy</a>
+        </div>
+    </footer>
+
+<script>
+    // Hamburger menu
+    (function() {
+        var btn = document.querySelector('.menu-button');
+        var icon = document.querySelector('.menu-icon');
+        var overlay = document.getElementById('menuOverlay');
+        function setOpen(open) {
+            overlay.classList.toggle('active', open);
+            icon.classList.toggle('active', open);
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+        btn.addEventListener('click', function() { setOpen(!overlay.classList.contains('active')); });
+        overlay.addEventListener('click', function(e) { if (e.target === overlay) setOpen(false); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') setOpen(false); });
+    })();
+
+    // Campaign attribution.
+    //
+    // Meta's own per-ad attribution is statistically thin at this lead volume,
+    // so the ad link carries UTM params and we hand them back with the intake.
+    // Same code as /mix so the intake email reads identically from either page.
+    (function() {
+        var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'];
+        try {
+            var q = new URLSearchParams(window.location.search);
+            var found = {};
+            KEYS.forEach(function(k) {
+                var v = q.get(k);
+                if (v) { found[k] = v.slice(0, 200); }
+            });
+            if (Object.keys(found).length) {
+                found.landed_at = new Date().toISOString();
+                if (document.referrer) { found.referrer = document.referrer.slice(0, 300); }
+                sessionStorage.setItem('journals_attr', JSON.stringify(found));
+            }
+        } catch (e) { /* private mode / storage disabled - attribution is optional */ }
+    })();
+
+    function journalsAttribution() {
+        try { return JSON.parse(sessionStorage.getItem('journals_attr') || '{}'); }
+        catch (e) { return {}; }
+    }
+
+    // Intake form
+    (function() {
+        var form = document.getElementById('intakeForm');
+        var btn = document.getElementById('submitBtn');
+        var hint = document.getElementById('statusHint');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            var name = document.getElementById('name').value.trim();
+            var email = document.getElementById('email').value.trim();
+            var phone = document.getElementById('phone').value.trim();
+            var link = document.getElementById('link').value.trim();
+            var service = document.getElementById('service').value;
+            var notes = document.getElementById('notes').value.trim();
+
+            if (!name || !email || !service) {
+                hint.textContent = 'please fill in your name, email and service.';
+                return;
+            }
+            if (link && !/^https?:\/\//i.test(link)) { link = 'https://' + link; }
+
+            btn.disabled = true;
+            hint.textContent = 'sending...';
+
+            // Unique event ID so the browser pixel and server-side CAPI dedupe.
+            var eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+
+            function cookie(n) {
+                var m = document.cookie.match('(^|; )' + n + '=([^;]*)');
+                return m ? decodeURIComponent(m[2]) : '';
+            }
+
+            try {
+                var res = await fetch('/api/intake', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: name, email: email, phone: phone, service: service,
+                        link: link, notes: notes, eventId: eventId,
+                        fbp: cookie('_fbp'), fbc: cookie('_fbc'),
+                        attribution: journalsAttribution()
+                    })
+                });
+                var data = await res.json().catch(function() { return {}; });
+                if (!res.ok) { throw new Error(data.error || 'something went wrong.'); }
+
+                // Fire Meta Pixel Lead ONLY on a successful submission.
+                if (typeof fbq === 'function') {
+                    fbq('track', 'Lead', {
+                        content_name: 'Mix & Master Intake',
+                        content_category: service || 'mix-master',
+                        value: 40.00,
+                        currency: 'USD'
+                    }, { eventID: eventId });
+                }
+
+                form.style.display = 'none';
+                var ok = document.getElementById('successMessage');
+                ok.style.display = 'block';
+                ok.setAttribute('tabindex', '-1');
+                ok.focus();
+            } catch (err) {
+                console.error(err);
+                hint.textContent = err.message || 'something went wrong. please try again.';
+                btn.disabled = false;
+            }
+        });
+    })();
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"c32b86bb49ea48c1a853b20556c6e44e","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+<script>
+  // close the hamburger menu when returning via back/forward navigation (bfcache restore)
+  window.addEventListener('pageshow', function() {
+    var overlay = document.querySelector('.menu-overlay');
+    var icon = document.querySelector('.menu-icon');
+    if (overlay) overlay.classList.remove('active');
+    if (icon) icon.classList.remove('active');
+    var mb = document.querySelector('.menu-button');
+    if (mb) mb.setAttribute('aria-expanded', 'false');
+  });
+</script>
+</body>
+</html>
