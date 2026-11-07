@@ -1279,10 +1279,10 @@
     // voice input: the browser's own dictation, shown only where it exists
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     var micBtn = document.getElementById('chatmic');
-    var rec = null, micBase = '';
+    var rec = null, micBase = '', micWanted = false, micTries = 0;
     if (SR) {
         micBtn.hidden = false;
-        micBtn.addEventListener('click', function() { rec ? stopMic() : startMic(); });
+        micBtn.addEventListener('click', function() { micWanted ? stopMic() : startMic(); });
     }
 
     function setListening(on) {
@@ -1290,13 +1290,19 @@
         micBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
     }
     function startMic() {
+        micWanted = true;
+        startRec();
+    }
+    function startRec() {
         var r = new SR();
+        var t0 = Date.now();
         rec = r;
         r.lang = navigator.language || 'en-US';
         r.interimResults = true;
-        r.continuous = false;
+        r.continuous = true;
         micBase = chatin.value.trim();
         r.onresult = function(e) {
+            micTries = 0;
             var t = '';
             for (var i = 0; i < e.results.length; i++) t += e.results[i][0].transcript;
             t = t.trim();
@@ -1304,21 +1310,36 @@
         };
         r.onerror = function(e) {
             if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+                micWanted = false;
                 addMsg('sys', 'the mic is blocked - allow it for this site in your browser settings.');
+            } else if (e.error === 'audio-capture') {
+                micWanted = false;
+                addMsg('sys', 'no microphone found.');
             }
         };
         r.onend = function() {
-            if (rec === r) rec = null;
+            if (rec !== r) return;
+            rec = null;
+            // the browser cuts recognition off after a pause - start a fresh
+            // session so listening only ends when the button is tapped off;
+            // sessions dying instantly means the service is broken, so give up
+            if (micWanted) {
+                micTries = Date.now() - t0 < 1500 ? micTries + 1 : 0;
+                if (micTries < 4) { startRec(); return; }
+                micWanted = false;
+            }
             setListening(false);
             if (chat.open) chatin.focus();
         };
         try { r.start(); setListening(true); }
-        catch (ex) { rec = null; setListening(false); }
+        catch (ex) { rec = null; micWanted = false; setListening(false); }
     }
     function stopMic() {
-        if (!rec) return;
-        try { rec.stop(); } catch (ex) {}
-        rec = null;
+        micWanted = false;
+        if (rec) {
+            try { rec.stop(); } catch (ex) {}
+            rec = null;
+        }
         setListening(false);
     }
 
