@@ -109,7 +109,7 @@
         .setupsteps ol { margin: 10px 0 0 18px; display: grid; gap: 8px; }
 
         /* ── app header ──────────────────────────────────────────── */
-        #app { padding: 52px 0 120px; }
+        #app { padding: 52px 0 130px; }
         .apphead { display: flex; align-items: baseline; gap: 14px; margin-bottom: 26px; flex-wrap: wrap; }
         .apphead h1 { font-size: clamp(32px, 5vw, 44px); font-weight: 400; letter-spacing: -1.2px; line-height: 1; }
         .count { font-size: 13.5px; color: var(--ink-dim); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
@@ -175,6 +175,7 @@
             padding: 15px 18px; background: none; border: 0; text-align: left; border-radius: 16px;
         }
         .who { min-width: 0; flex: 1 1 200px; }
+        .artistline { display: flex; align-items: center; gap: 8px; min-width: 0; }
         .who .artist { font-size: 15.5px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .who .track { font-size: 13px; color: var(--ink-dim); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .chips { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
@@ -183,6 +184,7 @@
             font-size: 12px; color: var(--ink-dim); border: 1px solid var(--line);
             border-radius: 999px; padding: 3.5px 10px; white-space: nowrap;
         }
+        .chip.multi { background: rgba(255, 179, 107, 0.13); border-color: rgba(255, 179, 107, 0.42); color: #FFCF9E; }
         .pill {
             font-size: 12px; font-weight: 500; border-radius: 999px; padding: 4.5px 11px; white-space: nowrap;
             background: rgba(255, 255, 255, 0.13); color: var(--ink);
@@ -197,6 +199,12 @@
         .age { font-size: 12px; color: var(--ink-faint); white-space: nowrap; }
         .age.warm { color: #FFCF9E; }
         .age.hot { color: #FFA98A; }
+
+        /* professionalism dots - amber fills for how consistently they release */
+        .prodots { display: inline-flex; gap: 4px; flex: none; }
+        .prodots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, 0.22); transition: background var(--t-fast) var(--ease); }
+        .prodots i.on { background: var(--sun); }
+        .artistline .prodots i { width: 5px; height: 5px; }
 
         .chev { flex: 0 0 auto; width: 14px; height: 14px; color: var(--ink-faint); transition: transform var(--t-med) var(--ease); }
         .card.open .chev { transform: rotate(180deg); }
@@ -224,7 +232,7 @@
         .step.on.pop { animation: pop 220ms var(--ease); }
         @keyframes pop { 0% { transform: scale(1); } 45% { transform: scale(1.07); } 100% { transform: scale(1); } }
 
-        .detailgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; align-items: end; }
+        .detailgrid { display: grid; grid-template-columns: auto auto 1fr; gap: 14px 26px; align-items: start; }
 
         .revctl { display: flex; align-items: center; gap: 8px; }
         .revbtn {
@@ -242,6 +250,51 @@
         }
         .revroll span.out-up { transform: translateY(-100%); opacity: 0; }
         .revroll span.out-down { transform: translateY(100%); opacity: 0; }
+
+        /* client info: pro cycle + contact channels */
+        .probtn {
+            display: inline-flex; align-items: center; gap: 10px; height: 36px;
+            border: 1px solid var(--line); background: rgba(255, 255, 255, 0.05);
+            border-radius: 999px; padding: 0 15px; font-size: 12.5px; color: var(--ink-dim);
+            transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+        }
+        .probtn:hover { background: rgba(255, 255, 255, 0.11); color: var(--ink); }
+        .probtn:active { transform: scale(0.96); }
+        .probtn.pop { animation: pop 220ms var(--ease); }
+        .changroup { display: flex; gap: 7px; flex-wrap: wrap; }
+        .changroup .step { height: 36px; display: inline-flex; align-items: center; }
+
+        /* timeline */
+        .tl { display: grid; }
+        .tlrow {
+            display: flex; align-items: center; gap: 10px; padding: 3px 0;
+            transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease);
+        }
+        .tlrow.entering { opacity: 0; transform: translateY(6px); }
+        .tlrow.leaving { opacity: 0; transform: translateX(10px); }
+        .tldot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--sun); opacity: 0.85; }
+        .tlrow.t-note .tldot { background: rgba(255, 255, 255, 0.35); }
+        .tlwhat { font-size: 13.5px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .tlrow.t-note .tlwhat { color: var(--ink-dim); }
+        .tldate { margin-left: auto; font-size: 12px; color: var(--ink-faint); white-space: nowrap; }
+        .tlx {
+            flex: none; background: none; border: 0; color: var(--ink-faint);
+            font-size: 14px; line-height: 1; padding: 2px 5px; opacity: 0;
+            transition: opacity var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+        }
+        .tlrow:hover .tlx { opacity: 0.7; }
+        .tlx:hover { color: #FFA98A; }
+        .tlsub { font-size: 12.5px; color: var(--ink-faint); margin: -1px 0 3px 18px; line-height: 1.45; }
+        .tlgap { display: flex; align-items: center; gap: 9px; margin-left: 3.5px; height: 16px; }
+        .tlgap::before { content: ''; width: 1px; height: 100%; background: var(--line); }
+        .tlgap span { font-size: 11px; color: var(--ink-faint); }
+        .tlempty { font-size: 13px; color: var(--ink-faint); padding: 2px 0; }
+
+        .qlog { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-top: 12px; }
+        .qlog input[type="date"] { width: 150px; padding: 7px 10px; font-size: 13px; border-radius: 10px; }
+        .noterow { display: flex; gap: 8px; margin-top: 10px; }
+        .noterow input { flex: 1; padding: 9px 12px; font-size: 13.5px; border-radius: 10px; }
+        .noterow .ghost { padding: 8px 16px; font-size: 13px; flex: none; }
 
         .cardactions { display: flex; align-items: center; gap: 10px; }
         .save {
@@ -289,15 +342,75 @@
         }
         #toast.show { opacity: 1; transform: translate(-50%, 0); }
 
+        /* ── chat ────────────────────────────────────────────────── */
+        #chatfab {
+            position: fixed; right: 18px; bottom: 18px; z-index: 70;
+            width: 54px; height: 54px; border-radius: 50%; border: 0;
+            background: var(--sun); color: #1d1526; font-size: 21px; line-height: 1;
+            box-shadow: 0 6px 24px rgba(255, 150, 80, 0.3);
+            transition: transform var(--t-fast) var(--ease), opacity var(--t-med) var(--ease), filter var(--t-fast) var(--ease);
+        }
+        #chatfab:hover { filter: brightness(1.06); }
+        #chatfab:active { transform: scale(0.94); }
+        #chatfab.hide { opacity: 0; transform: scale(0.8); pointer-events: none; }
+
+        #chatpanel {
+            position: fixed; right: 14px; bottom: 14px; z-index: 75;
+            width: min(400px, calc(100vw - 28px));
+            height: min(540px, calc(100dvh - 28px));
+            display: flex; flex-direction: column;
+            background: rgba(21, 24, 41, 0.94); border: 1px solid var(--line-strong);
+            border-radius: 20px; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 18px 60px rgba(8, 8, 16, 0.5);
+            transform-origin: 100% 100%;
+            opacity: 0; transform: translateY(10px) scale(0.97); visibility: hidden;
+            transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease), visibility 0s linear var(--t-med);
+        }
+        #chatpanel.open {
+            opacity: 1; transform: none; visibility: visible;
+            transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease), visibility 0s;
+        }
+        .chathead { display: flex; align-items: center; gap: 10px; padding: 14px 18px 10px; }
+        .chathead .t { font-size: 14.5px; font-weight: 600; }
+        .chathead .x { margin-left: auto; background: none; border: 0; color: var(--ink-faint); font-size: 17px; line-height: 1; padding: 2px 6px; transition: color var(--t-fast) var(--ease); }
+        .chathead .x:hover { color: var(--ink); }
+        #chatmsgs { flex: 1; overflow-y: auto; padding: 4px 16px 10px; display: flex; flex-direction: column; gap: 9px; }
+        .msg {
+            max-width: 86%; font-size: 13.5px; line-height: 1.5; padding: 9px 13px; border-radius: 15px;
+            white-space: pre-wrap; overflow-wrap: break-word;
+            transition: opacity var(--t-med) var(--ease), transform var(--t-med) var(--ease);
+        }
+        .msg.entering { opacity: 0; transform: translateY(6px); }
+        .msg.user { align-self: flex-end; background: rgba(255, 179, 107, 0.17); border: 1px solid rgba(255, 179, 107, 0.32); border-bottom-right-radius: 5px; }
+        .msg.bot { align-self: flex-start; background: rgba(255, 255, 255, 0.08); border: 1px solid var(--line); border-bottom-left-radius: 5px; }
+        .msg.sys { align-self: center; max-width: 100%; background: none; border: 0; padding: 2px 4px; color: var(--ink-faint); font-size: 12.5px; text-align: center; }
+        .msg.sys code { text-transform: none; background: rgba(255, 255, 255, 0.1); border-radius: 5px; padding: 1px 5px; font-size: 11.5px; color: var(--ink-dim); }
+        .typing { align-self: flex-start; display: inline-flex; gap: 5px; padding: 13px 14px; }
+        .typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-faint); animation: tdot 1.1s ease-in-out infinite; }
+        .typing i:nth-child(2) { animation-delay: 0.18s; }
+        .typing i:nth-child(3) { animation-delay: 0.36s; }
+        @keyframes tdot { 0%, 70%, 100% { opacity: 0.3; transform: translateY(0); } 35% { opacity: 1; transform: translateY(-3px); } }
+        .chatinput { display: flex; gap: 9px; padding: 10px 14px 14px; border-top: 1px solid var(--line); }
+        .chatinput input { flex: 1; border-radius: 999px; padding: 10px 16px; font-size: 14px; }
+        .chatsend {
+            flex: none; width: 40px; height: 40px; border-radius: 50%; border: 0;
+            background: var(--sun); color: #1d1526; font-size: 16px; line-height: 1;
+            transition: transform var(--t-fast) var(--ease), filter var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease);
+        }
+        .chatsend:hover { filter: brightness(1.06); }
+        .chatsend:active { transform: scale(0.94); }
+        .chatsend:disabled { opacity: 0.45; cursor: default; }
+
         /* ── phone ───────────────────────────────────────────────── */
         @media (max-width: 640px) {
             #app { padding-top: 36px; }
             .fgrid { grid-template-columns: 1fr; }
-            .detailgrid { grid-template-columns: 1fr; align-items: start; }
+            .detailgrid { grid-template-columns: 1fr; }
             .cardhead { flex-wrap: wrap; padding: 14px 16px; row-gap: 10px; }
             .who { flex: 1 1 100%; }
             .chips { justify-content: flex-start; width: calc(100% - 28px); }
             .cardbody { padding: 2px 16px 16px; }
+            .tlx { opacity: 0.45; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -388,6 +501,20 @@
         </div>
     </section>
 
+    <!-- ── chat ── -->
+    <button type="button" id="chatfab" hidden aria-label="ask claude">✦</button>
+    <div id="chatpanel" role="dialog" aria-label="ask claude">
+        <div class="chathead">
+            <span class="t">ask claude</span>
+            <button type="button" class="x" id="chatClose" aria-label="close">×</button>
+        </div>
+        <div id="chatmsgs"></div>
+        <form class="chatinput" id="chatform">
+            <input type="text" id="chatin" placeholder="what happened?" autocomplete="off" />
+            <button type="submit" class="chatsend" id="chatsend" aria-label="send">↑</button>
+        </form>
+    </div>
+
     <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -405,8 +532,13 @@
         'awaiting-stems': 'awaiting stems', 'mixing': 'mixing', 'sent': 'sent for review',
         'revisions': 'revisions', 'delivered': 'delivered'
     };
+    var PRO_WORDS = ['not rated', 'casual', 'releasing', 'consistent'];
+    var CHANNELS = ['text', 'instagram', 'email'];
+    var CHANNEL_LABEL = { text: 'text', instagram: 'ig', email: 'email' };
+    var EVENT_LABEL = { stems: 'stems in', sent: 'sent', notes: 'notes in', delivered: 'delivered' };
 
-    var state = { projects: [], open: {}, archOpen: false };
+    var state = { projects: [], events: [], clients: {}, open: {}, archOpen: false };
+    var activeCounts = {};
 
     // ── tiny DOM helper: data always goes through textContent ──
     function el(tag, cls, text) {
@@ -452,6 +584,30 @@
         var then = new Date(iso + 'T00:00:00');
         return Math.max(0, Math.floor((Date.now() - then.getTime()) / 86400000));
     }
+    function daysBetween(a, b) {
+        return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000);
+    }
+
+    // ── per-artist helpers ──
+    function nk(artist) { return String(artist || '').trim().toLowerCase(); }
+    function clientFor(artist) { return state.clients[nk(artist)] || null; }
+    function hasChannel(c, ch) { return !!c && (',' + (c.channels || '') + ',').indexOf(',' + ch + ',') >= 0; }
+    function eventsFor(id) {
+        return state.events.filter(function(e) { return e.project_id === id; });
+    }
+    function sortEvents() {
+        state.events.sort(function(a, b) {
+            if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+            return a.created_at < b.created_at ? -1 : 1;
+        });
+    }
+    function applyState(d) {
+        state.projects = d.projects || [];
+        state.events = d.events || [];
+        state.clients = {};
+        (d.clients || []).forEach(function(c) { state.clients[c.name_key] = c; });
+        sortEvents();
+    }
 
     // ── screens ──
     var gateEl = document.getElementById('gate');
@@ -461,6 +617,8 @@
         var from = showApp ? gateEl : appEl;
         var to = showApp ? appEl : gateEl;
         to.hidden = false;
+        document.getElementById('chatfab').hidden = !showApp;
+        if (!showApp) setChat(false);
         if (!motion()) { from.hidden = true; from.classList.add('off'); to.classList.remove('off'); return; }
         from.classList.add('off');
         setTimeout(function() {
@@ -525,16 +683,20 @@
 
     document.getElementById('logoutBtn').addEventListener('click', async function() {
         try { await api('auth', { method: 'DELETE' }); } catch (ex) {}
-        state.projects = []; state.open = {};
+        state.projects = []; state.events = []; state.clients = {}; state.open = {};
         showGate();
     });
 
     // ── load ──
     async function loadAndShow() {
-        var data = await api('projects');
-        state.projects = data.projects || [];
+        applyState(await api('state'));
         render({ entrance: true });
         swapScreens(true);
+    }
+
+    async function refreshState() {
+        applyState(await api('state'));
+        withFlip(document.getElementById('list'), function() { render(); });
     }
 
     // ── sorting: pipeline order, then freshest touch first ──
@@ -578,6 +740,13 @@
         var active = sorted(state.projects.filter(function(p) { return !p.archived; }));
         var archived = sorted(state.projects.filter(function(p) { return p.archived; }));
 
+        activeCounts = {};
+        active.forEach(function(p) {
+            if (p.status === 'delivered') return;
+            var k = nk(p.artist);
+            activeCounts[k] = (activeCounts[k] || 0) + 1;
+        });
+
         var list = document.getElementById('list');
         var arch = document.getElementById('archlist');
         list.textContent = '';
@@ -606,7 +775,22 @@
         return s;
     }
 
+    function prodots(level) {
+        var box = el('span', 'prodots');
+        for (var i = 1; i <= 3; i++) box.appendChild(el('i', i <= level ? 'on' : ''));
+        return box;
+    }
+
+    function eventLabel(e) {
+        if (e.type === 'note') return e.note || 'note';
+        var s = EVENT_LABEL[e.type] || e.type;
+        if (e.type === 'sent' && e.revision !== null && e.revision !== undefined) s += ' r' + e.revision;
+        return s;
+    }
+
     function card(p, enterIndex) {
+        var client = clientFor(p.artist);
+        var evs = eventsFor(p.id);
         var c = el('div', 'card');
         c.dataset.id = p.id;
         if (state.open[p.id]) c.classList.add('open');
@@ -617,22 +801,30 @@
         head.setAttribute('aria-expanded', state.open[p.id] ? 'true' : 'false');
 
         var who = el('div', 'who');
-        who.appendChild(el('div', 'artist', p.artist));
+        var aline = el('div', 'artistline');
+        aline.appendChild(el('div', 'artist', p.artist));
+        if (client && client.pro > 0) aline.appendChild(prodots(client.pro));
+        who.appendChild(aline);
         if (p.track) who.appendChild(el('div', 'track', p.track));
         head.appendChild(who);
 
         var chips = el('div', 'chips');
+        var multi = activeCounts[nk(p.artist)] || 0;
+        if (!p.archived && p.status !== 'delivered' && multi > 1) {
+            chips.appendChild(el('span', 'chip multi num', multi + ' songs'));
+        }
         chips.appendChild(el('span', 'chip', SERVICES[p.service] || p.service));
         chips.appendChild(el('span', 'pill s-' + p.status, STATUS_LABEL[p.status] || p.status));
         chips.appendChild(el('span', 'rev num', 'r' + p.revision));
-        if (p.stems_received) {
-            chips.appendChild(el('span', 'chip num', 'stems ' + fmtDate(p.stems_received)));
-            if (p.status !== 'delivered') {
-                var d = daysSince(p.stems_received);
-                var a = el('span', 'age num', d + 'd');
-                if (d >= 14) a.classList.add('hot'); else if (d >= 7) a.classList.add('warm');
-                chips.appendChild(a);
-            }
+        var stemsEv = evs.find(function(e) { return e.type === 'stems'; });
+        var stemsDate = stemsEv ? stemsEv.date : p.stems_received;
+        if (stemsDate) chips.appendChild(el('span', 'chip num', 'stems ' + fmtDate(stemsDate)));
+        var lastAct = evs.length ? evs[evs.length - 1].date : stemsDate;
+        if (lastAct && p.status !== 'delivered') {
+            var d = daysSince(lastAct);
+            var a = el('span', 'age num', d + 'd');
+            if (d >= 14) a.classList.add('hot'); else if (d >= 7) a.classList.add('warm');
+            chips.appendChild(a);
         }
         head.appendChild(chips);
         head.appendChild(chevron());
@@ -645,7 +837,7 @@
 
         // status stepper
         var stepsBox = el('div');
-        var stepsLbl = el('label', null, 'status');
+        stepsBox.appendChild(el('label', null, 'status'));
         var steps = el('div', 'steps');
         STATUS_ORDER.forEach(function(s) {
             var b = el('button', 'step' + (p.status === s ? ' on' : ''), STATUS_LABEL[s]);
@@ -653,10 +845,10 @@
             b.addEventListener('click', function() { setStatus(p, s, steps, b); });
             steps.appendChild(b);
         });
-        stepsBox.appendChild(stepsLbl); stepsBox.appendChild(steps);
+        stepsBox.appendChild(steps);
         body.appendChild(stepsBox);
 
-        // revision + dates
+        // revision + per-artist client info
         var grid = el('div', 'detailgrid');
 
         var revBox = el('div');
@@ -664,8 +856,7 @@
         var revCtl = el('div', 'revctl');
         var minus = el('button', 'revbtn', '−'); minus.type = 'button'; minus.setAttribute('aria-label', 'revision down');
         var roll = el('div', 'revroll');
-        var cur = el('span', null, 'r' + p.revision);
-        roll.appendChild(cur);
+        roll.appendChild(el('span', null, 'r' + p.revision));
         var plus = el('button', 'revbtn', '+'); plus.type = 'button'; plus.setAttribute('aria-label', 'revision up');
         minus.addEventListener('click', function() { bumpRev(p, -1, roll); });
         plus.addEventListener('click', function() { bumpRev(p, +1, roll); });
@@ -673,21 +864,115 @@
         revBox.appendChild(revCtl);
         grid.appendChild(revBox);
 
-        var stemsBox = el('div');
-        var sid = 'stems-' + p.id;
-        var sl = el('label', null, 'stems received'); sl.htmlFor = sid;
-        var sIn = document.createElement('input'); sIn.type = 'date'; sIn.id = sid; sIn.value = p.stems_received || '';
-        stemsBox.appendChild(sl); stemsBox.appendChild(sIn);
-        grid.appendChild(stemsBox);
+        var proBox = el('div');
+        proBox.appendChild(el('label', null, 'professionalism'));
+        var level = client ? client.pro : 0;
+        var proBtn = el('button', 'probtn'); proBtn.type = 'button';
+        proBtn.appendChild(prodots(level));
+        proBtn.appendChild(el('span', null, PRO_WORDS[level]));
+        proBtn.addEventListener('click', function() {
+            var cur = clientFor(p.artist);
+            var next = (((cur && cur.pro) || 0) + 1) % 4;
+            saveClient(p.artist, { pro: next }, function() {
+                var b2 = document.querySelector('.card[data-id="' + p.id + '"] .probtn');
+                if (b2 && motion()) b2.classList.add('pop');
+            });
+        });
+        proBox.appendChild(proBtn);
+        grid.appendChild(proBox);
 
-        var sentBox = el('div');
-        var lid = 'sent-' + p.id;
-        var ll = el('label', null, 'last sent'); ll.htmlFor = lid;
-        var lIn = document.createElement('input'); lIn.type = 'date'; lIn.id = lid; lIn.value = p.last_sent || '';
-        sentBox.appendChild(ll); sentBox.appendChild(lIn);
-        grid.appendChild(sentBox);
+        var chanBox = el('div');
+        chanBox.appendChild(el('label', null, 'reach them on'));
+        var chanGroup = el('div', 'changroup');
+        CHANNELS.forEach(function(ch) {
+            var on = hasChannel(client, ch);
+            var b = el('button', 'step' + (on ? ' on' : ''), CHANNEL_LABEL[ch]);
+            b.type = 'button';
+            b.addEventListener('click', function() {
+                var cur = clientFor(p.artist);
+                var turningOn = !hasChannel(cur, ch);
+                var set = CHANNELS.filter(function(x) { return x === ch ? turningOn : hasChannel(cur, x); });
+                saveClient(p.artist, { channels: set.join(',') }, function() {
+                    if (!turningOn || !motion()) return;
+                    var b2 = document.querySelectorAll('.card[data-id="' + p.id + '"] .changroup .step')[CHANNELS.indexOf(ch)];
+                    if (b2) b2.classList.add('pop');
+                });
+            });
+            chanGroup.appendChild(b);
+        });
+        chanBox.appendChild(chanGroup);
+        grid.appendChild(chanBox);
 
         body.appendChild(grid);
+
+        // timeline
+        var tlBox = el('div');
+        tlBox.appendChild(el('label', null, 'timeline'));
+        var tl = el('div', 'tl');
+        if (!evs.length) tl.appendChild(el('div', 'tlempty', 'nothing logged yet.'));
+        evs.forEach(function(e, i) {
+            if (i > 0) {
+                var gap = daysBetween(evs[i - 1].date, e.date);
+                if (gap >= 1) {
+                    var g = el('div', 'tlgap');
+                    g.appendChild(el('span', 'num', gap + 'd'));
+                    tl.appendChild(g);
+                }
+            }
+            var row = el('div', 'tlrow t-' + e.type);
+            row.dataset.eid = e.id;
+            row.appendChild(el('span', 'tldot'));
+            row.appendChild(el('span', 'tlwhat', eventLabel(e)));
+            row.appendChild(el('span', 'tldate num', fmtDate(e.date)));
+            var x = el('button', 'tlx', '×'); x.type = 'button'; x.setAttribute('aria-label', 'remove');
+            x.addEventListener('click', function() { delEvent(e, row); });
+            row.appendChild(x);
+            tl.appendChild(row);
+            if (e.type !== 'note' && e.note) tl.appendChild(el('div', 'tlsub', e.note));
+        });
+        tlBox.appendChild(tl);
+
+        // quick log: one tap writes the dated entry
+        var qlog = el('div', 'qlog');
+        var qdate = document.createElement('input');
+        qdate.type = 'date'; qdate.value = todayLocal(); qdate.setAttribute('aria-label', 'log date');
+        qlog.appendChild(qdate);
+        [
+            { t: 'sent', label: function() { return 'sent r' + p.revision; }, payload: function() { return { type: 'sent', revision: p.revision }; } },
+            { t: 'notes', label: function() { return 'notes in'; }, payload: function() { return { type: 'notes' }; } },
+            { t: 'delivered', label: function() { return 'delivered'; }, payload: function() { return { type: 'delivered' }; } },
+            { t: 'stems', label: function() { return 'stems in'; }, payload: function() { return { type: 'stems' }; } }
+        ].forEach(function(q) {
+            var b = el('button', 'step', q.label());
+            b.type = 'button';
+            b.addEventListener('click', function() {
+                var payload = q.payload(); payload.date = qdate.value || todayLocal();
+                addEvent(p, payload);
+            });
+            qlog.appendChild(b);
+        });
+        var noteBtn = el('button', 'step', '+ note'); noteBtn.type = 'button';
+        qlog.appendChild(noteBtn);
+        tlBox.appendChild(qlog);
+
+        var noteRow = el('div', 'noterow'); noteRow.hidden = true;
+        var noteIn = document.createElement('input');
+        noteIn.type = 'text'; noteIn.placeholder = 'what happened'; noteIn.maxLength = 300;
+        var noteGo = el('button', 'ghost', 'log'); noteGo.type = 'button';
+        function logNote() {
+            var text = noteIn.value.trim();
+            if (!text) { noteIn.focus(); return; }
+            addEvent(p, { type: 'note', note: text, date: qdate.value || todayLocal() });
+        }
+        noteGo.addEventListener('click', logNote);
+        noteIn.addEventListener('keydown', function(e) { if (e.key === 'Enter') { e.preventDefault(); logNote(); } });
+        noteBtn.addEventListener('click', function() {
+            noteRow.hidden = !noteRow.hidden;
+            if (!noteRow.hidden) noteIn.focus();
+        });
+        noteRow.appendChild(noteIn); noteRow.appendChild(noteGo);
+        tlBox.appendChild(noteRow);
+        body.appendChild(tlBox);
 
         // notes
         var notesBox = el('div');
@@ -706,7 +991,7 @@
         save.addEventListener('click', async function() {
             save.disabled = true;
             try {
-                await update(p, { stems_received: sIn.value, last_sent: lIn.value, notes: nIn.value });
+                await update(p, { notes: nIn.value });
                 tick.classList.add('show');
                 setTimeout(function() { tick.classList.remove('show'); }, 1600);
             } catch (ex) { if (ex.message !== 'setup') toast(ex.message); }
@@ -795,6 +1080,50 @@
         }
     }
 
+    function saveClient(artist, fields, after) {
+        var key = nk(artist);
+        var cur = state.clients[key] || { name_key: key, name: artist, pro: 0, channels: '' };
+        var merged = Object.assign({}, cur, fields);
+        state.clients[key] = merged;
+        render();
+        if (after) after();
+        api('clients', { method: 'POST', body: JSON.stringify({ artist: artist, pro: merged.pro, channels: merged.channels }) })
+            .catch(function(ex) {
+                if (ex.message !== 'setup') { toast(ex.message); refreshState().catch(function() {}); }
+            });
+    }
+
+    async function addEvent(p, payload) {
+        try {
+            var data = await api('projects/' + p.id + '/events', { method: 'POST', body: JSON.stringify(payload) });
+            state.events.push(data.event);
+            sortEvents();
+            var now = new Date().toISOString();
+            p.updated_at = now;
+            var i = state.projects.findIndex(function(x) { return x.id === p.id; });
+            if (i >= 0) state.projects[i].updated_at = now;
+            withFlip(document.getElementById('list'), function() { render(); });
+            var row = document.querySelector('[data-eid="' + data.event.id + '"]');
+            if (row && motion()) {
+                row.classList.add('entering');
+                void row.offsetWidth;
+                row.classList.remove('entering');
+            }
+        } catch (ex) { if (ex.message !== 'setup') toast(ex.message); }
+    }
+
+    async function delEvent(e, row) {
+        if (motion() && row) { row.classList.add('leaving'); await new Promise(function(r) { setTimeout(r, 180); }); }
+        try {
+            await api('events/' + e.id, { method: 'DELETE' });
+            state.events = state.events.filter(function(x) { return x.id !== e.id; });
+            render();
+        } catch (ex) {
+            if (row) row.classList.remove('leaving');
+            if (ex.message !== 'setup') toast(ex.message);
+        }
+    }
+
     async function archive(p, cardEl) {
         var to = p.archived ? 0 : 1;
         if (motion()) { cardEl.classList.add('leaving'); await new Promise(function(r) { setTimeout(r, 200); }); }
@@ -820,6 +1149,7 @@
         try {
             await api('projects/' + p.id, { method: 'DELETE' });
             state.projects = state.projects.filter(function(x) { return x.id !== p.id; });
+            state.events = state.events.filter(function(x) { return x.project_id !== p.id; });
             delete state.open[p.id];
             render();
         } catch (ex) {
@@ -860,10 +1190,9 @@
         };
         try {
             var data = await api('projects', { method: 'POST', body: JSON.stringify(payload) });
-            state.projects.unshift(data.project);
             this.reset();
             setComposer(false);
-            withFlip(document.getElementById('list'), function() { render(); });
+            await refreshState();
             var fresh = document.querySelector('#list .card[data-id="' + data.project.id + '"]');
             if (fresh && motion()) {
                 fresh.classList.add('entering');
@@ -873,9 +1202,99 @@
         } catch (ex) { if (ex.message !== 'setup') toast(ex.message); }
     });
 
-    // esc closes composer, then open cards
+    // ── chat ──
+    var chat = { open: false, msgs: [], busy: false, greeted: false };
+    var chatfab = document.getElementById('chatfab');
+    var chatpanel = document.getElementById('chatpanel');
+    var chatmsgs = document.getElementById('chatmsgs');
+    var chatin = document.getElementById('chatin');
+    var chatsend = document.getElementById('chatsend');
+
+    function setChat(open) {
+        if (chat.open === open) return;
+        chat.open = open;
+        chatpanel.classList.toggle('open', open);
+        chatfab.classList.toggle('hide', open);
+        if (open) {
+            if (!chat.greeted) {
+                chat.greeted = true;
+                addMsg('sys', 'tell me what happened - "sent drew r2 today", "sarah is on instagram", "new song in from loyal".');
+            }
+            setTimeout(function() { chatin.focus(); }, motion() ? 240 : 0);
+        }
+    }
+    chatfab.addEventListener('click', function() { setChat(true); });
+    document.getElementById('chatClose').addEventListener('click', function() { setChat(false); });
+
+    function addMsg(role, textOrNode) {
+        var m = el('div', 'msg ' + role);
+        if (typeof textOrNode === 'string') m.textContent = textOrNode;
+        else m.appendChild(textOrNode);
+        if (motion()) {
+            m.classList.add('entering');
+            chatmsgs.appendChild(m);
+            void m.offsetWidth;
+            m.classList.remove('entering');
+        } else {
+            chatmsgs.appendChild(m);
+        }
+        chatmsgs.scrollTop = chatmsgs.scrollHeight;
+        return m;
+    }
+
+    function assistantSetupHint() {
+        var frag = document.createDocumentFragment();
+        frag.append('to turn this on, add one more cloudflare secret: ');
+        frag.appendChild(el('code', null, 'ANTHROPIC_API_KEY'));
+        frag.append(' (an api key from console.anthropic.com), production and preview, then redeploy.');
+        return frag;
+    }
+
+    document.getElementById('chatform').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var text = chatin.value.trim();
+        if (!text || chat.busy) return;
+        chatin.value = '';
+        chat.msgs.push({ role: 'user', text: text });
+        addMsg('user', text);
+        chat.busy = true;
+        chatsend.disabled = true;
+        var typing = el('div', 'typing');
+        typing.appendChild(el('i')); typing.appendChild(el('i')); typing.appendChild(el('i'));
+        chatmsgs.appendChild(typing);
+        chatmsgs.scrollTop = chatmsgs.scrollHeight;
+        try {
+            var data = await api('assistant', {
+                method: 'POST',
+                body: JSON.stringify({
+                    messages: chat.msgs.slice(-12).map(function(m) {
+                        return { role: m.role === 'bot' ? 'assistant' : 'user', content: m.text };
+                    }),
+                    today: todayLocal()
+                })
+            });
+            typing.remove();
+            chat.msgs.push({ role: 'bot', text: data.reply });
+            addMsg('bot', data.reply);
+            if (data.changes && data.changes.length) {
+                data.changes.slice(0, 6).forEach(function(ch) { addMsg('sys', ch); });
+                await refreshState();
+            }
+        } catch (ex) {
+            typing.remove();
+            if (ex.message === 'assistant-setup') addMsg('sys', assistantSetupHint());
+            else if (ex.message.indexOf('session expired') === 0) setChat(false);
+            else if (ex.message !== 'setup') addMsg('sys', "that didn't go through - " + ex.message);
+        }
+        chat.busy = false;
+        chatsend.disabled = false;
+        if (chat.open) chatin.focus();
+    });
+
+    // esc closes chat, then composer, then open cards
     document.addEventListener('keydown', function(e) {
         if (e.key !== 'Escape') return;
+        if (chat.open) { setChat(false); return; }
         if (composerOpen) { setComposer(false); return; }
         var openIds = Object.keys(state.open).filter(function(k) { return state.open[k]; });
         if (openIds.length) { state.open = {}; render(); }
