@@ -397,6 +397,24 @@
             background: var(--sun); color: #1d1526; font-size: 16px; line-height: 1;
             transition: transform var(--t-fast) var(--ease), filter var(--t-fast) var(--ease), opacity var(--t-fast) var(--ease);
         }
+        .chatmic {
+            flex: none; width: 40px; height: 40px; border-radius: 50%;
+            border: 1px solid var(--line); background: rgba(255, 255, 255, 0.08); color: var(--ink-dim);
+            display: grid; place-items: center;
+            transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease),
+                        border-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+        }
+        .chatmic:hover { background: rgba(255, 255, 255, 0.14); color: var(--ink); }
+        .chatmic:active { transform: scale(0.94); }
+        .chatmic.listening {
+            background: var(--sun); border-color: var(--sun); color: #1d1526;
+            animation: micpulse 1.6s var(--ease) infinite;
+        }
+        @keyframes micpulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 179, 107, 0.45); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 179, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 179, 107, 0); }
+        }
         .chatsend:hover { filter: brightness(1.06); }
         .chatsend:active { transform: scale(0.94); }
         .chatsend:disabled { opacity: 0.45; cursor: default; }
@@ -511,6 +529,13 @@
         <div id="chatmsgs"></div>
         <form class="chatinput" id="chatform">
             <input type="text" id="chatin" placeholder="what happened?" autocomplete="off" />
+            <button type="button" class="chatmic" id="chatmic" aria-label="talk" aria-pressed="false" hidden>
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                    <rect x="5.1" y="1.2" width="4.8" height="8" rx="2.4" fill="currentColor"/>
+                    <path d="M2.8 7.5a4.7 4.7 0 0 0 9.4 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M7.5 12.2v1.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </button>
             <button type="submit" class="chatsend" id="chatsend" aria-label="send">↑</button>
         </form>
     </div>
@@ -1213,6 +1238,7 @@
     function setChat(open) {
         if (chat.open === open) return;
         chat.open = open;
+        if (!open) stopMic();
         chatpanel.classList.toggle('open', open);
         chatfab.classList.toggle('hide', open);
         if (open) {
@@ -1250,8 +1276,55 @@
         return frag;
     }
 
+    // voice input: the browser's own dictation, shown only where it exists
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    var micBtn = document.getElementById('chatmic');
+    var rec = null, micBase = '';
+    if (SR) {
+        micBtn.hidden = false;
+        micBtn.addEventListener('click', function() { rec ? stopMic() : startMic(); });
+    }
+
+    function setListening(on) {
+        micBtn.classList.toggle('listening', on);
+        micBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+    function startMic() {
+        var r = new SR();
+        rec = r;
+        r.lang = navigator.language || 'en-US';
+        r.interimResults = true;
+        r.continuous = false;
+        micBase = chatin.value.trim();
+        r.onresult = function(e) {
+            var t = '';
+            for (var i = 0; i < e.results.length; i++) t += e.results[i][0].transcript;
+            t = t.trim();
+            chatin.value = micBase ? micBase + ' ' + t : t;
+        };
+        r.onerror = function(e) {
+            if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+                addMsg('sys', 'the mic is blocked - allow it for this site in your browser settings.');
+            }
+        };
+        r.onend = function() {
+            if (rec === r) rec = null;
+            setListening(false);
+            if (chat.open) chatin.focus();
+        };
+        try { r.start(); setListening(true); }
+        catch (ex) { rec = null; setListening(false); }
+    }
+    function stopMic() {
+        if (!rec) return;
+        try { rec.stop(); } catch (ex) {}
+        rec = null;
+        setListening(false);
+    }
+
     document.getElementById('chatform').addEventListener('submit', async function(e) {
         e.preventDefault();
+        stopMic();
         var text = chatin.value.trim();
         if (!text || chat.busy) return;
         chatin.value = '';
