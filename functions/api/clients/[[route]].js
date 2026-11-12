@@ -37,6 +37,11 @@ const STATUSES = new Set(['awaiting-stems', 'mixing', 'sent', 'revisions', 'deli
 const EVENT_TYPES = new Set(['stems', 'sent', 'notes', 'delivered', 'note']);
 const CHANNELS = ['text', 'instagram', 'email'];
 
+// The get-back-to-them timer: `resets` are event types that start the day
+// count (work landing on him), `clears` are the ones that mean he answered.
+// A type in neither list - the freeform note by default - never moves it.
+const DEFAULT_TIMER = { resets: ['notes', 'stems'], clears: ['sent', 'delivered'], warm: 7, hot: 14 };
+
 const ASSISTANT_MODEL = 'claude-sonnet-5-5';
 
 const enc = new TextEncoder();
@@ -305,6 +310,42 @@ async function setClient(db, body) {
   return { client: { name_key: key, name, pro, channels, updated_at: now } };
 }
 
+async function getTimer(db) {
+  const row = await db.prepare(`SELECT v FROM meta WHERE k = 'timer'`).first();
+  if (!row) return { ...DEFAULT_TIMER };
+  try {
+    const t = JSON.parse(row.v);
+    return {
+      resets: Array.isArray(t.resets) ? t.resets.filter(x => EVENT_TYPES.has(x)) : DEFAULT_TIMER.resets,
+      clears: Array.isArray(t.clears) ? t.clears.filter(x => EVENT_TYPES.has(x)) : DEFAULT_TIMER.clears,
+      warm: Number.isInteger(t.warm) ? t.warm : DEFAULT_TIMER.warm,
+      hot: Number.isInteger(t.hot) ? t.hot : DEFAULT_TIMER.hot,
+    };
+  } catch {
+    return { ...DEFAULT_TIMER };
+  }
+}
+
+async function setTimer(db, body) {
+  const t = await getTimer(db);
+  for (const k of ['resets', 'clears']) {
+    if (body[k] === undefined) continue;
+    if (!Array.isArray(body[k]) || body[k].some(x => !EVENT_TYPES.has(x))) return { error: k + ' must be a list of event types' };
+    t[k] = [...new Set(body[k])];
+  }
+  for (const k of ['warm', 'hot']) {
+    if (body[k] === undefined) continue;
+    const n = Number(body[k]);
+    if (!Number.isInteger(n) || n < 1 || n > 365) return { error: k + ' must be 1-365 days' };
+    t[k] = n;
+  }
+  if (t.warm > t.hot) return { error: 'warm must be at or below hot' };
+  const both = t.resets.filter(x => t.clears.includes(x));
+  if (both.length) return { error: both.join(', ') + ' cannot both start and clear the timer' };
+  await db.prepare(`INSERT OR REPLACE INTO meta (k, v) VALUES ('timer', ?)`).bind(JSON.stringify(t)).run();
+  return { timer: t };
+}
+
 // ── assistant ───────────────────────────────────────────────────────
 
 const ASSISTANT_TOOLS = [
@@ -371,6 +412,19 @@ const ASSISTANT_TOOLS = [
       required: ['artist'],
     },
   },
+  {
+    name: 'set_timer',
+    description: 'adjust the get-back-to-them timer shown on each card. resets: event types that start the day count (work that landed on him). clears: types that mean he answered. warm/hot: day thresholds for the colour. pass only what changes.',
+    input_schema: {
+      type: 'object',
+      properties: {
+        resets: { type: 'array', items: { type: 'string', enum: [...EVENT_TYPES] } },
+        clears: { type: 'array', items: { type: 'string', enum: [...EVENT_TYPES] } },
+        warm: { type: 'integer', minimum: 1, maximum: 365 },
+        hot: { type: 'integer', minimum: 1, maximum: 365 },
+      },
+    },
+  },
 ];
 
 const EVENT_LABEL = { stems: 'stems in', sent: 'sent', notes: 'notes in', delivered: 'delivered', note: 'note' };
@@ -402,6 +456,14 @@ async function execTool(db, name, input, changes) {
       changes.push('client info: ' + r.client.name);
       return { ok: true };
     }
+    if (name === 'set_timer') {
+      const r = await setTimer(db, input || {});
+      if (r.error) return { error: r.error };
+      const t = r.timer;
+      const names = xs => xs.map(x => EVENT_LABEL[x]).join(' + ') || 'nothing';
+      changes.push('timer: starts on ' + names(t.resets) + ', cleared by ' + names(t.clears) + ' · warm ' + t.warm + 'd, hot ' + t.hot + 'd');
+      return { ok: true };
+    }
     return { error: 'unknown tool' };
   } catch (err) {
     console.error('assistant tool:', name, err && err.message);
@@ -427,6 +489,7 @@ async function boardSnapshot(db) {
       timeline: (byProject[p.id] || []).slice(-20),
     })),
     clients: clients.map(c => ({ artist: c.name || c.name_key, pro: c.pro, channels: c.channels || undefined })),
+    timer: await getTimer(db),
   };
 }
 
@@ -438,6 +501,7 @@ async function runAssistant(env, db, messages, today) {
     'services: mix-and-master, stem-master, coproduction. statuses in pipeline order: awaiting-stems, mixing, sent, revisions, delivered.\n' +
     'timeline event types: stems (stems came in), sent (a mix went out - carries the revision number), notes (feedback came back), delivered, note (free text).\n' +
     "client info is per artist: pro 0-3 (how consistently they release: 1 casual, 2 releasing, 3 consistent) and contact channels (text, instagram, email).\n" +
+    "each card shows a get-back-to-them timer: it counts days since the newest event of a type in timer.resets, and stops counting when a type in timer.clears is newer. types in neither list never move it. set_timer changes the lists or the warm/hot thresholds; the current setting is in the board snapshot.\n" +
     'use the tools to make the changes he describes. match artist names loosely (case, partial), but if a name could mean two different people on the board, ask which one instead of guessing. ' +
     'when he says something happened - "sent sarah r2 yesterday" - log the timeline event with the right date and bring the project\'s status and revision in line with what he said. change only what he asked. ' +
     'relative dates ("yesterday", "last friday") count back from today.\n' +
@@ -533,7 +597,7 @@ export async function onRequest(context) {
       const projects = (await db.prepare('SELECT * FROM projects ORDER BY updated_at DESC').all()).results || [];
       const events = (await db.prepare('SELECT * FROM events ORDER BY date, created_at').all()).results || [];
       const clients = (await db.prepare('SELECT * FROM clients').all()).results || [];
-      return json({ projects, events, clients });
+      return json({ projects, events, clients, timer: await getTimer(db) });
     }
 
     // ── projects collection ──

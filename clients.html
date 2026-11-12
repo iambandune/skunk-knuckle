@@ -562,7 +562,8 @@
     var CHANNEL_LABEL = { text: 'text', instagram: 'ig', email: 'email' };
     var EVENT_LABEL = { stems: 'stems in', sent: 'sent', notes: 'notes in', delivered: 'delivered' };
 
-    var state = { projects: [], events: [], clients: {}, open: {}, archOpen: false };
+    var DEFAULT_TIMER = { resets: ['notes', 'stems'], clears: ['sent', 'delivered'], warm: 7, hot: 14 };
+    var state = { projects: [], events: [], clients: {}, timer: DEFAULT_TIMER, open: {}, archOpen: false };
     var activeCounts = {};
 
     // ── tiny DOM helper: data always goes through textContent ──
@@ -631,6 +632,7 @@
         state.events = d.events || [];
         state.clients = {};
         (d.clients || []).forEach(function(c) { state.clients[c.name_key] = c; });
+        state.timer = d.timer || DEFAULT_TIMER;
         sortEvents();
     }
 
@@ -844,11 +846,18 @@
         var stemsEv = evs.find(function(e) { return e.type === 'stems'; });
         var stemsDate = stemsEv ? stemsEv.date : p.stems_received;
         if (stemsDate) chips.appendChild(el('span', 'chip num', 'stems ' + fmtDate(stemsDate)));
-        var lastAct = evs.length ? evs[evs.length - 1].date : stemsDate;
-        if (lastAct && p.status !== 'delivered') {
-            var d = daysSince(lastAct);
+        // the get-back-to-them timer: the newest event that starts or clears
+        // the clock decides; types in neither list (a plain note) never move it
+        var tmr = state.timer;
+        var owes = false, clockDate = null;
+        for (var ti = evs.length - 1; ti >= 0; ti--) {
+            if (tmr.resets.indexOf(evs[ti].type) >= 0) { owes = true; clockDate = evs[ti].date; break; }
+            if (tmr.clears.indexOf(evs[ti].type) >= 0) { clockDate = evs[ti].date; break; }
+        }
+        if (clockDate && p.status !== 'delivered') {
+            var d = daysSince(clockDate);
             var a = el('span', 'age num', d + 'd');
-            if (d >= 14) a.classList.add('hot'); else if (d >= 7) a.classList.add('warm');
+            if (owes) { if (d >= tmr.hot) a.classList.add('hot'); else if (d >= tmr.warm) a.classList.add('warm'); }
             chips.appendChild(a);
         }
         head.appendChild(chips);
